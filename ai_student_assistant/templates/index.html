@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Welcome back, {{ user }} 👋</h1>
+
+<!-- TASK SUMMARY CARDS -->
+<div style="display:flex; gap:10px; margin:20px 0;">
+
+    <div style="background:#1e293b; padding:15px; border-radius:10px; flex:1;">
+        <h3>Active</h3>
+        <p>
+            {{ tasks | selectattr("status", "equalto", "active") | list | length }}
+        </p>
+    </div>
+
+    <div style="background:#1e293b; padding:15px; border-radius:10px; flex:1;">
+        <h3>Backlog</h3>
+        <p>
+            {{ tasks | selectattr("status", "equalto", "backlog") | list | length }}
+        </p>
+    </div>
+
+    <div style="background:#1e293b; padding:15px; border-radius:10px; flex:1;">
+        <h3>Done</h3>
+        <p>
+            {{ tasks | selectattr("status", "equalto", "done") | list | length }}
+        </p>
+    </div>
+
+</div>
+
+<!-- ADD TASK FORM -->
+<form action="/add" method="POST" style="margin-bottom:20px;">
+    <input type="text" name="task" placeholder="Add a new task..." required
+        style="padding:10px; width:60%; border-radius:6px; border:none;">
+    <button type="submit" style="padding:10px; border:none; border-radius:6px; background:#3b82f6; color:white;">
+        Add
+    </button>
+</form>
+
+<hr>
+
+<!-- TASK LIST -->
+<h3>Active Tasks</h3>
+
+{% for task in tasks %}
+    {% if task.status == "active" %}
+        <div style="background:#1e293b; padding:10px; margin:10px 0; border-radius:8px;">
+            {{ task.title }}
+
+            <a href="/complete/{{ task.id }}">✔</a>
+            <a href="/delete/{{ task.id }}">🗑</a>
+        </div>
+    {% endif %}
+{% endfor %}
+
+<h3>Backlog (Auto-managed)</h3>
+
+{% for task in tasks %}
+    {% if task.status == "backlog" %}
+        <div style="background:#111827; padding:10px; margin:10px 0; border-radius:8px; opacity:0.6;">
+            {{ task.title }}
+
+            <a href="/complete/{{ task.id }}">✔</a>
+            <a href="/delete/{{ task.id }}">🗑</a>
+        </div>
+    {% endif %}
+{% endfor %}
+
+<h3>Completed</h3>
+
+{% for task in tasks %}
+    {% if task.status == "done" %}
+        <div style="background:#0f172a; padding:10px; margin:10px 0; border-radius:8px; opacity:0.5; text-decoration:line-through;">
+            {{ task.title }}
+
+            <a href="/delete/{{ task.id }}">🗑</a>
+        </div>
+    {% endif %}
+{% endfor %}
+
+{% endblock %}

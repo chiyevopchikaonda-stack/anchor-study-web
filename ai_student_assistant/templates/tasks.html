@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tasks - Anchor Study</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="app">
+
+    <div class="sidebar">
+        <div class="logo">⚓ Anchor Study</div>
+
+        <div class="nav">
+            <a class="nav-item" href="/">🏠 Dashboard</a>
+            <a class="nav-item active" href="/tasks">📚 Tasks</a>
+            <a class="nav-item" href="/notes">📝 Notes</a>
+            <a class="nav-item" href="/settings">⚙️ Settings</a>
+        </div>
+    </div>
+
+    <div class="main">
+
+        <h1>Tasks</h1>
+
+        <form action="/add" method="POST" class="task-input">
+            <input type="text" name="task" placeholder="Add task..." required>
+            <button type="submit">Add</button>
+        </form>
+
+        <div class="task-grid">
+            {% for task in tasks %}
+            <div class="task-card {% if task.done %}done{% endif %}">
+                <span>{{ task.title }}</span>
+
+                <div class="task-actions">
+                    <a href="/complete/{{ loop.index0 }}">✔</a>
+                    <a href="/delete/{{ loop.index0 }}">✖</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

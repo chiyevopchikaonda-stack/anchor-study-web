@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Daily Mood Tracker 🌤️</h1>
+
+<form method="POST">
+    <select name="mood">
+        <option value="😊 Happy">😊 Happy</option>
+        <option value="😐 Neutral">😐 Neutral</option>
+        <option value="😔 Sad">😔 Sad</option>
+        <option value="🔥 Motivated">🔥 Motivated</option>
+        <option value="😴 Tired">😴 Tired</option>
+    </select>
+
+    <button type="submit">Save Mood</button>
+</form>
+
+<hr>
+
+<h3>Recent Moods</h3>
+
+{% for m in moods %}
+    <div style="background:#1e293b; padding:10px; margin:10px 0; border-radius:8px;">
+        {{ m.mood }} <small style="opacity:0.6;">({{ m.created_at }})</small>
+    </div>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Anchor Study</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            display: flex;
+            height: 100vh;
+            background: #0f172a;
+            color: white;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 220px;
+            background: #111827;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 20px;
+            color: #60a5fa;
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 6px;
+            background: #1f2937;
+        }
+
+        .sidebar a:hover {
+            background: #374151;
+        }
+
+        /* MAIN AREA */
+        .main {
+            flex: 1;
+            padding: 20px;
+        }
+        .sidebar a.active {
+    background: #3b82f6;
+    font-weight: bold;
+}
+body {
+    margin: 0;
+    font-family: 'Arial';
+    display: flex;
+    height: 100vh;
+    background: #0b1220;
+    color: #e5e7eb;
+}
+
+.sidebar {
+    width: 240px;
+    background: #0f172a;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #1f2937;
+}
+
+.sidebar a {
+    color: #cbd5e1;
+    text-decoration: none;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+.sidebar a:hover {
+    background: #1e293b;
+}
+
+.main {
+    flex: 1;
+    padding: 25px;
+}
+    </style>
+</head>
+
+<body>
+
+   <div class="sidebar">
+    <h2>Anchor Study ⚓</h2>
+
+    <a href="/dashboard" class="{% if request.path == '/dashboard' %}active{% endif %}">
+        📊 Dashboard
+    </a>
+
+    <a href="/notes" class="{% if request.path == '/notes' %}active{% endif %}">
+        📝 Notes
+    </a>
+
+    <a href="/settings" class="{% if request.path == '/settings' %}active{% endif %}">
+        ⚙️ Settings
+    </a>
+
+    <a href="/scriptures" class="{% if request.path == '/scriptures' %}active{% endif %}">
+        📖 Scriptures
+    </a>
+
+    <a href="/mood" class="{% if request.path == '/mood' %}active{% endif %}">
+    🌤️ Mood Tracker
+</a>
+
+    <a href="/logout">🚪 Logout</a>
+</div>
+
+    <div class="main">
+        {% block content %}{% endblock %}
+    </div>
+
+</body>
+</html>

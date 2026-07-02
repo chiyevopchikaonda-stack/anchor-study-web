@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Daily Anchor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="scripture-page">
+
+    <h1>📖 Daily Anchor</h1>
+
+    <div class="verse-card highlight">
+        “{{ verse.text }}”
+        <p class="ref">— {{ verse.ref }}</p>
+    </div>
+    
+    <div class="reflection-card">
+    <h3>🧠 Reflection</h3>
+    <p>{{ reflection }}</p>
+</div>
+
+</div>
+
+</body>
+</html>
