@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>✏️ Edit Profile</h1>
+
+
+<div class="card">
+
+<form method="POST">
+
+<label>
+Study Goal
+</label>
+
+<input 
+type="text"
+name="study_goal"
+value="{{ user.study_goal or '' }}"
+>
+
+
+<br><br>
+
+
+<label>
+Target GPA
+</label>
+
+<input 
+type="number"
+step="0.01"
+name="target_gpa"
+value="{{ user.target_gpa or '' }}"
+>
+
+
+<br><br>
+
+<button type="submit">
+Save Changes
+</button>
+
+
+</form>
+
+</div>
+
+{% endblock %}

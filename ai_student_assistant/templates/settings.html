@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>⚙️ Settings</h1>
+
+<div class="settings-grid">
+
+<div class="card">
+<h2>👤 Profile</h2>
+
+<p><strong>Username:</strong> {{ session["user"] }}</p>
+<p>
+<strong>Study Goal:</strong>
+{{ user.study_goal }}
+</p>
+
+<p>
+<strong>Target GPA:</strong>
+{{ user.target_gpa }}
+</p>
+
+<a href="/profile/edit">
+<button>Edit Profile</button>
+</a>
+
+</div>
+
+<div class="card">
+
+<h2>🎨 Appearance</h2>
+
+<label>
+<input 
+type="radio" 
+name="theme"
+checked
+onclick="changeTheme('dark')">
+
+Dark Mode
+
+</label>
+
+
+<br><br>
+
+
+<label>
+
+<input 
+type="radio"
+name="theme"
+onclick="changeTheme('light')">
+
+Light Mode
+
+</label>
+
+</div>
+
+<div class="card">
+
+<h2>🧠 AI Coach</h2>
+
+<label><input type="checkbox" checked> Adaptive Study Planner</label><br>
+
+<label><input type="checkbox" checked> Motivational Messages</label><br>
+
+<label><input type="checkbox" checked> Scripture Encouragement</label>
+
+</div>
+
+<div class="card">
+
+<h2>📚 Study Preferences</h2>
+
+<label>Pomodoro Length</label>
+
+<input type="number" value="25">
+
+<br><br>
+
+<label>Break Length</label>
+
+<input type="number" value="5">
+
+</div>
+
+<div class="card">
+
+<h2>💾 Data</h2>
+
+<button>Export Notes</button>
+
+<button>Export Tasks</button>
+
+<button>Backup Database</button>
+
+</div>
+
+<div class="card">
+
+<h2>ℹ️ About</h2>
+
+<p>Anchor Study v1.0</p>
+
+<p>Built with Python + Flask</p>
+
+</div>
+
+</div>
+
+{% endblock %}

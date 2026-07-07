@@ -1,28 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Daily Anchor</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
+{% extends "base.html" %}
 
-<body>
+{% block content %}
 
-<div class="scripture-page">
+<div class="scripture-container">
 
-    <h1>📖 Daily Anchor</h1>
+    <div class="scripture-header">
+        <div class="book-icon">
+            📖
+        </div>
 
-    <div class="verse-card highlight">
-        “{{ verse.text }}”
-        <p class="ref">— {{ verse.ref }}</p>
+        <div>
+            <h1>Daily Anchor</h1>
+            <p>Your daily reminder to stay grounded</p>
+        </div>
     </div>
-    
+
+
+    <div class="verse-card">
+
+        <div class="quote-mark">
+            "
+        </div>
+
+
+        <p class="verse-text">
+            {{ verse.text }}
+        </p>
+
+
+        <p class="verse-reference">
+            — {{ verse.ref }}
+        </p>
+
+
+    </div>
+
+
+
     <div class="reflection-card">
-    <h3>🧠 Reflection</h3>
-    <p>{{ reflection }}</p>
-</div>
+
+        <h2>
+            💭 Reflection
+        </h2>
+
+        <p>
+            {{ reflection }}
+        </p>
+
+    </div>
+
+
+
+    <div class="scripture-actions">
+
+        <button onclick="location.reload()">
+            🔄 New Verse
+        </button>
+
+
+        <button>
+            ❤️ Save Verse
+        </button>
+
+    </div>
+
 
 </div>
 
-</body>
-</html>
+
+{% endblock %}

@@ -2,28 +2,82 @@
 
 {% block content %}
 
-<h1>Daily Mood Tracker 🌤️</h1>
+<h1>🌤️ Mood Tracker</h1>
+
+<div class="card">
+
+<h2>How are you feeling today?</h2>
+
 
 <form method="POST">
-    <select name="mood">
-        <option value="😊 Happy">😊 Happy</option>
-        <option value="😐 Neutral">😐 Neutral</option>
-        <option value="😔 Sad">😔 Sad</option>
-        <option value="🔥 Motivated">🔥 Motivated</option>
-        <option value="😴 Tired">😴 Tired</option>
-    </select>
 
-    <button type="submit">Save Mood</button>
+<button name="mood" value="😊 Happy">
+😊 Happy
+</button>
+
+
+<button name="mood" value="😐 Okay">
+😐 Okay
+</button>
+
+
+<button name="mood" value="😰 Stressed">
+😰 Stressed
+</button>
+
+
+<button name="mood" value="😴 Tired">
+😴 Tired
+</button>
+
+
+<button name="mood" value="🔥 Motivated">
+🔥 Motivated
+</button>
+
 </form>
 
-<hr>
+</div>
 
-<h3>Recent Moods</h3>
 
-{% for m in moods %}
-    <div style="background:#1e293b; padding:10px; margin:10px 0; border-radius:8px;">
-        {{ m.mood }} <small style="opacity:0.6;">({{ m.created_at }})</small>
-    </div>
-{% endfor %}
+<br>
+
+
+<div class="card">
+
+<h2>📊 Recent Moods</h2>
+
+
+{% if moods %}
+
+    {% for mood in moods %}
+
+        <div>
+            <p>
+                {{ mood["mood"] }}
+            </p>
+
+            <small>
+                {{ mood["created_at"] }}
+            </small>
+        </div>
+
+        <hr>
+
+    {% endfor %}
+
+
+{% else %}
+
+    <p>
+        No moods recorded yet.
+    </p>
+
+
+{% endif %}
+
+
+</div>
+
 
 {% endblock %}

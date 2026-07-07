@@ -1,7 +1,8 @@
 import sqlite3
+import os
 
-DB_NAME = "anchor.db"
-
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DB_NAME = os.path.join(BASE_DIR, "anchor.db")
 
 def get_db():
     conn = sqlite3.connect(DB_NAME)
@@ -16,10 +17,12 @@ def init_db():
     # USERS TABLE
     cur.execute("""
         CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT UNIQUE,
-            password TEXT
-        )
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE,
+    password TEXT,
+    study_goal TEXT,
+    target_gpa REAL
+)
     """)
 
     # TASKS TABLE (UPDATED)
