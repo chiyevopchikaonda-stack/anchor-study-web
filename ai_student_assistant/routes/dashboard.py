@@ -1,6 +1,9 @@
 from flask import Blueprint, render_template, redirect, url_for, session
 from ai_student_assistant.database import get_db
-
+from datetime import datetime
+from ai_student_assistant.ai_engine import generate_ai_insights
+from ai_student_assistant.study_planner import generate_study_plan
+from ai_student_assistant.weekly_review import generate_weekly_review
 
 dashboard = Blueprint("dashboard", __name__)
 
@@ -11,76 +14,285 @@ def dashboard_view():
     if "user" not in session:
         return redirect(url_for("auth.login"))
 
-    user = session["user"]
+
+    username = session["user"]
 
     conn = get_db()
 
-    # Get user's tasks
+
+    # ---------------- USER PROFILE ----------------
+
+    user_data = conn.execute(
+        """
+        SELECT *
+        FROM users
+        WHERE username=?
+        """,
+        (username,)
+    ).fetchone()
+
+
+
+    # ---------------- TASKS ----------------
+
     tasks = conn.execute(
         """
         SELECT *
         FROM tasks
-        WHERE username = ?
-        ORDER BY created_at DESC
+        WHERE username=?
+
+        ORDER BY
+
+        CASE status
+
+            WHEN 'active' THEN 1
+            WHEN 'backlog' THEN 2
+            WHEN 'done' THEN 3
+
+        END,
+
+        due_date ASC
+
         """,
-        (user,)
+        (username,)
     ).fetchall()
 
 
-    # Get user's moods
-    mood_data = conn.execute(
-        """
-        SELECT mood, COUNT(*) as total
-        FROM moods
-        WHERE username = ?
-        GROUP BY mood
-        """,
-        (user,)
-    ).fetchall()
 
-
-    # Count stressful moods
-    stress_count = conn.execute(
+    completed_tasks = conn.execute(
         """
         SELECT COUNT(*)
-        FROM moods
-        WHERE username = ?
-        AND mood LIKE '%Stress%'
+        FROM tasks
+        WHERE username=?
+        AND status='done'
         """,
-        (user,)
+        (username,)
     ).fetchone()[0]
 
 
-    # AI mood suggestion
-    if stress_count >= 3:
 
-        mood_message = (
-            "You've been feeling stressed recently. "
-            "Try focusing on one small task first and take a short break."
-        )
+    total_tasks = len(tasks)
 
-    elif stress_count == 0:
 
-        mood_message = (
-            "Your mood looks balanced. "
-            "Keep building your momentum!"
-        )
+
+    # ---------------- NOTES ----------------
+
+
+    note_count = conn.execute(
+        """
+        SELECT COUNT(*)
+        FROM notes
+        WHERE username=?
+        """,
+        (username,)
+    ).fetchone()[0]
+
+
+
+    # ---------------- RESOURCES ----------------
+
+
+    resource_count = conn.execute(
+        """
+        SELECT COUNT(*)
+        FROM resources
+        WHERE username=?
+        """,
+        (username,)
+    ).fetchone()[0]
+
+
+
+    # ---------------- MOOD ----------------
+
+
+    moods = conn.execute(
+        """
+        SELECT *
+        FROM moods
+        WHERE username=?
+        ORDER BY created_at DESC
+        LIMIT 5
+        """,
+        (username,)
+    ).fetchall()
+
+
+
+    mood_data = conn.execute(
+        """
+        SELECT mood, COUNT(*) AS total
+        FROM moods
+        WHERE username=?
+        GROUP BY mood
+        """,
+        (username,)
+    ).fetchall()
+
+
+
+    # ---------------- FOCUS SCORE ----------------
+
+
+    score = 0
+
+
+    if total_tasks:
+        score += min(completed_tasks * 15,40)
+
+
+    if note_count:
+        score += 20
+
+
+    if resource_count:
+        score += 20
+
+
+    if moods:
+        score += 20
+
+
+
+    if score > 100:
+        score = 100
+
+
+
+
+    # ---------------- TIME GREETING ----------------
+
+
+    hour = datetime.now().hour
+
+
+    if hour < 12:
+
+        greeting = f"Good morning, {user_data['full_name']} ☀️"
+
+    elif hour < 18:
+
+        greeting = f"Good afternoon, {user_data['full_name']} 🌱"
 
     else:
 
-        mood_message = (
-            "Keep checking in with yourself. "
-            "Small progress still counts."
+        greeting = f"Good evening, {user_data['full_name']} 🌙"
+
+
+
+
+
+    # ---------------- AI INSIGHTS ----------------
+
+
+    suggestions = generate_ai_insights(
+    tasks,
+    moods,
+    note_count,
+    resource_count
+)
+
+    study_plan = generate_study_plan(tasks)
+
+    weekly_review = generate_weekly_review(
+    tasks,
+    moods,
+    note_count,
+    resource_count
+)
+
+
+    if len(tasks) >= 3:
+
+        suggestions.append(
+            "You have several tasks waiting. Try completing the most urgent one first."
         )
+
+
+    if note_count == 0:
+
+        suggestions.append(
+            "Create your first study note to start building your knowledge library."
+        )
+
+
+    if resource_count == 0:
+
+        suggestions.append(
+            "Upload your lecture materials so your resources stay organised."
+        )
+
+
+    if not suggestions:
+
+        suggestions.append(
+            "You're building good habits. Keep showing up consistently."
+        )
+
+
+
+
+
+    # ---------------- ACTIVITY ----------------
+
+
+    activities=[]
+
+
+    for task in tasks[:3]:
+
+        activities.append(
+            {
+                "icon":"✅",
+                "text":f"Task: {task['title']}"
+            }
+        )
+
+
+
+    for mood in moods[:2]:
+
+        activities.append(
+            {
+                "icon":"🌤",
+                "text":f"Mood logged: {mood['mood']}"
+            }
+        )
+
 
 
     conn.close()
 
 
+
     return render_template(
-        "index.html",
-        user=user,
-        tasks=tasks,
-        mood_data=mood_data,
-        mood_message=mood_message
-    )
+
+    "index.html",
+
+    user=username,
+
+    profile=user_data,
+
+    tasks=tasks,
+
+    moods=moods,
+
+    mood_data=mood_data,
+
+    suggestions=suggestions,
+
+    study_plan=study_plan,
+
+    focus_score=score,
+
+    greeting=greeting,
+
+    note_count=note_count,
+
+    resource_count=resource_count,
+
+    activities=activities,
+
+    weekly_review=weekly_review
+
+)

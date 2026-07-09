@@ -1,7 +1,9 @@
-from flask import Blueprint, render_template
-import datetime
+from flask import Blueprint, render_template, redirect, url_for
+import random
+
 
 scriptures = Blueprint("scriptures", __name__)
+
 
 verses = [
 
@@ -66,11 +68,6 @@ verses = [
     },
 
     {
-        "text": "I have plans to prosper you and not to harm you, plans to give you hope and a future.",
-        "ref": "Jeremiah 29:11"
-    },
-
-    {
         "text": "Seek first the kingdom of God and His righteousness.",
         "ref": "Matthew 6:33"
     },
@@ -96,35 +93,52 @@ verses = [
     },
 
     {
-        "text": "A cheerful heart is good medicine.",
-        "ref": "Proverbs 17:22"
+        "text": "Your word is a lamp for my feet and a light on my path.",
+        "ref": "Psalm 119:105"
     },
 
     {
-        "text": "The Lord is my strength and my shield; my heart trusts in Him.",
-        "ref": "Psalm 28:7"
+        "text": "We walk by faith, not by sight.",
+        "ref": "2 Corinthians 5:7"
+    },
+
+    {
+        "text": "The battle belongs to the Lord.",
+        "ref": "1 Samuel 17:47"
     }
 
 ]
 
-def get_daily_verse():
-    today = datetime.date.today()
-    index = today.toordinal() % len(verses)
-    return verses[index]
 
-def generate_reflection(verse_text):
+
+def generate_reflection():
+
     return (
-        f"This verse reminds you to stay grounded. "
-        f"In your studies, apply discipline and consistency. "
-        f"Think about how you can live out today's message."
+        "Take a moment to reflect on this message. "
+        "Let it guide your mindset, your studies and your daily choices."
     )
+
+
 
 @scriptures.route("/scriptures")
 def scriptures_page():
-    verse = get_daily_verse()
-    reflection = generate_reflection(verse["text"])
+
+    verse = random.choice(verses)
+
+    reflection = generate_reflection()
+
+
     return render_template(
         "scriptures.html",
         verse=verse,
         reflection=reflection
+    )
+
+
+
+@scriptures.route("/new-verse")
+def new_verse():
+
+    return redirect(
+        url_for("scriptures.scriptures_page")
     )

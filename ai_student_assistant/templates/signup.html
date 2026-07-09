@@ -1,99 +1,402 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Sign Up - Anchor Study</title>
+{% extends "base.html" %}
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #0f172a, #1e293b);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: white;
-        }
+{% block content %}
 
-        .card {
-            background: #111827;
-            padding: 40px;
-            border-radius: 12px;
-            width: 320px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
+<style>
 
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+.signup-page{
 
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 6px;
-        }
+max-width:1100px;
+margin:auto;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:80vh;
+gap:40px;
 
-        button {
-            width: 100%;
-            padding: 10px;
-            background: #3b82f6;
-            border: none;
-            border-radius: 6px;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #2563eb;
-        }
-
-        a {
-            color: #60a5fa;
-            text-decoration: none;
-        }
-
-        p {
-            text-align: center;
-            margin-top: 15px;
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="card">
-
-    <h1>Create Account</h1>
-
-    <form action="/signup" method="POST">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Sign Up</button>
-    </form>
-
-    <p>Already have an account? <a href="/login">Sign In</a></p>
-
-    <label>What is your study goal?</label>
-<input 
-type="text" 
-name="study_goal"
-placeholder="Example: Become an AI Engineer"
->
+}
 
 
-<label>Your target GPA</label>
-<input 
-type="number"
-step="0.01"
-name="target_gpa"
-placeholder="Example: 3.8"
->
+/* LEFT SIDE */
+
+.signup-welcome{
+
+flex:1;
+
+}
+
+
+.signup-welcome h1{
+
+font-size:45px;
+margin-bottom:15px;
+
+}
+
+
+.signup-welcome span{
+
+color:var(--accent);
+
+}
+
+
+.signup-welcome p{
+
+font-size:18px;
+line-height:1.7;
+opacity:.85;
+
+}
+
+
+
+.anchor-character{
+
+font-size:100px;
+
+animation:float 4s infinite ease-in-out;
+
+margin-bottom:20px;
+
+}
+
+
+
+@keyframes float{
+
+0%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(-15px);
+}
+
+100%{
+transform:translateY(0);
+}
+
+}
+
+
+
+.quote-box{
+
+margin-top:25px;
+
+background:var(--soft);
+
+padding:20px;
+
+border-radius:20px;
+
+font-style:italic;
+
+}
+
+
+
+/* FORM */
+
+.signup-card{
+
+width:450px;
+
+background:var(--card);
+
+border:1px solid var(--soft);
+
+padding:35px;
+
+border-radius:30px;
+
+box-shadow:0 20px 40px rgba(0,0,0,.15);
+
+}
+
+
+
+.signup-card h2{
+
+margin-bottom:10px;
+
+}
+
+
+
+.subtitle{
+
+opacity:.7;
+
+margin-bottom:25px;
+
+}
+
+
+
+.form-grid{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:12px;
+
+}
+
+
+
+.form-grid input{
+
+padding:13px;
+
+border-radius:12px;
+
+width:100%;
+
+}
+
+
+
+.full{
+
+grid-column:1/-1;
+
+}
+
+
+
+button{
+
+width:100%;
+
+margin-top:20px;
+
+font-size:16px;
+
+padding:14px;
+
+border-radius:15px;
+
+}
+
+
+
+.login-link{
+
+text-align:center;
+
+margin-top:20px;
+
+}
+
+
+
+.login-link a{
+
+color:var(--accent);
+
+text-decoration:none;
+
+font-weight:bold;
+
+}
+
+
+
+@media(max-width:900px){
+
+.signup-page{
+
+flex-direction:column;
+
+}
+
+
+.signup-card{
+
+width:100%;
+
+}
+
+
+.form-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+
+</style>
+
+
+
+<div class="signup-page">
+
+
+
+<div class="signup-welcome">
+
+
+<div class="anchor-character">
+⚓
+</div>
+
+
+<h1>
+Welcome to <span>Anchor Study</span>
+</h1>
+
+
+<p>
+
+Your academic journey starts here.
+Create your personal study space, track your goals and build consistency one day at a time.
+
+</p>
+
+
+<div class="quote-box">
+
+"Commit your work to the Lord, and your plans will be established."
+<br><br>
+
+— Proverbs 16:3
 
 </div>
 
-</body>
-</html>
+
+</div>
+
+
+
+
+
+
+
+<div class="signup-card">
+
+
+<h2>
+Create Your Account ⚓
+</h2>
+
+
+<p class="subtitle">
+
+Let's personalise your study companion.
+
+</p>
+
+
+
+
+<form method="POST">
+
+
+
+<div class="form-grid">
+
+
+<input 
+class="full"
+type="text"
+name="full_name"
+placeholder="Full Name"
+required>
+
+
+<input
+type="text"
+name="university"
+placeholder="University"
+required>
+
+
+<input
+type="text"
+name="course"
+placeholder="Course"
+required>
+
+
+<input
+type="text"
+name="year"
+placeholder="Year of Study"
+required>
+
+
+<input
+type="text"
+name="study_goal"
+placeholder="Study Goal"
+required>
+
+
+<input
+type="text"
+name="target_gpa"
+placeholder="Target GPA"
+required>
+
+
+<input
+class="full"
+type="text"
+name="username"
+placeholder="Username"
+required>
+
+
+<input
+class="full"
+type="password"
+name="password"
+placeholder="Password"
+required>
+
+
+
+</div>
+
+
+
+<button type="submit">
+
+🚀 Begin My Journey
+
+</button>
+
+
+</form>
+
+
+
+<div class="login-link">
+
+Already have an account?
+
+<a href="/login">
+
+Sign in
+
+</a>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+{% endblock %}

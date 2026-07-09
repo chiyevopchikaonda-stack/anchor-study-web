@@ -1,0 +1,476 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+
+.profile-container{
+
+    max-width:1000px;
+    margin:auto;
+
+}
+
+
+/* HEADER */
+
+.profile-header{
+
+    background:linear-gradient(
+        135deg,
+        var(--accent),
+        transparent
+    );
+
+    padding:35px;
+
+    border-radius:30px;
+
+    margin-bottom:25px;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+
+.profile-header::after{
+
+    content:"🎓 📚 ⚓";
+
+    position:absolute;
+
+    right:30px;
+
+    bottom:20px;
+
+    font-size:60px;
+
+    opacity:.2;
+
+    animation:float 5s infinite ease-in-out;
+
+}
+
+
+@keyframes float{
+
+    50%{
+        transform:translateY(-15px);
+    }
+
+}
+
+
+
+
+.avatar{
+
+    width:90px;
+
+    height:90px;
+
+    border-radius:50%;
+
+    background:var(--card);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:40px;
+
+    margin-bottom:15px;
+
+}
+
+
+
+.profile-header h1{
+
+    margin:0;
+
+    font-size:35px;
+
+}
+
+
+
+.profile-header p{
+
+    opacity:.8;
+
+    font-size:18px;
+
+}
+
+
+
+
+/* INFO CARDS */
+
+
+.info-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+
+    margin-bottom:30px;
+
+}
+
+
+
+.info-card{
+
+    background:var(--card);
+
+    border:1px solid var(--soft);
+
+    padding:25px;
+
+    border-radius:20px;
+
+}
+
+
+
+.info-card h3{
+
+    color:var(--accent);
+
+    margin-bottom:10px;
+
+}
+
+
+
+
+/* FORM */
+
+
+.profile-card{
+
+    background:var(--card);
+
+    border:1px solid var(--soft);
+
+    padding:35px;
+
+    border-radius:25px;
+
+}
+
+
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
+    gap:20px;
+
+}
+
+
+
+.field label{
+
+    display:block;
+
+    margin-bottom:5px;
+
+    opacity:.7;
+
+}
+
+
+
+.save-btn{
+
+    margin-top:25px;
+
+    background:var(--accent);
+
+    color:white;
+
+    border:none;
+
+    padding:14px 30px;
+
+    border-radius:20px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+}
+
+
+
+.save-btn:hover{
+
+    transform:translateY(-3px);
+
+}
+
+
+
+</style>
+
+
+
+<div class="profile-container">
+
+
+
+<!-- PROFILE INTRO -->
+
+
+<div class="profile-header">
+
+
+<div class="avatar">
+
+👤
+
+</div>
+
+
+<h1>
+{{ user.full_name }}
+</h1>
+
+
+<p>
+{{ user.course }} student at {{ user.university }}
+</p>
+
+
+</div>
+
+
+
+
+
+<!-- QUICK INFO -->
+
+
+<div class="info-grid">
+
+
+<div class="info-card">
+
+<h3>
+🎓 Course
+</h3>
+
+<p>
+{{ user.course }}
+</p>
+
+</div>
+
+
+
+<div class="info-card">
+
+<h3>
+🏫 University
+</h3>
+
+<p>
+{{ user.university }}
+</p>
+
+</div>
+
+
+
+<div class="info-card">
+
+<h3>
+🎯 Study Goal
+</h3>
+
+<p>
+{{ user.study_goal }}
+</p>
+
+</div>
+
+
+
+<div class="info-card">
+
+<h3>
+📈 Target GPA
+</h3>
+
+<p>
+{{ user.target_gpa }}
+</p>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- EDIT -->
+
+
+<div class="profile-card">
+
+
+<h2>
+✏️ Update Academic Profile
+</h2>
+
+
+<p>
+Keep Anchor Study updated with your goals and academic journey.
+</p>
+
+
+<br>
+
+
+<form method="POST">
+
+
+<div class="form-grid">
+
+
+
+<div class="field">
+
+<label>
+Full Name
+</label>
+
+<input 
+type="text"
+name="full_name"
+value="{{ user.full_name }}"
+required>
+
+</div>
+
+
+
+
+<div class="field">
+
+<label>
+University
+</label>
+
+<input
+type="text"
+name="university"
+value="{{ user.university }}">
+
+</div>
+
+
+
+
+<div class="field">
+
+<label>
+Course
+</label>
+
+<input
+type="text"
+name="course"
+value="{{ user.course }}">
+
+</div>
+
+
+
+
+<div class="field">
+
+<label>
+Year
+</label>
+
+<input
+type="text"
+name="year"
+value="{{ user.year }}">
+
+</div>
+
+
+
+
+<div class="field">
+
+<label>
+Study Goal
+</label>
+
+<input
+type="text"
+name="study_goal"
+value="{{ user.study_goal }}">
+
+</div>
+
+
+
+
+<div class="field">
+
+<label>
+Target GPA
+</label>
+
+<input
+type="text"
+name="target_gpa"
+value="{{ user.target_gpa }}">
+
+</div>
+
+
+
+</div>
+
+
+
+
+<button class="save-btn">
+
+⚓ Save Profile
+
+</button>
+
+
+
+</form>
+
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

@@ -2,19 +2,596 @@
 
 {% block content %}
 
-<h1>Notes 📝</h1>
+<style>
 
-<form method="POST">
-    <input type="text" name="note" placeholder="Write a note...">
-    <button type="submit">Add</button>
+.notes-page{
+
+max-width:1200px;
+margin:auto;
+
+}
+
+
+/* HEADER */
+
+.notes-header{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:20px;
+margin-bottom:30px;
+
+}
+
+
+.notes-header h1{
+
+font-size:35px;
+
+}
+
+
+
+.search{
+
+background:var(--background);
+
+border:1px solid var(--soft);
+
+padding:14px;
+
+border-radius:15px;
+
+color:var(--text);
+
+width:260px;
+
+}
+
+
+
+
+
+/* EDITOR */
+
+
+.editor-card{
+
+background:var(--card);
+
+border:1px solid var(--soft);
+
+padding:30px;
+
+border-radius:25px;
+
+margin-bottom:35px;
+
+}
+
+
+
+.editor-card input,
+.editor-card textarea{
+
+
+width:100%;
+
+background:var(--background);
+
+border:1px solid var(--soft);
+
+border-radius:15px;
+
+padding:15px;
+
+color:var(--text);
+
+margin-bottom:15px;
+
+}
+
+
+
+.editor-card textarea{
+
+height:250px;
+
+resize:none;
+
+}
+
+
+
+
+.save-button{
+
+background:var(--accent);
+
+color:white;
+
+border:none;
+
+padding:14px 30px;
+
+border-radius:15px;
+
+cursor:pointer;
+
+font-size:16px;
+
+}
+
+
+
+.save-button:hover{
+
+transform:translateY(-3px);
+
+}
+
+
+
+
+
+/* NOTES GRID */
+
+
+.notes-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+gap:25px;
+
+}
+
+
+
+.note-card{
+
+background:var(--card);
+
+border:1px solid var(--soft);
+
+padding:25px;
+
+border-radius:22px;
+
+transition:.3s;
+
+}
+
+
+
+.note-card:hover{
+
+transform:translateY(-6px);
+
+}
+
+
+
+
+
+.note-title{
+
+font-size:21px;
+
+font-weight:bold;
+
+}
+
+
+
+.date{
+
+opacity:.65;
+
+font-size:13px;
+
+margin-top:8px;
+
+}
+
+
+
+.preview{
+
+margin-top:15px;
+
+line-height:1.6;
+
+opacity:.85;
+
+}
+
+
+
+
+.file{
+
+display:inline-block;
+
+margin-top:15px;
+
+padding:8px 15px;
+
+background:var(--soft);
+
+border-radius:12px;
+
+color:var(--accent);
+
+text-decoration:none;
+
+}
+
+
+
+
+/* ACTIONS */
+
+
+.actions{
+
+margin-top:20px;
+
+display:flex;
+
+gap:10px;
+
+}
+
+
+
+.actions a{
+
+padding:10px 15px;
+
+border-radius:12px;
+
+text-decoration:none;
+
+color:white;
+
+font-size:14px;
+
+}
+
+
+
+.edit{
+
+background:#f59e0b;
+
+}
+
+
+
+.delete{
+
+background:#ef4444;
+
+}
+
+
+
+
+
+.empty{
+
+background:var(--card);
+
+border:1px solid var(--soft);
+
+padding:50px;
+
+border-radius:25px;
+
+text-align:center;
+
+opacity:.8;
+
+}
+
+
+
+</style>
+
+
+
+
+
+<div class="notes-page">
+
+
+
+
+
+<div class="notes-header">
+
+
+<h1>
+📝 Anchor Notebook
+</h1>
+
+
+
+<input
+
+class="search"
+
+placeholder="🔍 Search notes..."
+
+id="search"
+
+>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="editor-card">
+
+
+<form method="POST" enctype="multipart/form-data">
+
+
+<input
+
+type="hidden"
+
+name="note_id"
+
+value="{{ edit_note.id if edit_note else '' }}"
+
+>
+
+
+
+<input
+
+type="text"
+
+name="title"
+
+placeholder="Give your note a title..."
+
+value="{{ edit_note.title if edit_note else '' }}"
+
+required
+
+>
+
+
+
+
+<textarea
+
+name="content"
+
+placeholder="Write your lecture notes, ideas and thoughts..."
+
+>{{ edit_note.content if edit_note else '' }}</textarea>
+
+
+
+
+
+<button class="save-button">
+
+
+{% if edit_note %}
+
+✏ Update Note
+
+{% else %}
+
+💾 Save Note
+
+{% endif %}
+
+
+
+</button>
+
+
+
 </form>
 
-<hr>
+
+</div>
+
+
+
+
+
+
+
+
+{% if notes %}
+
+
+
+<div class="notes-grid" id="notes">
+
+
 
 {% for note in notes %}
-    <div style="background:#1e293b; padding:10px; margin:10px 0; border-radius:8px;">
-        {{ note.content }}
-    </div>
+
+
+
+<div class="note-card">
+
+
+
+<div class="note-title">
+
+📘 {{ note.title }}
+
+</div>
+
+
+
+<div class="date">
+
+{{ note.created_at }}
+
+</div>
+
+
+
+
+<div class="preview">
+
+
+{{ note.content[:160] }}
+
+
+{% if note.content|length > 160 %}
+
+...
+
+{% endif %}
+
+
+
+</div>
+
+
+
+
+
+
+<div class="actions">
+
+
+<a class="edit"
+
+href="/notes?edit={{note.id}}">
+
+✏ Edit
+
+</a>
+
+
+
+
+<a class="delete"
+
+href="/delete-note/{{note.id}}"
+
+onclick="return confirm('Delete this note?')">
+
+🗑 Delete
+
+</a>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
 {% endfor %}
+
+
+
+</div>
+
+
+
+
+
+
+{% else %}
+
+
+
+<div class="empty">
+
+
+<h2>
+
+📖 Your notebook is empty
+
+</h2>
+
+
+<p>
+
+Start capturing your ideas and study notes.
+
+</p>
+
+
+</div>
+
+
+
+{% endif %}
+
+
+
+
+
+</div>
+
+
+
+
+
+
+<script>
+
+
+const search=document.getElementById("search");
+
+
+search.addEventListener("keyup",()=>{
+
+
+let value=search.value.toLowerCase();
+
+
+
+document.querySelectorAll(".note-card").forEach(note=>{
+
+
+note.style.display =
+
+note.innerText.toLowerCase().includes(value)
+
+?
+
+"block"
+
+:
+
+"none";
+
+
+});
+
+
+});
+
+
+</script>
+
+
 
 {% endblock %}

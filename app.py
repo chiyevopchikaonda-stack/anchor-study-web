@@ -1,5 +1,8 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory, session
+from ai_student_assistant.database import get_db
+
 from ai_student_assistant.database import init_db
+
 from ai_student_assistant.routes.auth import auth
 from ai_student_assistant.routes.dashboard import dashboard
 from ai_student_assistant.routes.notes import notes
@@ -8,35 +11,101 @@ from ai_student_assistant.routes.scriptures import scriptures
 from ai_student_assistant.routes.settings import settings
 from ai_student_assistant.routes.profile import profile
 from ai_student_assistant.routes.tasks import tasks
+from ai_student_assistant.routes.resources import resources
 
-# 1. CREATE APP FIRST
+
+
+# CREATE APP
+
 app = Flask(
     __name__,
     template_folder="ai_student_assistant/templates",
     static_folder="ai_student_assistant/static"
 )
 
+
 app.secret_key = "anchor-study-secret"
 
-# 2. INIT DB
+
+
+# INITIALIZE DATABASE
+
 init_db()
 
-# 3. REGISTER BLUEPRINTS
+
+
+# REGISTER BLUEPRINTS
+
 app.register_blueprint(auth)
+
 app.register_blueprint(dashboard)
+
 app.register_blueprint(notes)
+
 app.register_blueprint(mood)
+
 app.register_blueprint(scriptures)
+
 app.register_blueprint(settings)
+
 app.register_blueprint(profile)
+
 app.register_blueprint(tasks)
 
-# 4. MAIN PAGE
+app.register_blueprint(resources)
+
+
+
+# FILE UPLOADS
+
+@app.route("/uploads/<filename>")
+def uploaded_file(filename):
+
+    return send_from_directory(
+        "uploads",
+        filename
+    )
+
+
+
+# HOME PAGE
+
 @app.route("/")
 def welcome():
-    return render_template("welcome.html")
+
+    return render_template(
+        "welcome.html"
+    )
+
+@app.context_processor
+def inject_user_profile():
+
+    if "user" in session:
+
+        conn = get_db()
+
+        user = conn.execute(
+            """
+            SELECT full_name, course, year
+            FROM users
+            WHERE username=?
+            """,
+            (session["user"],)
+        ).fetchone()
+
+        conn.close()
+
+        return {
+            "profile_user": user
+        }
 
 
-# 5. RUN
+    return {
+        "profile_user": None
+    }
+
+# RUN APP
+
 if __name__ == "__main__":
+
     app.run(debug=True)

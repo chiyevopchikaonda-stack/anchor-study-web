@@ -2,112 +2,301 @@
 
 {% block content %}
 
-<h1>⚙️ Settings</h1>
 
-<div class="settings-grid">
+<style>
 
-<div class="card">
-<h2>👤 Profile</h2>
 
-<p><strong>Username:</strong> {{ session["user"] }}</p>
+.settings-container{
+
+max-width:900px;
+
+margin:auto;
+
+}
+
+
+
+.settings-card{
+
+background:var(--card);
+
+border:1px solid var(--soft);
+
+padding:30px;
+
+border-radius:20px;
+
+margin-bottom:25px;
+
+}
+
+
+
+.theme-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+
+gap:15px;
+
+margin-top:20px;
+
+}
+
+
+
+.theme-btn{
+
+padding:18px;
+
+border:none;
+
+border-radius:15px;
+
+cursor:pointer;
+
+background:var(--soft);
+
+color:var(--text);
+
+font-size:15px;
+
+transition:.3s;
+
+}
+
+
+
+.theme-btn:hover{
+
+background:var(--accent);
+
+color:white;
+
+transform:translateY(-5px);
+
+}
+
+
+
+.profile-btn{
+
+display:inline-block;
+
+padding:12px 25px;
+
+background:var(--accent);
+
+color:white;
+
+border-radius:12px;
+
+text-decoration:none;
+
+}
+
+
+
+</style>
+
+
+
+
+<div class="settings-container">
+
+
+
+<div class="settings-card">
+
+<h1>
+⚙️ Settings
+</h1>
+
+
 <p>
-<strong>Study Goal:</strong>
-{{ user.study_goal }}
+Personalize your Anchor Study environment.
 </p>
 
+
+</div>
+
+
+
+
+
+<div class="settings-card">
+
+
+<h2>
+🎨 Study Themes
+</h2>
+
+
 <p>
-<strong>Target GPA:</strong>
-{{ user.target_gpa }}
+Pick a theme that matches your study mood.
 </p>
 
-<a href="/profile/edit">
-<button>Edit Profile</button>
+
+<div class="theme-grid">
+
+
+
+<button class="theme-btn" onclick="changeTheme('light')">
+☀️ Clean Light
+</button>
+
+
+<button class="theme-btn" onclick="changeTheme('academia')">
+🍯 Warm Academia
+</button>
+
+
+<button class="theme-btn" onclick="changeTheme('cozy')">
+🪴 Cozy Notebook
+</button>
+
+
+
+<button class="theme-btn" onclick="changeTheme('galaxy')">
+⭐ Galaxy Focus
+</button>
+
+
+
+<button class="theme-btn" onclick="changeTheme('strawberry')">
+🍓 Strawberry Milk
+</button>
+
+
+
+<button class="theme-btn" onclick="changeTheme('aqua')">
+🌊 Aqua Breeze
+</button>
+
+
+
+<button class="theme-btn" onclick="changeTheme('sunset')">
+🌅 Sunset Glow
+</button>
+
+
+
+<button class="theme-btn" onclick="changeTheme('rose')">
+🪻 Rose Lavender
+</button>
+
+
+
+<button class="theme-btn" onclick="changeTheme('space')">
+🌌 Deep Space
+</button>
+
+
+
+<button class="theme-btn" onclick="changeTheme('noir')">
+🖤 Noir Mode
+</button>
+
+
+<button class="theme-btn" onclick="changeTheme('cherry')">
+🌺 Cherry Blossom Night
+</button>
+
+
+
+<button class="theme-btn" onclick="changeTheme('dreamy')">
+✨ Dreamy Desk
+</button>
+
+<button class="theme-btn" onclick="changeTheme('')">
+🌊 Ocean Blue
+</button>
+
+
+<button class="theme-btn" onclick="changeTheme('midnight')">
+🌙 Midnight
+</button>
+
+
+<button class="theme-btn" onclick="changeTheme('forest')">
+🌿 Forest Focus
+</button>
+
+
+<button class="theme-btn" onclick="changeTheme('pink')">
+🌸 Sakura Pink
+</button>
+
+
+<button class="theme-btn" onclick="changeTheme('purple')">
+💜 Lavender Dream
+</button>
+
+
+<button class="theme-btn" onclick="changeTheme('matchacafe')">
+🍵 Matcha Cafe
+</button>
+
+
+<button class="theme-btn" onclick="changeTheme('spacewalk')">
+🚀 Space Station
+</button>
+
+
+<button class="theme-btn" onclick="changeTheme('library')">
+📚 Vintage Library
+</button>
+
+
+<button class="theme-btn" onclick="changeTheme('cloudstudy')">
+☁️ Cloud Study
+</button>
+
+
+<button class="theme-btn" onclick="changeTheme('arctic')">
+🐧 Arctic Friend
+</button>
+
+
+<button class="theme-btn" onclick="changeTheme('cozybear')">
+🧸 Cozy Bear
+</button>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="settings-card">
+
+
+<h2>
+👤 Profile
+</h2>
+
+
+<p>
+Update your academic details.
+</p>
+
+
+<a href="/profile/edit" class="profile-btn">
+✏️ Edit Profile
 </a>
 
-</div>
-
-<div class="card">
-
-<h2>🎨 Appearance</h2>
-
-<label>
-<input 
-type="radio" 
-name="theme"
-checked
-onclick="changeTheme('dark')">
-
-Dark Mode
-
-</label>
-
-
-<br><br>
-
-
-<label>
-
-<input 
-type="radio"
-name="theme"
-onclick="changeTheme('light')">
-
-Light Mode
-
-</label>
 
 </div>
 
-<div class="card">
 
-<h2>🧠 AI Coach</h2>
 
-<label><input type="checkbox" checked> Adaptive Study Planner</label><br>
-
-<label><input type="checkbox" checked> Motivational Messages</label><br>
-
-<label><input type="checkbox" checked> Scripture Encouragement</label>
 
 </div>
 
-<div class="card">
 
-<h2>📚 Study Preferences</h2>
-
-<label>Pomodoro Length</label>
-
-<input type="number" value="25">
-
-<br><br>
-
-<label>Break Length</label>
-
-<input type="number" value="5">
-
-</div>
-
-<div class="card">
-
-<h2>💾 Data</h2>
-
-<button>Export Notes</button>
-
-<button>Export Tasks</button>
-
-<button>Backup Database</button>
-
-</div>
-
-<div class="card">
-
-<h2>ℹ️ About</h2>
-
-<p>Anchor Study v1.0</p>
-
-<p>Built with Python + Flask</p>
-
-</div>
-
-</div>
 
 {% endblock %}

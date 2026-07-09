@@ -2,70 +2,488 @@
 
 {% block content %}
 
-<div class="scripture-container">
 
-    <div class="scripture-header">
-        <div class="book-icon">
-            📖
-        </div>
-
-        <div>
-            <h1>Daily Anchor</h1>
-            <p>Your daily reminder to stay grounded</p>
-        </div>
-    </div>
+<style>
 
 
-    <div class="verse-card">
+.scripture-page{
 
-        <div class="quote-mark">
-            "
-        </div>
+max-width:1000px;
 
+margin:auto;
 
-        <p class="verse-text">
-            {{ verse.text }}
-        </p>
+position:relative;
 
-
-        <p class="verse-reference">
-            — {{ verse.ref }}
-        </p>
-
-
-    </div>
+}
 
 
 
-    <div class="reflection-card">
-
-        <h2>
-            💭 Reflection
-        </h2>
-
-        <p>
-            {{ reflection }}
-        </p>
-
-    </div>
+/* HEADER */
 
 
-
-    <div class="scripture-actions">
-
-        <button onclick="location.reload()">
-            🔄 New Verse
-        </button>
+.scripture-banner{
 
 
-        <button>
-            ❤️ Save Verse
-        </button>
+background:linear-gradient(
 
-    </div>
+135deg,
+
+var(--accent),
+
+transparent
+
+);
+
+
+padding:40px;
+
+border-radius:30px;
+
+margin-bottom:30px;
+
+position:relative;
+
+overflow:hidden;
+
+
+}
+
+
+
+.scripture-banner::after{
+
+content:"📖 ✨ 🕊️";
+
+position:absolute;
+
+right:30px;
+
+bottom:20px;
+
+font-size:60px;
+
+opacity:.2;
+
+animation:float 5s infinite ease-in-out;
+
+}
+
+
+
+@keyframes float{
+
+
+0%{
+
+transform:translateY(0);
+
+}
+
+
+50%{
+
+transform:translateY(-20px);
+
+}
+
+
+100%{
+
+transform:translateY(0);
+
+}
+
+
+}
+
+
+
+.scripture-banner h1{
+
+font-size:40px;
+
+margin:0;
+
+}
+
+
+
+.scripture-banner p{
+
+font-size:18px;
+
+opacity:.9;
+
+}
+
+
+
+
+
+
+
+/* VERSE CARD */
+
+
+.verse-card{
+
+
+background:var(--card);
+
+border:1px solid var(--soft);
+
+padding:45px;
+
+border-radius:30px;
+
+text-align:center;
+
+box-shadow:0 15px 35px rgba(0,0,0,.2);
+
+position:relative;
+
+}
+
+
+
+
+.bookmark{
+
+
+position:absolute;
+
+top:20px;
+
+right:25px;
+
+background:var(--accent);
+
+padding:8px 15px;
+
+border-radius:20px;
+
+color:white;
+
+font-size:13px;
+
+}
+
+
+
+
+.quote-mark{
+
+
+font-size:80px;
+
+color:var(--accent);
+
+height:50px;
+
+}
+
+
+
+
+
+.verse-text{
+
+
+font-size:28px;
+
+line-height:1.6;
+
+font-style:italic;
+
+margin-top:40px;
+
+}
+
+
+
+.verse-reference{
+
+
+font-weight:bold;
+
+color:var(--accent);
+
+font-size:18px;
+
+}
+
+
+
+
+
+
+
+/* REFLECTION */
+
+
+.reflection-card{
+
+
+margin-top:30px;
+
+background:var(--soft);
+
+padding:30px;
+
+border-radius:25px;
+
+}
+
+
+
+.reflection-card h2{
+
+margin-top:0;
+
+}
+
+
+
+.reflection-card p{
+
+line-height:1.7;
+
+font-size:17px;
+
+}
+
+
+
+
+
+
+
+
+/* JOURNAL */
+
+
+.journal-card{
+
+
+margin-top:30px;
+
+padding:30px;
+
+background:var(--card);
+
+border-radius:25px;
+
+border:1px solid var(--soft);
+
+}
+
+
+
+.journal-prompt{
+
+
+padding:15px;
+
+background:var(--soft);
+
+border-radius:15px;
+
+margin-top:15px;
+
+font-style:italic;
+
+}
+
+
+
+
+
+
+
+/* BUTTON */
+
+
+.scripture-actions{
+
+
+display:flex;
+
+justify-content:center;
+
+margin-top:30px;
+
+}
+
+
+
+.scripture-actions button{
+
+
+padding:15px 35px;
+
+font-size:16px;
+
+border-radius:30px;
+
+}
+
+
+
+</style>
+
+
+
+
+
+
+<div class="scripture-page">
+
+
+
+
+
+
+<div class="scripture-banner">
+
+
+<h1>
+📖 Daily Anchor
+</h1>
+
+
+<p>
+A moment to pause, reflect and strengthen your spirit.
+</p>
 
 
 </div>
 
 
+
+
+
+
+
+
+<div class="verse-card">
+
+
+<div class="bookmark">
+
+Today's Verse
+
+</div>
+
+
+
+<div class="quote-mark">
+
+"
+
+</div>
+
+
+
+<p class="verse-text">
+
+{{ verse.text }}
+
+</p>
+
+
+
+<p class="verse-reference">
+
+— {{ verse.ref }}
+
+</p>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="reflection-card">
+
+
+<h2>
+💭 Reflection
+</h2>
+
+
+<p>
+
+{{ reflection }}
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="journal-card">
+
+
+<h2>
+✍️ Personal Reflection
+</h2>
+
+
+<p>
+How can you apply today's verse to your studies, decisions or challenges?
+</p>
+
+
+<div class="journal-prompt">
+
+"Today I will remember that..."
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="scripture-actions">
+
+
+<button onclick="location.reload()">
+
+✨ Discover Another Verse
+
+</button>
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
 {% endblock %}
+
