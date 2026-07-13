@@ -5,15 +5,13 @@
 
 <style>
 
-
 .settings-container{
 
-max-width:900px;
+max-width:1000px;
 
 margin:auto;
 
 }
-
 
 
 .settings-card{
@@ -24,7 +22,7 @@ border:1px solid var(--soft);
 
 padding:30px;
 
-border-radius:20px;
+border-radius:22px;
 
 margin-bottom:25px;
 
@@ -36,31 +34,29 @@ margin-bottom:25px;
 
 display:grid;
 
-grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+grid-template-columns:
+repeat(auto-fit,minmax(220px,1fr));
 
-gap:15px;
+gap:20px;
 
-margin-top:20px;
+margin-top:25px;
 
 }
 
 
 
-.theme-btn{
 
-padding:18px;
+.theme-preview{
 
-border:none;
+padding:25px;
 
-border-radius:15px;
+border-radius:22px;
+
+background:var(--card);
+
+border:1px solid var(--soft);
 
 cursor:pointer;
-
-background:var(--soft);
-
-color:var(--text);
-
-font-size:15px;
 
 transition:.3s;
 
@@ -68,13 +64,40 @@ transition:.3s;
 
 
 
-.theme-btn:hover{
+.theme-preview:hover{
 
-background:var(--accent);
+transform:translateY(-8px);
 
-color:white;
+box-shadow:
+0 15px 35px rgba(0,0,0,.25);
 
-transform:translateY(-5px);
+}
+
+
+
+.preview-icon{
+
+font-size:45px;
+
+margin-bottom:15px;
+
+}
+
+
+
+.theme-preview h3{
+
+margin-bottom:10px;
+
+}
+
+
+
+.theme-preview p{
+
+font-size:14px;
+
+opacity:.75;
 
 }
 
@@ -109,6 +132,7 @@ text-decoration:none;
 
 <div class="settings-card">
 
+
 <h1>
 ⚙️ Settings
 </h1>
@@ -125,148 +149,340 @@ Personalize your Anchor Study environment.
 
 
 
+
+
 <div class="settings-card">
 
 
 <h2>
-🎨 Study Themes
+🎨 Study Rooms
 </h2>
 
 
 <p>
-Pick a theme that matches your study mood.
+Choose a theme that matches your study mood.
 </p>
+
+
 
 
 <div class="theme-grid">
 
 
 
-<button class="theme-btn" onclick="changeTheme('light')">
-☀️ Clean Light
-</button>
+<div class="theme-preview" onclick="changeTheme('light')">
 
+<div class="preview-icon">☀️</div>
 
-<button class="theme-btn" onclick="changeTheme('academia')">
-🍯 Warm Academia
-</button>
+<h3>Clean Light</h3>
 
+<p>Bright minimal workspace.</p>
 
-<button class="theme-btn" onclick="changeTheme('cozy')">
-🪴 Cozy Notebook
-</button>
+</div>
 
 
 
-<button class="theme-btn" onclick="changeTheme('galaxy')">
-⭐ Galaxy Focus
-</button>
+
+
+<div class="theme-preview" onclick="changeTheme('midnight')">
+
+<div class="preview-icon">🌙</div>
+
+<h3>Midnight</h3>
+
+<p>Dark late-night study mode.</p>
+
+</div>
 
 
 
-<button class="theme-btn" onclick="changeTheme('strawberry')">
-🍓 Strawberry Milk
-</button>
+
+
+<div class="theme-preview" onclick="changeTheme('galaxy')">
+
+<div class="preview-icon">🌌</div>
+
+<h3>Galaxy Focus</h3>
+
+<p>Study among the stars.</p>
+
+</div>
 
 
 
-<button class="theme-btn" onclick="changeTheme('aqua')">
-🌊 Aqua Breeze
-</button>
+
+
+<div class="theme-preview" onclick="changeTheme('notebook')">
+
+<div class="preview-icon">📓</div>
+
+<h3>Cozy Notebook</h3>
+
+<p>Handwritten journal vibes.</p>
+
+</div>
 
 
 
-<button class="theme-btn" onclick="changeTheme('sunset')">
-🌅 Sunset Glow
-</button>
+
+
+<div class="theme-preview" onclick="changeTheme('academia')">
+
+<div class="preview-icon">📚</div>
+
+<h3>Dark Academia</h3>
+
+<p>Classic library atmosphere.</p>
+
+</div>
 
 
 
-<button class="theme-btn" onclick="changeTheme('rose')">
-🪻 Rose Lavender
-</button>
+
+
+<div class="theme-preview" onclick="changeTheme('sakura')">
+
+<div class="preview-icon">🌸</div>
+
+<h3>Sakura Study</h3>
+
+<p>Soft floral productivity.</p>
+
+</div>
 
 
 
-<button class="theme-btn" onclick="changeTheme('space')">
-🌌 Deep Space
-</button>
+
+
+<div class="theme-preview" onclick="changeTheme('forest')">
+
+<div class="preview-icon">🌿</div>
+
+<h3>Forest Focus</h3>
+
+<p>Nature inspired learning.</p>
+
+</div>
 
 
 
-<button class="theme-btn" onclick="changeTheme('noir')">
-🖤 Noir Mode
-</button>
 
 
-<button class="theme-btn" onclick="changeTheme('cherry')">
-🌺 Cherry Blossom Night
-</button>
+<div class="theme-preview" onclick="changeTheme('ocean')">
+
+<div class="preview-icon">🌊</div>
+
+<h3>Ocean Breeze</h3>
+
+<p>Fresh calm concentration.</p>
+
+</div>
 
 
 
-<button class="theme-btn" onclick="changeTheme('dreamy')">
-✨ Dreamy Desk
-</button>
-
-<button class="theme-btn" onclick="changeTheme('')">
-🌊 Ocean Blue
-</button>
 
 
-<button class="theme-btn" onclick="changeTheme('midnight')">
-🌙 Midnight
-</button>
+<div class="theme-preview" onclick="changeTheme('sunset')">
+
+<div class="preview-icon">🌅</div>
+
+<h3>Sunset Desk</h3>
+
+<p>Warm evening study room.</p>
+
+</div>
 
 
-<button class="theme-btn" onclick="changeTheme('forest')">
-🌿 Forest Focus
-</button>
 
 
-<button class="theme-btn" onclick="changeTheme('pink')">
-🌸 Sakura Pink
-</button>
+
+<div class="theme-preview" onclick="changeTheme('dreamy')">
+
+<div class="preview-icon">✨</div>
+
+<h3>Dreamy Desk</h3>
+
+<p>Soft creative corner.</p>
+
+</div>
 
 
-<button class="theme-btn" onclick="changeTheme('purple')">
-💜 Lavender Dream
-</button>
 
 
-<button class="theme-btn" onclick="changeTheme('matchacafe')">
-🍵 Matcha Cafe
-</button>
+
+<div class="theme-preview" onclick="changeTheme('cloud')">
+
+<div class="preview-icon">☁️</div>
+
+<h3>Cloud Study</h3>
+
+<p>Light peaceful workspace.</p>
+
+</div>
 
 
-<button class="theme-btn" onclick="changeTheme('spacewalk')">
-🚀 Space Station
-</button>
 
 
-<button class="theme-btn" onclick="changeTheme('library')">
-📚 Vintage Library
-</button>
+
+<div class="theme-preview" onclick="changeTheme('cherry')">
+
+<div class="preview-icon">🌺</div>
+
+<h3>Cherry Night</h3>
+
+<p>Elegant dark floral room.</p>
+
+</div>
 
 
-<button class="theme-btn" onclick="changeTheme('cloudstudy')">
-☁️ Cloud Study
-</button>
 
 
-<button class="theme-btn" onclick="changeTheme('arctic')">
-🐧 Arctic Friend
-</button>
+
+<div class="theme-preview" onclick="changeTheme('lavender')">
+
+<div class="preview-icon">💜</div>
+
+<h3>Lavender Cloud</h3>
+
+<p>Soft purple focus space.</p>
+
+</div>
 
 
-<button class="theme-btn" onclick="changeTheme('cozybear')">
-🧸 Cozy Bear
-</button>
+
+
+
+<div class="theme-preview" onclick="changeTheme('matcha')">
+
+<div class="preview-icon">🍵</div>
+
+<h3>Matcha Cafe</h3>
+
+<p>Calm cafe study mood.</p>
+
+</div>
+
+
+
+
+
+<div class="theme-preview" onclick="changeTheme('coffee')">
+
+<div class="preview-icon">☕</div>
+
+<h3>Coffee Corner</h3>
+
+<p>Morning productivity desk.</p>
+
+</div>
+
+
+
+
+
+<div class="theme-preview" onclick="changeTheme('rose')">
+
+<div class="preview-icon">🌹</div>
+
+<h3>Rose Garden</h3>
+
+<p>Elegant floral workspace.</p>
+
+</div>
+
+
+
+
+
+<div class="theme-preview" onclick="changeTheme('cyber')">
+
+<div class="preview-icon">🤖</div>
+
+<h3>Cyber AI Lab</h3>
+
+<p>Futuristic coding station.</p>
+
+</div>
+
+
+
+
+
+<div class="theme-preview" onclick="changeTheme('deepsea')">
+
+<div class="preview-icon">🐚</div>
+
+<h3>Deep Sea</h3>
+
+<p>Quiet underwater focus.</p>
+
+</div>
+
+
+
+
+
+<div class="theme-preview" onclick="changeTheme('winter')">
+
+<div class="preview-icon">❄️</div>
+
+<h3>Winter Study</h3>
+
+<p>Cool snowy workspace.</p>
+
+</div>
+
+
+
+
+
+<div class="theme-preview" onclick="changeTheme('golden')">
+
+<div class="preview-icon">🌻</div>
+
+<h3>Golden Hour</h3>
+
+<p>Warm sunlight desk.</p>
+
+</div>
+
+
+
+
+
+<div class="theme-preview" onclick="changeTheme('neon')">
+
+<div class="preview-icon">💡</div>
+
+<h3>Neon Night</h3>
+
+<p>Late-night coding vibes.</p>
+
+</div>
+
+
+
+
+
+<div class="theme-preview" onclick="changeTheme('pastel')">
+
+<div class="preview-icon">🦋</div>
+
+<h3>Pastel Dream</h3>
+
+<p>Creative soft workspace.</p>
+
+</div>
+
+
 
 </div>
 
 
 </div>
+
+
+
 
 
 
@@ -286,7 +502,9 @@ Update your academic details.
 
 
 <a href="/profile/edit" class="profile-btn">
+
 ✏️ Edit Profile
+
 </a>
 
 

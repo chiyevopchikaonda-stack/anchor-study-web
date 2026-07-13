@@ -93,7 +93,6 @@ transform:translateY(0);
 
 
 
-
 .login-wrapper{
 
 display:grid;
@@ -175,6 +174,25 @@ margin-bottom:20px;
 
 
 
+/* LOGIN LOGO */
+
+
+.login-logo{
+
+width:120px;
+
+height:120px;
+
+object-fit:contain;
+
+display:block;
+
+margin:0 auto 20px;
+
+}
+
+
+
 
 
 /* LOGIN CARD */
@@ -200,7 +218,6 @@ margin-top:0;
 
 .login-box input{
 
-
 width:100%;
 
 padding:15px;
@@ -220,7 +237,6 @@ color:var(--text);
 
 
 .login-btn{
-
 
 width:100%;
 
@@ -270,7 +286,6 @@ font-style:italic;
 
 
 
-
 .register{
 
 margin-top:20px;
@@ -294,7 +309,6 @@ text-decoration:none;
 
 
 
-
 @media(max-width:800px){
 
 .login-wrapper{
@@ -313,21 +327,12 @@ display:none;
 }
 
 
-
 </style>
-
-
-
-
 
 <div class="login-page">
 
 
-
-
-
 <div class="login-wrapper">
-
 
 
 
@@ -367,9 +372,20 @@ Organize your tasks, track your progress and stay grounded through your academic
 <div class="login-box">
 
 
+
+<img
+src="{{ url_for('static', filename='anchor-study-logo.png') }}"
+class="login-logo"
+alt="Anchor Study Logo">
+
+
+
+
+
 <h2>
 Welcome Back 👋
 </h2>
+
 
 
 <p>
@@ -379,7 +395,10 @@ Log in and continue building your future.
 
 
 
+
+
 <form method="POST">
+
 
 
 <input
@@ -393,6 +412,7 @@ placeholder="Username"
 required
 
 >
+
 
 
 
@@ -410,6 +430,7 @@ required
 
 
 
+
 <button class="login-btn">
 
 ⚓ Sign In
@@ -424,15 +445,21 @@ required
 
 
 
+
+
 <div class="quote">
+
 
 "Commit your work to the Lord, and your plans will be established."
 
+
 <br>
+
 
 <strong>
 Proverbs 16:3
 </strong>
+
 
 </div>
 
@@ -440,9 +467,14 @@ Proverbs 16:3
 
 
 
+
+
+
 <div class="register">
 
+
 Don't have an account?
+
 
 <a href="/register">
 
@@ -451,10 +483,6 @@ Create one
 </a>
 
 
-</div>
-
-
-
 
 </div>
 
@@ -463,6 +491,14 @@ Create one
 
 
 
+
+</div>
+
+
+
+
+
+
 </div>
 
 
@@ -470,6 +506,8 @@ Create one
 
 
 </div>
+
+
 
 
 
