@@ -45,6 +45,7 @@ def signup():
         target_gpa = request.form["target_gpa"]
         username = request.form["username"]
         password = request.form["password"]
+        birthday = request.form["birthday"]
 
         conn = get_db()
 
@@ -58,9 +59,11 @@ def signup():
                 study_goal,
                 target_gpa,
                 username,
-                password
+                password,
+                birthday,
+                theme
             )
-            VALUES(?,?,?,?,?,?,?,?)
+            VALUES(?,?,?,?,?,?,?,?,?,?)
             """,
             (
                 full_name,
@@ -70,7 +73,9 @@ def signup():
                 study_goal,
                 target_gpa,
                 username,
-                password
+                password,
+                birthday,
+                "light"
             )
         )
 

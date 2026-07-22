@@ -24,20 +24,33 @@ def init_db():
     cur = conn.cursor()
 
 
-
     # USERS
 
     cur.execute("""
     CREATE TABLE IF NOT EXISTS users(
+
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+
         full_name TEXT,
+
         university TEXT,
+
         course TEXT,
+
         year TEXT,
+
         study_goal TEXT,
+
         target_gpa TEXT,
+
         username TEXT UNIQUE,
-        password TEXT
+
+        password TEXT,
+
+        birthday TEXT,
+
+        theme TEXT DEFAULT 'light'
+
     )
     """)
 
@@ -47,12 +60,19 @@ def init_db():
 
     cur.execute("""
     CREATE TABLE IF NOT EXISTS tasks(
+
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+
         username TEXT,
+
         title TEXT NOT NULL,
+
         due_date TEXT,
+
         status TEXT DEFAULT 'active',
+
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
     )
     """)
 
@@ -96,7 +116,7 @@ def init_db():
 
 
 
-    # RESOURCES  ⭐ NEW
+    # RESOURCES
 
     cur.execute("""
     CREATE TABLE IF NOT EXISTS resources(
@@ -112,24 +132,29 @@ def init_db():
     )
     """)
 
-# SAVED SCRIPTURES
+
+
+    # SAVED SCRIPTURES
 
     cur.execute("""
-CREATE TABLE IF NOT EXISTS saved_scriptures(
+    CREATE TABLE IF NOT EXISTS saved_scriptures(
 
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-    username TEXT,
+        username TEXT,
 
-    verse TEXT,
+        verse TEXT,
 
-    reference TEXT,
+        reference TEXT,
 
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
-)
-""")
+    )
+    """)
+
+
 
     conn.commit()
 
     conn.close()
+

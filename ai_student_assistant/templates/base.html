@@ -1,1600 +1,908 @@
 <!DOCTYPE html>
 <html>
-
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Anchor Study ⚓</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='anchor-study.ico') }}">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const mobileBtn = document.getElementById("mobile-menu-btn");
+            const sidebar = document.querySelector(".sidebar");
+            const overlay = document.getElementById("mobile-overlay");
+            const closeBtn = document.getElementById("sidebar-close");
+            const menuLinks = document.querySelectorAll(".sidebar a");
 
-<title>
-Anchor Study ⚓
-</title>
+            function openMenu() {
+                sidebar.classList.add("open");
+                overlay.classList.add("active");
+                document.body.style.overflow = "hidden";
+            }
 
+            function closeMenu() {
+                sidebar.classList.remove("open");
+                overlay.classList.remove("active");
+                document.body.style.overflow = "";
+            }
 
-<link
-rel="icon"
-type="image/x-icon"
-href="{{ url_for('static', filename='anchor-study.ico') }}">
+            if (mobileBtn) {
+                mobileBtn.addEventListener("click", function() {
+                    openMenu();
+                });
+            }
 
+            if (closeBtn) {
+                closeBtn.addEventListener("click", function() {
+                    closeMenu();
+                });
+            }
 
-<script>
+            if (overlay) {
+                overlay.addEventListener("click", function() {
+                    closeMenu();
+                });
+            }
 
-let savedTheme = localStorage.getItem("anchorTheme");
+            menuLinks.forEach(function(link) {
+                link.addEventListener("click", function() {
+                    closeMenu();
+                });
+            });
+        });
+    </script>
+    <script>
+
+const savedTheme = localStorage.getItem("anchorTheme");
+
 
 if(savedTheme){
 
-document.documentElement.setAttribute(
-"data-theme",
-savedTheme
-);
+    document.documentElement.setAttribute("data-theme", savedTheme);
+
+}
+else{
+
+    // Default Anchor Study theme
+    document.documentElement.setAttribute("data-theme", "default");
 
 }
 
 </script>
-
-
-
-<style>
-
-
-*{
-
-box-sizing:border-box;
-
-}
-
-
-
-:root{
-
---background:#0b1220;
---sidebar:#111827;
---card:#111827;
---accent:#2563eb;
---text:#e5e7eb;
---soft:#1e293b;
-
-}
-
-
-
-
-/* ==========================
-   ALL THEMES
-========================== */
-
-
-
-/* CLEAN LIGHT ☀️ */
-
-[data-theme="light"]{
-
---background:#f8fafc;
---sidebar:#ffffff;
---card:#ffffff;
---accent:#2563eb;
---text:#111827;
---soft:#e2e8f0;
-
-}
-
-
-
-
-/* MIDNIGHT 🌙 */
-
-[data-theme="midnight"]{
-
---background:#020617;
---sidebar:#0f172a;
---card:#111827;
---accent:#8b5cf6;
---text:#f8fafc;
---soft:#312e81;
-
-}
-
-
-
-
-
-/* GALAXY 🌌 */
-
-[data-theme="galaxy"]{
-
---background:#090014;
---sidebar:#170033;
---card:#1e1040;
---accent:#c084fc;
---text:#f5f3ff;
---soft:#312e81;
-
-}
-
-
-
-
-
-/* NOTEBOOK 📓 */
-
-[data-theme="notebook"]{
-
---background:#faf7f2;
---sidebar:#f5ebe0;
---card:#fffaf0;
---accent:#b45309;
---text:#3f2d20;
---soft:#ead7c3;
-
-}
-
-
-
-
-
-/* ACADEMIA 📚 */
-
-[data-theme="academia"]{
-
---background:#292524;
---sidebar:#451a03;
---card:#3f2a1d;
---accent:#f59e0b;
---text:#fef3c7;
---soft:#78350f;
-
-}
-
-
-
-
-
-/* SAKURA 🌸 */
-
-[data-theme="sakura"]{
-
---background:#fff1f2;
---sidebar:#ffe4e6;
---card:#ffffff;
---accent:#ec4899;
---text:#4a044e;
---soft:#fbcfe8;
-
-}
-
-
-
-
-
-/* FOREST 🌿 */
-
-[data-theme="forest"]{
-
---background:#052e16;
---sidebar:#064e3b;
---card:#065f46;
---accent:#22c55e;
---text:#ecfdf5;
---soft:#047857;
-
-}
-
-
-
-
-
-/* OCEAN 🌊 */
-
-[data-theme="ocean"]{
-
---background:#ecfeff;
---sidebar:#cffafe;
---card:#ffffff;
---accent:#0891b2;
---text:#083344;
---soft:#a5f3fc;
-
-}
-
-
-
-
-
-/* SUNSET 🌅 */
-
-[data-theme="sunset"]{
-
---background:#fff7ed;
---sidebar:#ffedd5;
---card:#ffffff;
---accent:#f97316;
---text:#431407;
---soft:#fed7aa;
-
-}
-
-
-
-
-
-/* DREAMY ✨ */
-
-[data-theme="dreamy"]{
-
---background:#fff7ed;
---sidebar:#ffedd5;
---card:#ffffff;
---accent:#f472b6;
---text:#4a044e;
---soft:#fed7aa;
-
-}
-
-
-
-
-
-/* CLOUD ☁️ */
-
-[data-theme="cloud"]{
-
---background:#eff6ff;
---sidebar:#dbeafe;
---card:#ffffff;
---accent:#60a5fa;
---text:#1e3a8a;
---soft:#bfdbfe;
-
-}
-
-
-
-
-
-/* CHERRY 🌺 */
-
-[data-theme="cherry"]{
-
---background:#1f0a16;
---sidebar:#3b1026;
---card:#4a1630;
---accent:#fb7185;
---text:#ffe4e6;
---soft:#831843;
-
-}
-
-
-
-
-
-/* LAVENDER 💜 */
-
-[data-theme="lavender"]{
-
---background:#faf5ff;
---sidebar:#f3e8ff;
---card:#ffffff;
---accent:#9333ea;
---text:#3b0764;
---soft:#e9d5ff;
-
-}
-
-
-
-
-
-/* MATCHA 🍵 */
-
-[data-theme="matcha"]{
-
---background:#f7fee7;
---sidebar:#ecfccb;
---card:#ffffff;
---accent:#65a30d;
---text:#365314;
---soft:#d9f99d;
-
-}
-
-
-
-
-
-/* COFFEE ☕ */
-
-[data-theme="coffee"]{
-
---background:#2b2118;
---sidebar:#3b2f24;
---card:#4a3728;
---accent:#d97706;
---text:#fef3c7;
---soft:#78350f;
-
-}
-
-
-
-
-
-/* ROSE 🌹 */
-
-[data-theme="rose"]{
-
---background:#fdf4ff;
---sidebar:#fae8ff;
---card:#ffffff;
---accent:#c026d3;
---text:#3b0764;
---soft:#f0abfc;
-
-}
-
-
-
-
-
-/* CYBER 🤖 */
-
-[data-theme="cyber"]{
-
---background:#020617;
---sidebar:#111827;
---card:#172554;
---accent:#22d3ee;
---text:#ecfeff;
---soft:#164e63;
-
-}
-
-
-
-
-
-/* DEEP SEA 🐚 */
-
-[data-theme="deepsea"]{
-
---background:#082f49;
---sidebar:#0c4a6e;
---card:#075985;
---accent:#38bdf8;
---text:#e0f2fe;
---soft:#0369a1;
-
-}
-
-
-
-
-
-/* WINTER ❄️ */
-
-[data-theme="winter"]{
-
---background:#f1f5f9;
---sidebar:#e2e8f0;
---card:#ffffff;
---accent:#0ea5e9;
---text:#0f172a;
---soft:#cbd5e1;
-
-}
-
-
-
-
-
-/* GOLDEN 🌻 */
-
-[data-theme="golden"]{
-
---background:#fffbeb;
---sidebar:#fef3c7;
---card:#ffffff;
---accent:#eab308;
---text:#422006;
---soft:#fde68a;
-
-}
-
-
-
-
-
-/* NEON 💡 */
-
-[data-theme="neon"]{
-
---background:#09090b;
---sidebar:#18181b;
---card:#27272a;
---accent:#39ff14;
---text:#fafafa;
---soft:#3f3f46;
-
-}
-
-
-
-
-
-/* PASTEL 🦋 */
-
-[data-theme="pastel"]{
-
---background:#fff7fb;
---sidebar:#fce7f3;
---card:#ffffff;
---accent:#f472b6;
---text:#500724;
---soft:#fbcfe8;
-
-}
-
- 
-
-/* ==========================
-   GLOBAL LAYOUT
-========================== */
-
-
-body{
-
-margin:0;
-
-min-height:100vh;
-
-font-family:"Segoe UI", Arial, sans-serif;
-
-background:var(--background);
-
-color:var(--text);
-
-transition:.4s;
-
-overflow-x:hidden;
-
-}
-
-
-
-
-
-/* ==========================
-   THEME DECORATIONS ✨
-========================== */
-
-
-/* GALAXY */
-
-[data-theme="galaxy"] body::before{
-
-content:"✦ ⋆ ✧ ☾ ✦ ⋆ ✧";
-
-position:fixed;
-
-top:40px;
-
-right:80px;
-
-font-size:55px;
-
-opacity:.35;
-
-animation:floatStars 8s infinite ease-in-out;
-
-pointer-events:none;
-
-}
-
-
-@keyframes floatStars{
-
-50%{
-
-transform:translateY(35px);
-
-}
-
-}
-
-
-
-
-/* NOTEBOOK */
-
-[data-theme="notebook"] body::before{
-
-content:"";
-
-position:fixed;
-
-inset:0;
-
-background:
-
-repeating-linear-gradient(
-
-transparent,
-
-transparent 34px,
-
-rgba(180,83,9,.12) 35px
-
-);
-
-pointer-events:none;
-
-opacity:.7;
-
-}
-
-
-
-
-[data-theme="notebook"] body::after{
-
-content:"📓 ✏️ ☕";
-
-position:fixed;
-
-right:40px;
-
-bottom:30px;
-
-font-size:55px;
-
-opacity:.35;
-
-animation:notebookFloat 5s infinite ease-in-out;
-
-}
-
-
-
-@keyframes notebookFloat{
-
-50%{
-
-transform:translateY(-20px);
-
-}
-
-}
-
-
-
-
-
-/* SAKURA */
-
-
-[data-theme="sakura"] body::before{
-
-content:"🌸 🌸 🌸";
-
-position:fixed;
-
-top:40px;
-
-left:40%;
-
-font-size:45px;
-
-opacity:.3;
-
-animation:petals 8s infinite;
-
-}
-
-
-
-@keyframes petals{
-
-50%{
-
-transform:translateY(60px);
-
-}
-
-}
-
-
-
-
-
-/* CLOUD */
-
-
-[data-theme="cloud"] body::before{
-
-content:"☁️ ☁️";
-
-position:fixed;
-
-top:80px;
-
-left:20%;
-
-font-size:80px;
-
-opacity:.25;
-
-animation:cloudMove 12s infinite linear;
-
-}
-
-
-@keyframes cloudMove{
-
-from{
-
-transform:translateX(-100px);
-
-}
-
-to{
-
-transform:translateX(500px);
-
-}
-
-}
-
-
-
-
-
-/* DREAMY */
-
-
-[data-theme="dreamy"] body::before{
-
-content:"✨ 📚 ☁️";
-
-position:fixed;
-
-top:50px;
-
-right:40px;
-
-font-size:50px;
-
-opacity:.25;
-
-animation:dreamFloat 6s infinite;
-
-}
-
-
-@keyframes dreamFloat{
-
-50%{
-
-transform:translateY(-25px);
-
-}
-
-}
-
-
-
-
-
-
-/* ==========================
-   SIDEBAR
-========================== */
-
-
-.sidebar{
-
-position:fixed;
-
-left:0;
-
-top:0;
-
-bottom:0;
-
-width:250px;
-
-background:var(--sidebar);
-
-padding:20px 15px;
-
-display:flex;
-
-flex-direction:column;
-
-border-right:1px solid var(--soft);
-
-overflow-y:auto;
-
-z-index:100;
-
-transition:.4s;
-
-}
-
-
-
-
-
-/* LOGO */
-
-
-.logo{
-
-text-align:center;
-
-margin-bottom:20px;
-
-}
-
-
-
-.logo-image{
-
-width:85px;
-
-height:85px;
-
-object-fit:contain;
-
-margin-bottom:5px;
-
-}
-
-
-
-.logo h2{
-
-color:var(--accent);
-
-font-size:22px;
-
-margin:5px 0;
-
-}
-
-
-
-.logo p{
-
-font-size:13px;
-
-opacity:.7;
-
-}
-
-
-
-
-/* PROFILE */
-
-
-.student-mini-card{
-
-background:var(--card);
-
-border:1px solid var(--soft);
-
-padding:12px;
-
-border-radius:15px;
-
-margin-bottom:15px;
-
-}
-
-
-
-.student-mini-card h3{
-
-margin:0 0 8px;
-
-font-size:16px;
-
-}
-
-
-
-.student-mini-card p{
-
-font-size:13px;
-
-margin:5px 0;
-
-}
-
-
-
-
-
-/* MENU */
-
-
-.menu-title{
-
-font-size:11px;
-
-letter-spacing:2px;
-
-opacity:.6;
-
-margin:15px 5px;
-
-}
-
-
-
-.sidebar a{
-
-display:flex;
-
-align-items:center;
-
-gap:10px;
-
-padding:11px 12px;
-
-margin:4px 0;
-
-border-radius:12px;
-
-text-decoration:none;
-
-color:var(--text);
-
-transition:.3s;
-
-}
-
-
-
-.sidebar a:hover{
-
-background:var(--soft);
-
-transform:translateX(5px);
-
-}
-
-
-
-.sidebar a.active{
-
-background:var(--accent);
-
-color:white;
-
-}
-
-
-
-
-
-.menu-bottom{
-
-margin-top:auto;
-
-}
-
-
-
-
-
-.logout{
-
-background:#7f1d1d;
-
-color:white!important;
-
-}
-
-
-
-
-
-
-/* STUDY CARD */
-
-
-.study-card{
-
-margin-top:15px;
-
-padding:15px;
-
-border-radius:15px;
-
-background:var(--card);
-
-border:1px solid var(--soft);
-
-}
-
-
-
-.study-card h3{
-
-margin-top:0;
-
-}
-
-
-
-.study-card p{
-
-font-size:13px;
-
-opacity:.8;
-
-}
-
-
-
-
-
-
-
-/* ==========================
-MAIN CONTENT
-========================== */
-
-
-.main{
-
-margin-left:250px;
-
-padding:30px;
-
-min-height:100vh;
-
-}
-
-
-
-
-
-
-/* ==========================
-CARDS
-========================== */
-
-
-.card,
-.task-item,
-.note-card,
-.stat-card,
-.resource-card,
-.settings-card,
-.profile-card{
-
-background:var(--card);
-
-border:1px solid var(--soft);
-
-border-radius:18px;
-
-transition:.3s;
-
-}
-
-
-
-
-.card:hover,
-.task-item:hover,
-.note-card:hover{
-
-transform:translateY(-3px);
-
-}
-
-
-
-
-
-
-/* ==========================
-BUTTONS
-========================== */
-
-
-button{
-
-background:var(--accent);
-
-color:white;
-
-border:none;
-
-padding:12px 18px;
-
-border-radius:12px;
-
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-
-
-button:hover{
-
-transform:translateY(-3px);
-
-}
-
-
-
-
-
-
-/* INPUTS */
-
-
-input,
-textarea,
-select{
-
-background:var(--background);
-
-color:var(--text);
-
-border:1px solid var(--soft);
-
-border-radius:10px;
-
-padding:12px;
-
-}
-
-
-
-/* ==========================
-   THEME PERSONALITY EFFECTS
-========================== */
-
-
-
-/* GALAXY 🌌 */
-
-
-[data-theme="galaxy"] .sidebar{
-
-background:
-linear-gradient(
-180deg,
-#090014,
-#170033
-);
-
-}
-
-
-[data-theme="galaxy"] .card,
-[data-theme="galaxy"] .task-item,
-[data-theme="galaxy"] .note-card,
-[data-theme="galaxy"] .settings-card{
-
-box-shadow:
-
-0 0 25px rgba(192,132,252,.15);
-
-border-color:#c084fc;
-
-}
-
-
-
-
-
-
-/* NOTEBOOK 📓 */
-
-
-[data-theme="notebook"] .sidebar{
-
-background:
-
-linear-gradient(
-180deg,
-#faf7f2,
-#f5ebe0
-);
-
-}
-
-
-
-[data-theme="notebook"] .card,
-[data-theme="notebook"] .task-item,
-[data-theme="notebook"] .note-card,
-[data-theme="notebook"] .settings-card{
-
-background:#fffaf0;
-
-border-color:#ead7c3;
-
-box-shadow:
-
-0 8px 20px rgba(180,83,9,.1);
-
-}
-
-
-
-
-
-
-
-/* ACADEMIA 📚 */
-
-
-[data-theme="academia"] .card,
-[data-theme="academia"] .task-item,
-[data-theme="academia"] .note-card{
-
-background:
-
-linear-gradient(
-
-135deg,
-
-#3f2a1d,
-
-#292524
-
-);
-
-border-color:#f59e0b;
-
-}
-
-
-
-
-
-
-/* SAKURA 🌸 */
-
-
-[data-theme="sakura"] .card,
-[data-theme="sakura"] .task-item,
-[data-theme="sakura"] .note-card{
-
-box-shadow:
-
-0 10px 25px rgba(236,72,153,.15);
-
-}
-
-
-
-
-
-
-
-/* FOREST 🌿 */
-
-
-[data-theme="forest"] .card,
-[data-theme="forest"] .task-item,
-[data-theme="forest"] .note-card{
-
-background:#065f46;
-
-border-color:#22c55e;
-
-}
-
-
-
-
-
-
-
-
-/* OCEAN 🌊 */
-
-
-[data-theme="ocean"] .card,
-[data-theme="ocean"] .task-item,
-[data-theme="ocean"] .note-card{
-
-box-shadow:
-
-0 10px 25px rgba(8,145,178,.15);
-
-}
-
-
-
-
-
-
-
-
-/* CLOUD ☁️ */
-
-
-[data-theme="cloud"] .card,
-[data-theme="cloud"] .task-item,
-[data-theme="cloud"] .note-card{
-
-box-shadow:
-
-0 10px 30px rgba(96,165,250,.15);
-
-}
-
-
-
-
-
-
-
-
-/* COFFEE ☕ */
-
-
-[data-theme="coffee"] .card,
-[data-theme="coffee"] .task-item,
-[data-theme="coffee"] .note-card{
-
-background:#4a3728;
-
-border-color:#d97706;
-
-}
-
-
-
-
-
-
-
-
-/* CYBER 🤖 */
-
-
-[data-theme="cyber"] .card,
-[data-theme="cyber"] .task-item,
-[data-theme="cyber"] .note-card{
-
-box-shadow:
-
-0 0 20px rgba(34,211,238,.2);
-
-}
-
-
-
-
-
-
-
-/* ==========================
-   THEME BUTTON SUPPORT
-========================== */
-
-
-.theme-btn{
-
-padding:16px;
-
-border-radius:15px;
-
-background:var(--soft);
-
-color:var(--text);
-
-border:1px solid var(--soft);
-
-font-size:15px;
-
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-
-.theme-btn:hover{
-
-background:var(--accent);
-
-color:white;
-
-transform:translateY(-5px);
-
-}
-
-
-
-
-
-</style>
-
-
-</head>
-
-
-
-
-<body>
-
-
-<div class="sidebar">
-
-
-
-<div class="logo">
-
-
-<img
-
-src="{{ url_for('static', filename='anchor-study-logo.png') }}"
-
-alt="Anchor Study Logo"
-
-class="logo-image">
-
-
-<h2>
-
-Anchor Study ⚓
-
-</h2>
-
-
-<p>
-
-Your personal study companion
-
-</p>
-
-
-</div>
-
-
-
-
-
-{% if profile_user %}
-
-
-<div class="student-mini-card">
-
-
-<h3>
-
-👋 {{ profile_user["full_name"] }}
-
-</h3>
-
-
-<p>
-
-🎓 {{ profile_user["course"] }}
-
-</p>
-
-
-<p>
-
-📚 Year {{ profile_user["year"] }}
-
-</p>
-
-
-</div>
-
-
-{% endif %}
-
-
-
-
-
-<div class="menu-title">
-
-STUDY SPACE
-
-</div>
-
-
-
-
-
-<a href="/dashboard"
-class="{% if request.path == '/dashboard' %}active{% endif %}">
-
-📊 Dashboard
-
-</a>
-
-
-
-
-
-<a href="/tasks"
-class="{% if request.path == '/tasks' %}active{% endif %}">
-
-✅ Tasks
-
-</a>
-
-
-
-
-
-<a href="/notes"
-class="{% if request.path == '/notes' %}active{% endif %}">
-
-📝 Notes
-
-</a>
-
-
-
-
-
-<a href="/mood"
-class="{% if request.path == '/mood' %}active{% endif %}">
-
-🌤 Mood Tracker
-
-</a>
-
-
-
-
-
-<a href="/scriptures"
-class="{% if request.path == '/scriptures' %}active{% endif %}">
-
-📖 Scriptures
-
-</a>
-
-
-
-
-
-<a href="/resources"
-class="{% if request.path == '/resources' %}active{% endif %}">
-
-📚 Resources
-
-</a>
-
-
-
-
-
-
-<div class="study-card">
-
-
-<h3>
-
-⚓ Stay Anchored
-
-</h3>
-
-
-<p>
-
-Small progress every day builds big results.
-
-</p>
-
-
-</div>
-
-
-
-
-
-
-<div class="menu-bottom">
-
-
-<a href="/settings">
-
-⚙️ Settings
-
-</a>
-
-
-
-<a href="/profile/edit">
-
-👤 Profile
-
-</a>
-
-
-
-<a href="/logout" class="logout">
-
-🚪 Logout
-
-</a>
-
-
-
-</div>
-
-
-
-
-</div>
-
-
-
-
-
-
-
-<div class="main">
-
-
-{% block content %}
-
-{% endblock %}
-
-
-</div>
-
-
-
-
-
-
-
 <script>
 
+const logoutLink = document.querySelector('a[href="/logout"]');
 
-function changeTheme(theme){
+if(logoutLink){
 
+    logoutLink.addEventListener("click", function(){
 
-document.documentElement.setAttribute(
+        localStorage.removeItem("anchorTheme");
 
-"data-theme",
-
-theme
-
-);
-
-
-
-localStorage.setItem(
-
-"anchorTheme",
-
-theme
-
-);
-
-
+    });
 
 }
 
+</script>
+    <style>
 
+        /* Default Anchor Study Theme */
 
+:root,
+[data-theme="default"] {
+
+    --background: #07111f;
+    --sidebar: #111827;
+    --card: #0f172a;
+    --accent: #2563eb;
+    --text: #e5e7eb;
+    --soft: #1e293b;
+    --border: #334155;
+
+}
+        /* Global reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Main theme variables */
+        :root {
+            --background: #0b1220;
+            --sidebar: #111827;
+            --card: #111827;
+            --accent: #2563eb;
+            --text: #e5e7eb;
+            --soft: #1e293b;
+            --border: #334155;
+        }
+
+        /* Light theme */
+        [data-theme="light"] {
+            --background: #f8fafc;
+            --sidebar: #ffffff;
+            --card: #ffffff;
+            --accent: #2563eb;
+            --text: #111827;
+            --soft: #e2e8f0;
+            --border: #cbd5e1;
+        }
+
+        /* Midnight theme */
+        [data-theme="midnight"] {
+            --background: #020617;
+            --sidebar: #0f172a;
+            --card: #111827;
+            --accent: #8b5cf6;
+            --text: #f8fafc;
+            --soft: #312e81;
+            --border: #4338ca;
+        }
+
+        /* Galaxy theme */
+        [data-theme="galaxy"] {
+            --background: #090014;
+            --sidebar: #170033;
+            --card: #1e1040;
+            --accent: #c084fc;
+            --text: #f5f3ff;
+            --soft: #312e81;
+            --border: #7e22ce;
+        }
+
+        /* Notebook theme */
+        [data-theme="notebook"] {
+            --background: #faf7f2;
+            --sidebar: #f5ebe0;
+            --card: #fffaf0;
+            --accent: #b45309;
+            --text: #3f2d20;
+            --soft: #ead7c3;
+            --border: #d6bfa8;
+        }
+
+        /* Academia theme */
+        [data-theme="academia"] {
+            --background: #292524;
+            --sidebar: #451a03;
+            --card: #3f2a1d;
+            --accent: #f59e0b;
+            --text: #fef3c7;
+            --soft: #78350f;
+            --border: #92400e;
+        }
+
+        /* Sakura theme */
+        [data-theme="sakura"] {
+            --background: #fff1f2;
+            --sidebar: #ffe4e6;
+            --card: #ffffff;
+            --accent: #ec4899;
+            --text: #4a044e;
+            --soft: #fbcfe8;
+            --border: #f9a8d4;
+        }
+
+        /* Forest theme */
+        [data-theme="forest"] {
+            --background: #052e16;
+            --sidebar: #064e3b;
+            --card: #065f46;
+            --accent: #22c55e;
+            --text: #ecfdf5;
+            --soft: #047857;
+            --border: #059669;
+        }
+
+        /* Ocean theme */
+        [data-theme="ocean"] {
+            --background: #ecfeff;
+            --sidebar: #cffafe;
+            --card: #ffffff;
+            --accent: #0891b2;
+            --text: #083344;
+            --soft: #a5f3fc;
+            --border: #67e8f9;
+        }
+
+        /* Sunset theme */
+        [data-theme="sunset"] {
+            --background: #fff7ed;
+            --sidebar: #ffedd5;
+            --card: #ffffff;
+            --accent: #f97316;
+            --text: #431407;
+            --soft: #fed7aa;
+            --border: #fdba74;
+        }
+
+        /* Dreamy theme */
+        [data-theme="dreamy"] {
+            --background: #fff7ed;
+            --sidebar: #ffedd5;
+            --card: #ffffff;
+            --accent: #f472b6;
+            --text: #4a044e;
+            --soft: #fed7aa;
+            --border: #f9a8d4;
+        }
+
+        /* Cloud theme */
+        [data-theme="cloud"] {
+            --background: #eff6ff;
+            --sidebar: #dbeafe;
+            --card: #ffffff;
+            --accent: #60a5fa;
+            --text: #1e3a8a;
+            --soft: #bfdbfe;
+            --border: #93c5fd;
+        }
+
+        /* Cherry theme */
+        [data-theme="cherry"] {
+            --background: #1f0a16;
+            --sidebar: #3b1026;
+            --card: #4a1630;
+            --accent: #fb7185;
+            --text: #ffe4e6;
+            --soft: #831843;
+            --border: #be123c;
+        }
+
+        /* Lavender theme */
+        [data-theme="lavender"] {
+            --background: #faf5ff;
+            --sidebar: #f3e8ff;
+            --card: #ffffff;
+            --accent: #9333ea;
+            --text: #3b0764;
+            --soft: #e9d5ff;
+            --border: #d8b4fe;
+        }
+
+        /* Matcha theme */
+        [data-theme="matcha"] {
+            --background: #f7fee7;
+            --sidebar: #ecfccb;
+            --card: #ffffff;
+            --accent: #65a30d;
+            --text: #365314;
+            --soft: #d9f99d;
+            --border: #bef264;
+        }
+
+        /* Coffee theme */
+        [data-theme="coffee"] {
+            --background: #2b2118;
+            --sidebar: #3b2f24;
+            --card: #4a3728;
+            --accent: #d97706;
+            --text: #fef3c7;
+            --soft: #78350f;
+            --border: #92400e;
+        }
+
+        /* Rose theme */
+        [data-theme="rose"] {
+            --background: #fdf4ff;
+            --sidebar: #fae8ff;
+            --card: #ffffff;
+            --accent: #c026d3;
+            --text: #3b0764;
+            --soft: #f0abfc;
+            --border: #e879f9;
+        }
+
+        /* Cyber theme */
+        [data-theme="cyber"] {
+            --background: #020617;
+            --sidebar: #111827;
+            --card: #172554;
+            --accent: #22d3ee;
+            --text: #ecfeff;
+            --soft: #164e63;
+            --border: #0891b2;
+        }
+
+        /* Deep sea theme */
+        [data-theme="deepsea"] {
+            --background: #082f49;
+            --sidebar: #0c4a6e;
+            --card: #075985;
+            --accent: #38bdf8;
+            --text: #e0f2fe;
+            --soft: #0369a1;
+            --border: #0284c7;
+        }
+
+        /* Winter theme */
+        [data-theme="winter"] {
+            --background: #f1f5f9;
+            --sidebar: #e2e8f0;
+            --card: #ffffff;
+            --accent: #0ea5e9;
+            --text: #0f172a;
+            --soft: #cbd5e1;
+            --border: #94a3b8;
+        }
+
+        /* Golden theme */
+        [data-theme="golden"] {
+            --background: #fffbeb;
+            --sidebar: #fef3c7;
+            --card: #ffffff;
+            --accent: #eab308;
+            --text: #422006;
+            --soft: #fde68a;
+            --border: #facc15;
+        }
+
+        /* Neon theme */
+        [data-theme="neon"] {
+            --background: #09090b;
+            --sidebar: #18181b;
+            --card: #27272a;
+            --accent: #39ff14;
+            --text: #fafafa;
+            --soft: #3f3f46;
+            --border: #22c55e;
+        }
+
+        /* Pastel theme */
+        [data-theme="pastel"] {
+            --background: #fff7fb;
+            --sidebar: #fce7f3;
+            --card: #ffffff;
+            --accent: #f472b6;
+            --text: #500724;
+            --soft: #fbcfe8;
+            --border: #f9a8d4;
+        }
+
+        /* Gothic theme */
+        [data-theme="gothic"] {
+            --background: #120000;
+            --sidebar: #1a0505;
+            --card: #240a0a;
+            --accent: #dc2626;
+            --text: #fca5a5;
+            --soft: #450a0a;
+            --border: #7f1d1d;
+        }
+
+        /* Arcade theme */
+        [data-theme="arcade"] {
+            --background: #2e0249;
+            --sidebar: #570a57;
+            --card: #a91079;
+            --accent: #ff007f;
+            --text: #f8f8f8;
+            --soft: #f806cc;
+            --border: #ff007f;
+        }
+
+        /* Mint theme */
+        [data-theme="mint"] {
+            --background: #f0fdf4;
+            --sidebar: #dcfce7;
+            --card: #ffffff;
+            --accent: #10b981;
+            --text: #064e3b;
+            --soft: #a7f3d0;
+            --border: #6ee7b7;
+        }
+
+        /* Peach theme */
+        [data-theme="peach"] {
+            --background: #fff5f5;
+            --sidebar: #fed7d7;
+            --card: #ffffff;
+            --accent: #ed8936;
+            --text: #7b341e;
+            --soft: #fbd38d;
+            --border: #f6ad55;
+        }
+
+        /* Noir theme */
+        [data-theme="noir"] {
+            --background: #171717;
+            --sidebar: #262626;
+            --card: #404040;
+            --accent: #a3a3a3;
+            --text: #f5f5f5;
+            --soft: #525252;
+            --border: #737373;
+        }
+
+        /* Glitter theme */
+        [data-theme="glitter"] {
+            --background: #fdf4ff;
+            --sidebar: #fae8ff;
+            --card: #ffffff;
+            --accent: #d946ef;
+            --text: #4a044e;
+            --soft: #f5d0fe;
+            --border: #e879f9;
+        }
+
+        /* Vaporwave theme */
+        [data-theme="vaporwave"] {
+            --background: #2e0854;
+            --sidebar: #1a0530;
+            --card: #3b0a6e;
+            --accent: #00ffff;
+            --text: #ff77ff;
+            --soft: #7a0bc0;
+            --border: #c026d3;
+        }
+
+        /* Autumn theme */
+        [data-theme="autumn"] {
+            --background: #fff7ed;
+            --sidebar: #ffedd5;
+            --card: #ffffff;
+            --accent: #ea580c;
+            --text: #431407;
+            --soft: #fed7aa;
+            --border: #fdba74;
+        }
+
+        /* Hacker theme */
+        [data-theme="hacker"] {
+            --background: #000000;
+            --sidebar: #0a0a0a;
+            --card: #111111;
+            --accent: #22c55e;
+            --text: #4ade80;
+            --soft: #14532d;
+            --border: #16a34a;
+        }
+
+        /* Base page styling */
+        body {
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            transition: background 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Theme decorations */
+        [data-theme="galaxy"] body::before {
+            content: "✦ ⋆ ✧ ☾ ✦ ⋆ ✧";
+            position: fixed;
+            top: 40px;
+            right: 80px;
+            font-size: 55px;
+            opacity: 0.35;
+            animation: floatStars 8s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        [data-theme="notebook"] body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(90deg, transparent 79px, rgba(248,113,113,0.6) 80px, transparent 81px), repeating-linear-gradient(transparent, transparent 34px, rgba(96,165,250,0.3) 35px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        [data-theme="sakura"] body::before {
+            content: "🌸 🌸 🌸";
+            position: fixed;
+            top: 40px;
+            left: 40%;
+            font-size: 45px;
+            opacity: 0.3;
+            animation: petals 8s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes floatStars {
+            50% {
+                transform: translateY(35px);
+            }
+        }
+
+        @keyframes petals {
+            0% {
+                transform: translateY(-50px) rotate(0deg);
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        .sidebar, .desktop-sidebar, .mobile-sidebar, .main, .welcome-main, .welcome-navbar {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Mobile menu button */
+        .mobile-btn {
+            display: none;
+            position: fixed;
+            top: 14px;
+            right: 14px;
+            background: var(--card);
+            color: var(--text);
+            border: 1px solid var(--soft);
+            padding: 12px 16px;
+            border-radius: 999px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            z-index: 2000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .mobile-btn:active {
+            transform: scale(0.92);
+        }
+
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(2px);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .mobile-bottom-nav {
+            display: none;
+        }
+
+        @media(max-width: 768px) {
+            .mobile-bottom-nav {
+                display: flex;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 65px;
+                background: var(--card);
+                border-top: 1px solid var(--soft);
+                justify-content: space-around;
+                align-items: center;
+                z-index: 1001;
+                padding-bottom: 5px;
+            }
+            .mobile-bottom-nav a {
+                text-decoration: none;
+                color: var(--text);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 3px;
+                font-size: 12px;
+                opacity: .75;
+            }
+            .mobile-bottom-nav a:hover {
+                opacity: 1;
+            }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 240px;
+            background: var(--sidebar);
+            padding: 20px 14px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--soft);
+            overflow-y: auto;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .logo {
+            margin-bottom: 20px;
+            padding: 0 6px;
+        }
+
+        .logo-image {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .logo h2 {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .logo p {
+            font-size: 12px;
+            opacity: 0.5;
+        }
+
+        .student-mini-card, .study-card {
+            background: var(--background);
+            border: 1px solid var(--soft);
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 16px;
+        }
+
+        .student-mini-card h3, .study-card h3 {
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .student-mini-card p, .study-card p {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .menu-title {
+            font-size: 11px;
+            opacity: 0.5;
+            margin: 12px 6px 6px;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 12px;
+            margin: 4px 0;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 15px;
+            opacity: 0.85;
+            transition: background .2s ease, transform .2s ease;
+        }
+
+        .sidebar a:hover, .sidebar a.active {
+            background: var(--soft);
+            opacity: 1;
+            transform: translateX(4px);
+        }
+
+        .menu-bottom {
+            margin-top: auto;
+            border-top: 1px solid var(--soft);
+            padding-top: 16px;
+        }
+
+        .logout {
+            color: #ef4444 !important;
+        }
+
+        /* Main content */
+        .main {
+            margin-left: 240px;
+            padding: 40px 48px;
+            min-height: 100vh;
+            max-width: 1100px;
+        }
+
+        .welcome-main {
+            min-height: 100vh;
+        }
+
+        /* Cards */
+        .card, .task-item, .note-card, .stat-card, .resource-card, .settings-card, .profile-card {
+            background: var(--card);
+            border: 1px solid var(--soft);
+            border-radius: 8px;
+            padding: 20px;
+            transition: 0.2s;
+        }
+
+        button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            background: var(--background);
+            color: var(--text);
+            border: 1px solid var(--soft);
+            border-radius: 6px;
+            padding: 10px 12px;
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: 1px solid var(--accent);
+        }
+
+        .sidebar-close {
+            display: none;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: transparent;
+            color: var(--text);
+            font-size: 20px;
+            padding: 5px;
+        }
+
+        /* Responsive layout */
+        @media (max-width: 768px) {
+            .mobile-btn {
+                display: block;
+            }
+            .sidebar {
+                transform: translateX(-100%);
+                width: 280px;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+                box-shadow: 10px 0 30px rgba(0,0,0,.25);
+            }
+            .main {
+                margin-left: 0;
+                padding: 64px 16px 90px;
+            }
+            .sidebar-close {
+                display: block;
+            }
+            .desktop-link {
+                display: none;
+            }
+            .sidebar a.logout {
+                display: flex !important;
+            }
+            .menu-bottom {
+                margin-top: 30px;
+                padding-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+{% if request.path not in ['/', '/login', '/signup'] %}
+    <div class="mobile-overlay" id="mobile-overlay"></div>
+    <button id="mobile-menu-btn" class="mobile-btn">☰</button>
+    <div class="sidebar main-sidebar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='anchor-study-logo.png') }}" alt="Anchor Study Logo" class="logo-image">
+            <h2>Anchor Study</h2>
+            <p>Your workspace</p>
+        </div>
+        <button class="sidebar-close" id="sidebar-close">✕</button>
+
+        {% if profile_user %}
+            <div class="student-mini-card">
+                <h3>👋 {{ profile_user["full_name"] }}</h3>
+                <p>🎓 {{ profile_user["course"] }}</p>
+                <p>📚 Year {{ profile_user["year"] }}</p>
+            </div>
+        {% endif %}
+
+        <div class="menu-title">NAVIGATE</div>
+        <a href="/dashboard">📊 Dashboard</a>
+        <a href="/tasks" class="desktop-link">✅ Tasks</a>
+        <a href="/notes" class="desktop-link">📝 Notes</a>
+        <a href="/mood">🌤 Mood Tracker</a>
+        <a href="/scriptures">📖 Scriptures</a>
+        <a href="/resources">📚 Resources</a>
+
+        <div class="study-card">
+            <h3>⚓ Stay Anchored</h3>
+            <p>Small progress every day builds big results.</p>
+        </div>
+
+        <div class="menu-bottom">
+            <a href="/settings">⚙️ Settings</a>
+            <a href="/profile/edit" class="desktop-link">👤 Profile</a>
+           <a href="/logout" class="logout" onclick="resetTheme()">🚪 Logout</a>
+        </div>
+    </div>
+
+    <div class="mobile-bottom-nav">
+        <a href="/dashboard">🏠<span>Home</span></a>
+        <a href="/tasks">✅<span>Tasks</span></a>
+        <a href="/notes">📝<span>Notes</span></a>
+        <a href="/profile/edit">👤<span>Profile</span></a>
+    </div>
+{% endif %}
+
+{% if request.path == "/" %}
+    <div class="welcome-main">
+{% else %}
+    <div class="main">
+{% endif %}
+
+{% block content %}
+{% endblock %}
+
+</div>
+
+<script>
+    function changeTheme(theme) {
+        document.documentElement.setAttribute("data-theme", theme);
+        localStorage.setItem("anchorTheme", theme);
+        fetch("/save-theme", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ theme: theme })
+        });
+    }
+
+    const anchieMessages = [
+        "📚 Ready for today's study session?",
+        "⚓ Small progress every day keeps you anchored.",
+        "📝 Need help organizing your assignments?",
+        "💙 Learning takes time. Keep going!",
+        "✨ Let's make studying a little easier."
+    ];
+
+    let anchieIndex = 0;
+
+    setInterval(function() {
+        const message = document.getElementById("anchie-message");
+        if (message) {
+            anchieIndex = (anchieIndex + 1) % anchieMessages.length;
+            message.style.opacity = 0;
+            setTimeout(function() {
+                message.innerHTML = anchieMessages[anchieIndex];
+                message.style.opacity = 1;
+            }, 500);
+        }
+    }, 5000);
+
+    function resetTheme(){
+
+    localStorage.removeItem("anchorTheme");
+
+}
+</script>
+<script>
+
+const emailLink = document.getElementById("email-link");
+
+if(emailLink){
+
+    emailLink.addEventListener("click", function(e){
+
+        const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+        if(!isMobile){
+
+            e.preventDefault();
+
+            window.open(
+                "https://mail.google.com/mail/?view=cm&fs=1&to=chiyevopchikaonda@gmail.com",
+                "_blank"
+            );
+
+        }
+
+    });
+
+}
 
 </script>
-
-
-
-
-
 </body>
-
 </html>

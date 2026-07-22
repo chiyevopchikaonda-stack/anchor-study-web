@@ -80,32 +80,43 @@ def welcome():
 @app.context_processor
 def inject_user_profile():
 
+    profile_user = None
+
+
     if "user" in session:
+
 
         conn = get_db()
 
-        user = conn.execute(
+
+        profile_user = conn.execute(
             """
-            SELECT full_name, course, year
+            SELECT
+                full_name,
+                course,
+                year,
+                theme
             FROM users
             WHERE username=?
             """,
             (session["user"],)
         ).fetchone()
 
+
+
         conn.close()
 
-        return {
-            "profile_user": user
-        }
 
 
     return {
-        "profile_user": None
+        "profile_user": profile_user
     }
 
 # RUN APP
-
 if __name__ == "__main__":
 
-    app.run(debug=True)
+    app.run(
+        host="0.0.0.0",
+        port=5000,
+        debug=True
+    )

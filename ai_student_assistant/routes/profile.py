@@ -16,27 +16,29 @@ def edit_profile():
     if request.method == "POST":
 
         conn.execute(
-            """
-            UPDATE users
-            SET
-                full_name=?,
-                university=?,
-                course=?,
-                year=?,
-                study_goal=?,
-                target_gpa=?
-            WHERE username=?
-            """,
-            (
-                request.form["full_name"],
-                request.form["university"],
-                request.form["course"],
-                request.form["year"],
-                request.form["study_goal"],
-                request.form["target_gpa"],
-                session["user"]
-            )
-        )
+    """
+    UPDATE users
+    SET
+        full_name=?,
+        university=?,
+        course=?,
+        year=?,
+        study_goal=?,
+        target_gpa=?,
+        birthday=?
+    WHERE username=?
+    """,
+    (
+        request.form["full_name"],
+        request.form["university"],
+        request.form["course"],
+        request.form["year"],
+        request.form["study_goal"],
+        request.form["target_gpa"],
+        request.form["birthday"],
+        session["user"]
+    )
+)
 
         conn.commit()
 

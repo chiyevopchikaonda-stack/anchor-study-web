@@ -2,131 +2,373 @@
 
 {% block content %}
 
+<div class="scripture-container">
+
+
+<section class="scripture-header">
+
+    <div>
+        <h1>Daily Scripture</h1>
+
+        <p>
+            A quiet place to reflect, grow in faith and stay anchored through your journey.
+        </p>
+    </div>
+
+</section>
+
+
+
+<section class="daily-verse">
+
+
+<div class="daily-badge">
+
+DAILY ANCHOR
+
+</div>
+
+
+<p class="verse-category">
+
+Theme: {{ category|title }}
+
+</p>
+
+
+<h2>
+"{{ verse.text }}"
+</h2>
+
+
+<p class="reference">
+{{ verse.ref }}
+</p>
+
+
+<p class="daily-message">
+
+A moment to pause, reflect and carry God's wisdom into your day.
+
+</p>
+
+
+</section>
+
+
+
+<section class="anchie-section">
+
+
+<img 
+src="{{ url_for('static', filename='anchie.png') }}"
+alt="Anchie">
+
+
+<div class="anchie-content">
+
+<h2>
+A Note From Anchie
+</h2>
+
+
+<p>
+{{ anchie_thought }}
+</p>
+
+
+<h3>
+Today's Small Step
+</h3>
+
+
+<div class="small-step">
+
+{{ small_step }}
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<section class="categories">
+
+<h2>
+Explore Scripture
+</h2>
+
+
+<div class="category-grid">
+
+
+<a href="/scriptures?category=wisdom">
+<h3>Wisdom</h3>
+<p>Guidance and understanding for daily decisions.</p>
+</a>
+
+
+<a href="/scriptures?category=study">
+<h3>Study & Excellence</h3>
+<p>Growth, discipline and learning.</p>
+</a>
+
+
+<a href="/scriptures?category=peace">
+<h3>Peace</h3>
+<p>Comfort during stressful seasons.</p>
+</a>
+
+
+<a href="/scriptures?category=discipline">
+<h3>Discipline</h3>
+<p>Strength to build good habits.</p>
+</a>
+
+
+<a href="/scriptures?category=purpose">
+<h3>Purpose</h3>
+<p>Identity and God's plans.</p>
+</a>
+
+
+<a href="/scriptures?category=hope">
+<h3>Hope</h3>
+<p>Encouragement during challenges.</p>
+</a>
+
+
+<a href="/scriptures?category=prayer">
+<h3>Prayer</h3>
+<p>Growing your relationship with God.</p>
+</a>
+
+
+<a href="/scriptures?category=relationships">
+<h3>Relationships</h3>
+<p>Love, forgiveness and wisdom.</p>
+</a>
+
+
+</div>
+
+</section>
+
+
+
+
+
+<section class="library">
+
+
+<h2>
+Scripture Library
+</h2>
+
+
+{% for item in scriptures %}
+
+
+<div class="scripture-card">
+
+
+<p>
+"{{ item.text }}"
+</p>
+
+
+<strong>
+{{ item.ref }}
+</strong>
+
+
+</div>
+
+
+{% endfor %}
+
+
+</section>
+
+
+
+
+
+
+<section class="journal">
+
+
+<h2>
+Personal Reflection
+</h2>
+
+
+<p>
+Take a moment to think about how today's scripture connects with your journey.
+</p>
+
+
+<div class="reflection-prompts">
+
+<p>
+Today God is reminding me that...
+</p>
+
+<p>
+One step I can take today is...
+</p>
+
+</div>
+
+
+</section>
+
+
+
+</div>
+
+
+
+
 
 <style>
 
+.daily-badge{
 
-.scripture-page{
+display:inline-block;
 
-max-width:1000px;
+background:var(--accent);
 
-margin:auto;
+color:white;
 
-position:relative;
-
-}
-
-
-
-/* HEADER */
-
-
-.scripture-banner{
-
-
-background:linear-gradient(
-
-135deg,
-
-var(--accent),
-
-transparent
-
-);
-
-
-padding:40px;
+padding:8px 20px;
 
 border-radius:30px;
 
-margin-bottom:30px;
+font-size:13px;
 
-position:relative;
+letter-spacing:1px;
 
-overflow:hidden;
+font-weight:bold;
 
+}
+
+
+.verse-category{
+
+margin-top:20px;
+
+color:var(--accent);
+
+font-weight:600;
+
+}
+
+
+.daily-message{
+
+margin-top:25px;
+
+opacity:.7;
+
+font-size:15px;
+
+}
+
+
+.reflection-prompts{
+
+margin-top:20px;
+
+background:var(--soft);
+
+padding:20px;
+
+border-radius:20px;
+
+line-height:1.8;
+
+}
+
+.anchie-content h3{
+
+margin-top:25px;
+margin-bottom:10px;
+
+}
+
+
+.small-step{
+
+background:var(--card);
+
+border:1px solid var(--soft);
+
+padding:15px;
+
+border-radius:15px;
+
+font-size:15px;
+
+}
+
+.scripture-container{
+
+max-width:1100px;
+margin:auto;
+padding-bottom:40px;
 
 }
 
 
 
-.scripture-banner::after{
 
-content:"📖 ✨ 🕊️";
+.scripture-header{
 
-position:absolute;
+background:linear-gradient(
+135deg,
+var(--accent),
+transparent
+);
 
-right:30px;
+padding:45px;
 
-bottom:20px;
+border-radius:35px;
 
-font-size:60px;
-
-opacity:.2;
-
-animation:float 5s infinite ease-in-out;
-
-}
-
-
-
-@keyframes float{
-
-
-0%{
-
-transform:translateY(0);
-
-}
-
-
-50%{
-
-transform:translateY(-20px);
-
-}
-
-
-100%{
-
-transform:translateY(0);
-
-}
-
+margin-bottom:35px;
 
 }
 
 
 
-.scripture-banner h1{
+.scripture-header h1{
 
-font-size:40px;
+font-size:42px;
 
-margin:0;
+margin-bottom:10px;
 
 }
 
 
 
-.scripture-banner p{
+.scripture-header p{
 
 font-size:18px;
 
-opacity:.9;
+opacity:.8;
 
 }
 
 
 
 
-
-
-
-/* VERSE CARD */
-
-
-.verse-card{
-
+.daily-verse{
 
 background:var(--card);
 
@@ -134,60 +376,33 @@ border:1px solid var(--soft);
 
 padding:45px;
 
-border-radius:30px;
+border-radius:35px;
 
 text-align:center;
-
-box-shadow:0 15px 35px rgba(0,0,0,.2);
-
-position:relative;
 
 }
 
 
 
-
-.bookmark{
-
-
-position:absolute;
-
-top:20px;
-
-right:25px;
+.label{
 
 background:var(--accent);
 
-padding:8px 15px;
+padding:8px 18px;
 
 border-radius:20px;
 
 color:white;
 
-font-size:13px;
+font-size:14px;
 
 }
 
 
 
+.daily-verse h2{
 
-.quote-mark{
-
-
-font-size:80px;
-
-color:var(--accent);
-
-height:50px;
-
-}
-
-
-
-
-
-.verse-text{
-
+margin-top:35px;
 
 font-size:28px;
 
@@ -195,83 +410,160 @@ line-height:1.6;
 
 font-style:italic;
 
-margin-top:40px;
-
 }
 
 
 
-.verse-reference{
+.reference{
 
-
-font-weight:bold;
+margin-top:20px;
 
 color:var(--accent);
 
-font-size:18px;
+font-weight:bold;
 
 }
 
 
 
 
+.anchie-section{
 
+margin-top:35px;
 
+display:flex;
 
-/* REFLECTION */
+align-items:center;
 
-
-.reflection-card{
-
-
-margin-top:30px;
+gap:30px;
 
 background:var(--soft);
 
 padding:30px;
 
-border-radius:25px;
+border-radius:30px;
 
 }
 
 
 
-.reflection-card h2{
+.anchie-section img{
 
-margin-top:0;
-
-}
-
-
-
-.reflection-card p{
-
-line-height:1.7;
-
-font-size:17px;
+width:100px;
 
 }
 
 
 
 
+.categories,
+.library,
+.journal{
+
+margin-top:50px;
+
+}
 
 
 
+.category-grid{
 
-/* JOURNAL */
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+gap:20px;
+
+}
 
 
-.journal-card{
 
+.category-grid a{
 
-margin-top:30px;
+text-decoration:none;
 
-padding:30px;
+color:var(--text);
 
 background:var(--card);
 
+border:1px solid var(--soft);
+
+padding:25px;
+
 border-radius:25px;
+
+transition:.3s;
+
+}
+
+
+
+.category-grid a:hover,
+.category-grid a:active{
+
+transform:translateY(-5px);
+
+border-color:var(--accent);
+
+}
+
+
+
+.category-grid p{
+
+opacity:.75;
+
+font-size:14px;
+
+line-height:1.5;
+
+}
+
+
+
+.scripture-card{
+
+background:var(--card);
+
+border:1px solid var(--soft);
+
+padding:25px;
+
+border-radius:25px;
+
+margin-bottom:20px;
+
+}
+
+
+
+.scripture-card p{
+
+font-size:18px;
+
+font-style:italic;
+
+line-height:1.7;
+
+}
+
+
+
+.scripture-card strong{
+
+color:var(--accent);
+
+}
+
+
+
+.journal{
+
+background:var(--card);
+
+border-radius:30px;
+
+padding:30px;
 
 border:1px solid var(--soft);
 
@@ -279,16 +571,15 @@ border:1px solid var(--soft);
 
 
 
-.journal-prompt{
+.journal-box{
 
+margin-top:20px;
 
-padding:15px;
+padding:20px;
 
 background:var(--soft);
 
-border-radius:15px;
-
-margin-top:15px;
+border-radius:20px;
 
 font-style:italic;
 
@@ -297,193 +588,67 @@ font-style:italic;
 
 
 
+@media(max-width:768px){
 
 
+.scripture-container{
 
-/* BUTTON */
+padding:10px;
+
+}
 
 
-.scripture-actions{
+.scripture-header{
+
+padding:30px 20px;
+
+}
 
 
-display:flex;
+.scripture-header h1{
 
-justify-content:center;
+font-size:32px;
 
-margin-top:30px;
+}
+
+
+.daily-verse{
+
+padding:30px 20px;
+
+}
+
+
+.daily-verse h2{
+
+font-size:21px;
 
 }
 
 
 
-.scripture-actions button{
+.anchie-section{
 
+flex-direction:column;
 
-padding:15px 35px;
-
-font-size:16px;
-
-border-radius:30px;
+text-align:center;
 
 }
 
+
+
+.category-grid{
+
+grid-template-columns:1fr;
+
+}
+
+
+
+}
 
 
 </style>
 
 
-
-
-
-
-<div class="scripture-page">
-
-
-
-
-
-
-<div class="scripture-banner">
-
-
-<h1>
-📖 Daily Anchor
-</h1>
-
-
-<p>
-A moment to pause, reflect and strengthen your spirit.
-</p>
-
-
-</div>
-
-
-
-
-
-
-
-
-<div class="verse-card">
-
-
-<div class="bookmark">
-
-Today's Verse
-
-</div>
-
-
-
-<div class="quote-mark">
-
-"
-
-</div>
-
-
-
-<p class="verse-text">
-
-{{ verse.text }}
-
-</p>
-
-
-
-<p class="verse-reference">
-
-— {{ verse.ref }}
-
-</p>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<div class="reflection-card">
-
-
-<h2>
-💭 Reflection
-</h2>
-
-
-<p>
-
-{{ reflection }}
-
-</p>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<div class="journal-card">
-
-
-<h2>
-✍️ Personal Reflection
-</h2>
-
-
-<p>
-How can you apply today's verse to your studies, decisions or challenges?
-</p>
-
-
-<div class="journal-prompt">
-
-"Today I will remember that..."
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-<div class="scripture-actions">
-
-
-<button onclick="location.reload()">
-
-✨ Discover Another Verse
-
-</button>
-
-
-</div>
-
-
-
-
-
-
-</div>
-
-
-
 {% endblock %}
-

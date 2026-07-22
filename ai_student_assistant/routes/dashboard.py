@@ -5,7 +5,9 @@ from ai_student_assistant.ai_engine import generate_ai_insights
 from ai_student_assistant.study_planner import generate_study_plan
 from ai_student_assistant.weekly_review import generate_weekly_review
 
+
 dashboard = Blueprint("dashboard", __name__)
+
 
 
 @dashboard.route("/dashboard")
@@ -77,7 +79,6 @@ def dashboard_view():
 
     # ---------------- NOTES ----------------
 
-
     note_count = conn.execute(
         """
         SELECT COUNT(*)
@@ -91,7 +92,6 @@ def dashboard_view():
 
     # ---------------- RESOURCES ----------------
 
-
     resource_count = conn.execute(
         """
         SELECT COUNT(*)
@@ -99,12 +99,11 @@ def dashboard_view():
         WHERE username=?
         """,
         (username,)
-    ).fetchone()[0]
+        ).fetchone()[0]
 
 
 
     # ---------------- MOOD ----------------
-
 
     moods = conn.execute(
         """
@@ -133,12 +132,11 @@ def dashboard_view():
 
     # ---------------- FOCUS SCORE ----------------
 
-
     score = 0
 
 
     if total_tasks:
-        score += min(completed_tasks * 15,40)
+        score += min(completed_tasks * 15, 40)
 
 
     if note_count:
@@ -153,15 +151,36 @@ def dashboard_view():
         score += 20
 
 
-
     if score > 100:
         score = 100
 
 
 
 
-    # ---------------- TIME GREETING ----------------
+    # ---------------- BIRTHDAY CHECK ----------------
 
+    birthday_message = None
+
+
+    if user_data["birthday"]:
+
+        today = datetime.now().strftime("%m-%d")
+
+        birthday = user_data["birthday"][5:]
+
+
+        if today == birthday:
+
+            birthday_message = (
+                f"🎉 Happy Birthday, {user_data['full_name']}! "
+                "Another year of learning, growing and becoming. "
+                "Anchor is celebrating you today 🌱⚓"
+            )
+
+
+
+
+    # ---------------- TIME GREETING ----------------
 
     hour = datetime.now().hour
 
@@ -170,9 +189,11 @@ def dashboard_view():
 
         greeting = f"Good morning, {user_data['full_name']} ☀️"
 
+
     elif hour < 18:
 
         greeting = f"Good afternoon, {user_data['full_name']} 🌱"
+
 
     else:
 
@@ -184,22 +205,24 @@ def dashboard_view():
 
     # ---------------- AI INSIGHTS ----------------
 
-
     suggestions = generate_ai_insights(
-    tasks,
-    moods,
-    note_count,
-    resource_count
-)
+        tasks,
+        moods,
+        note_count,
+        resource_count
+    )
+
 
     study_plan = generate_study_plan(tasks)
 
+
     weekly_review = generate_weekly_review(
-    tasks,
-    moods,
-    note_count,
-    resource_count
-)
+        tasks,
+        moods,
+        note_count,
+        resource_count
+    )
+
 
 
     if len(tasks) >= 3:
@@ -235,16 +258,15 @@ def dashboard_view():
 
     # ---------------- ACTIVITY ----------------
 
-
-    activities=[]
+    activities = []
 
 
     for task in tasks[:3]:
 
         activities.append(
             {
-                "icon":"✅",
-                "text":f"Task: {task['title']}"
+                "icon": "✅",
+                "text": f"Task: {task['title']}"
             }
         )
 
@@ -254,12 +276,65 @@ def dashboard_view():
 
         activities.append(
             {
-                "icon":"🌤",
-                "text":f"Mood logged: {mood['mood']}"
+                "icon": "🌤",
+                "text": f"Mood logged: {mood['mood']}"
             }
         )
 
+        # ---------------- ANCHIE MESSAGE ----------------
 
+    hour = datetime.now().hour
+
+
+    if hour < 12:
+
+        time_message = "Good morning ☀️"
+
+
+    elif hour < 18:
+
+        time_message = "Hope your day is going well 🌱"
+
+
+    else:
+
+        time_message = "Hope you had a productive day 🌙"
+
+
+
+    if len(tasks) >= 5:
+
+        anchie_message = (
+            f"{time_message}! "
+            "You have a lot on your plate today. "
+            "Let's tackle one thing at a time ⚓"
+        )
+
+
+    elif len(tasks) == 0:
+
+        anchie_message = (
+            f"{time_message}! "
+            "Your study space is empty. "
+            "Want to plan your next goal? 📚"
+        )
+
+
+    elif completed_tasks > 0:
+
+        anchie_message = (
+            f"{time_message}! "
+            "Great job making progress. "
+            "Every completed task is a step forward 🌟"
+        )
+
+
+    else:
+
+        anchie_message = (
+            f"{time_message}! "
+            "I'm here to help you stay organised and focused ⚓"
+        )
 
     conn.close()
 
@@ -267,32 +342,36 @@ def dashboard_view():
 
     return render_template(
 
-    "index.html",
+        "index.html",
 
-    user=username,
+        user=username,
 
-    profile=user_data,
+        profile=user_data,
 
-    tasks=tasks,
+        tasks=tasks,
 
-    moods=moods,
+        moods=moods,
 
-    mood_data=mood_data,
+        mood_data=mood_data,
 
-    suggestions=suggestions,
+        suggestions=suggestions,
 
-    study_plan=study_plan,
+        study_plan=study_plan,
 
-    focus_score=score,
+        focus_score=score,
 
-    greeting=greeting,
+        greeting=greeting,
 
-    note_count=note_count,
+        note_count=note_count,
 
-    resource_count=resource_count,
+        resource_count=resource_count,
 
-    activities=activities,
+        activities=activities,
 
-    weekly_review=weekly_review
+        weekly_review=weekly_review,
 
-)
+        birthday_message=birthday_message,
+
+        anchie_message=anchie_message
+
+    )
