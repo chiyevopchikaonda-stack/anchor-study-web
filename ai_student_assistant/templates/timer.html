@@ -1,0 +1,776 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+
+.sanctuary-page {
+    max-width: 1100px;
+    margin: auto;
+    position: relative;
+    padding-bottom: 60px;
+}
+
+/* AMBIENT UNDERWATER LIGHT RAYS & GLOW */
+.sanctuary-page::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at 50% 15%, rgba(37, 99, 235, 0.18) 0%, transparent 65%),
+                radial-gradient(circle at 15% 85%, rgba(139, 92, 246, 0.12) 0%, transparent 55%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.sanctuary-hero {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(7, 17, 31, 0.95));
+    border: 1px solid var(--border);
+    backdrop-filter: blur(20px);
+    padding: 35px;
+    border-radius: 28px;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+.sanctuary-hero::after {
+    content: "⚓ 🌊 ✨";
+    position: absolute;
+    right: 35px;
+    bottom: 20px;
+    font-size: 75px;
+    opacity: 0.15;
+    animation: waveFloat 7s ease-in-out infinite;
+}
+
+@keyframes waveFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+.sanctuary-hero h1 {
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    background: linear-gradient(90deg, var(--text), var(--accent-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+}
+
+.sanctuary-hero p {
+    color: var(--text-muted);
+    font-size: 15px;
+    max-width: 580px;
+    line-height: 1.5;
+}
+
+/* SCRIPTURE INSCRIPTION CARD */
+.scripture-card {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.6), rgba(15, 23, 42, 0.8));
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    padding: 22px 28px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 1;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.scripture-card p {
+    font-size: 16px;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.scripture-card span {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent-light);
+    letter-spacing: 0.5px;
+}
+
+/* COMMAND COCKPIT GRID */
+.cockpit-grid {
+    display: grid;
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: 25px;
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 968px) {
+    .cockpit-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* GLASSMORPHISM CARDS */
+.glass-card {
+    background: rgba(15, 23, 42, 0.78);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(16px);
+    border-radius: 26px;
+    padding: 30px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+/* BEACON TIMER */
+.beacon-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.beacon-ring {
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    margin: 25px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, rgba(7, 17, 31, 0.92) 75%);
+    border: 4px solid var(--soft);
+    box-shadow: 0 0 35px rgba(37, 99, 235, 0.25), inset 0 0 25px rgba(37, 99, 235, 0.15);
+    position: relative;
+}
+
+.beacon-ring::before {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 2px dashed var(--accent);
+    opacity: 0.5;
+    animation: beaconPulse 12s linear infinite;
+}
+
+@keyframes beaconPulse {
+    100% { transform: rotate(360deg); }
+}
+
+.beacon-time {
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--text);
+    text-shadow: 0 0 20px rgba(37, 99, 235, 0.5);
+}
+
+/* ANCHIE AI COMPANION */
+.anchie-sanctuary-badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(30, 41, 59, 0.65);
+    border: 1px solid var(--border);
+    padding: 10px 18px;
+    border-radius: 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 360px;
+    text-align: left;
+}
+
+.anchie-sanctuary-badge span {
+    font-size: 24px;
+}
+
+.anchie-sanctuary-badge p {
+    font-size: 13px;
+    color: var(--text);
+    margin: 0;
+    opacity: 0.9;
+}
+
+/* CONTROL DOCK */
+.control-dock {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.sanctuary-btn {
+    padding: 13px 22px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border: 1px solid transparent;
+}
+
+.sanctuary-btn.primary {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 5px 18px rgba(37, 99, 235, 0.4);
+}
+
+.sanctuary-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(37, 99, 235, 0.6);
+}
+
+.sanctuary-btn.secondary {
+    background: var(--soft);
+    color: var(--text);
+    border-color: var(--border);
+}
+
+.sanctuary-btn.secondary:hover {
+    background: var(--border);
+}
+
+.sanctuary-btn.danger {
+    background: rgba(239, 68, 68, 0.15);
+    color: #fca5a5;
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.sanctuary-btn.danger:hover {
+    background: #ef4444;
+    color: #fff;
+}
+
+/* MISSION & CUSTOM TIMER PANEL */
+.mission-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.mission-group h3 {
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    opacity: 0.6;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.mission-input {
+    width: 100%;
+    background: rgba(7, 17, 31, 0.7);
+    border: 1px solid var(--border);
+    padding: 12px 16px;
+    border-radius: 14px;
+    color: var(--text);
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.mission-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 12px rgba(37, 99, 235, 0.3);
+    outline: none;
+}
+
+/* CUSTOM TIME PICKER INPUTS */
+.custom-time-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.time-box {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+}
+
+.time-box label {
+    font-size: 11px;
+    opacity: 0.6;
+}
+
+/* SANCTUARY MODES DECK */
+.modes-deck {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.mode-tile {
+    background: rgba(7, 17, 31, 0.6);
+    border: 1px solid var(--border);
+    padding: 14px;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.mode-tile:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.mode-tile.active {
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.22), rgba(15, 23, 42, 0.9));
+    border-color: var(--accent);
+    box-shadow: 0 0 18px rgba(37, 99, 235, 0.25);
+}
+
+.mode-tile h4 {
+    font-size: 14px;
+    margin-bottom: 2px;
+    color: var(--text);
+}
+
+.mode-tile span {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+/* COMPLETION OVERLAY / CELEBRATION CARD */
+.completion-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(2, 6, 23, 0.85);
+    backdrop-filter: blur(20px);
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.completion-card {
+    background: rgba(15, 23, 42, 0.95);
+    border: 2px solid var(--accent);
+    border-radius: 30px;
+    padding: 40px;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 25px 65px rgba(0, 0, 0, 0.6);
+    animation: modalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes modalPop {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.completion-card h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    background: linear-gradient(90deg, var(--text), var(--accent-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.completion-card p {
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.completion-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* EXPLORER STATS & LOGBOOK */
+.stats-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 25px;
+    z-index: 1;
+    position: relative;
+}
+
+.stat-box {
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    padding: 20px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.stat-box span {
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.stat-box strong {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent-light);
+}
+
+/* VOYAGE LOGBOOK */
+.logbook-section {
+    margin-top: 25px;
+    z-index: 1;
+    position: relative;
+}
+
+.logbook-item {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid var(--border);
+    padding: 16px 20px;
+    border-radius: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(10px);
+}
+
+.logbook-item strong {
+    font-size: 15px;
+}
+
+.logbook-item small {
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.empty-log {
+    text-align: center;
+    padding: 30px;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* MOBILE ADAPTABILITY */
+@media (max-width: 768px) {
+    .sanctuary-hero {
+        padding: 25px 20px;
+    }
+    .sanctuary-hero h1 {
+        font-size: 26px;
+    }
+    .glass-card {
+        padding: 20px;
+    }
+    .beacon-ring {
+        width: 220px;
+        height: 220px;
+    }
+    .beacon-time {
+        font-size: 38px;
+    }
+    .modes-deck {
+        grid-template-columns: 1fr;
+    }
+    .control-dock {
+        flex-direction: column;
+    }
+    .sanctuary-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+</style>
+
+<div class="sanctuary-page">
+
+    <div class="sanctuary-hero">
+        <h1>⚓ Focus Sanctuary</h1>
+        <p>Your personal digital command center. Anchor your attention, harness deep intelligence, and build your future one focused voyage at a time.</p>
+    </div>
+
+    <!-- DAILY SCRIPTURE & ENCOURAGEMENT INSCRIPTION -->
+    <div class="scripture-card" id="daily-scripture-container">
+        <p id="scripture-text">“Commit your work to the Lord, and your plans will be established.”</p>
+        <span id="scripture-ref">— Proverbs 16:3</span>
+    </div>
+
+    <div class="cockpit-grid">
+
+        <!-- LEFT: THE BEACON TIMER -->
+        <div class="glass-card beacon-container">
+            
+            <div class="anchie-sanctuary-badge">
+                <span>🌱</span>
+                <p id="anchie-msg">Your focus beacon is steady. Keep sailing.</p>
+            </div>
+
+            <div class="beacon-ring">
+                <div class="beacon-time" id="timer-display">25:00</div>
+            </div>
+
+            <div class="control-dock">
+                <button class="sanctuary-btn primary" onclick="startTimer()">▶ Ignite Beacon</button>
+                <button class="sanctuary-btn secondary" onclick="pauseTimer()">⏸ Pause</button>
+                <button class="sanctuary-btn secondary" onclick="resetTimer()">🔄 Reset</button>
+                <button class="sanctuary-btn danger" onclick="stopTimer()">⏹ Dock Voyage</button>
+            </div>
+
+        </div>
+
+        <!-- RIGHT: MISSION SETUP & CUSTOM TIMER CONTROLS -->
+        <div class="glass-card mission-panel">
+            
+            <div class="mission-group">
+                <h3>📚 Study Mission</h3>
+                <input type="text" id="subject-input" class="mission-input" placeholder="Subject (e.g. Artificial Intelligence)">
+            </div>
+
+            <div class="mission-group">
+                <h3>🎯 Session Target</h3>
+                <input type="text" id="goal-input" class="mission-input" placeholder="Goal (e.g. Complete neural architecture notes)">
+            </div>
+
+            <div class="mission-group">
+                <h3>⏱ Custom Duration Selector</h3>
+                <div class="custom-time-row">
+                    <div class="time-box">
+                        <label>Hours</label>
+                        <input type="number" id="custom-hours" class="mission-input" value="0" min="0" max="12" onchange="applyCustomTime()">
+                    </div>
+                    <div class="time-box">
+                        <label>Minutes</label>
+                        <input type="number" id="custom-minutes" class="mission-input" value="25" min="0" max="59" onchange="applyCustomTime()">
+                    </div>
+                    <div class="time-box">
+                        <label>Seconds</label>
+                        <input type="number" id="custom-seconds" class="mission-input" value="0" min="0" max="59" onchange="applyCustomTime()">
+                    </div>
+                </div>
+            </div>
+
+            <div class="mission-group">
+                <h3>⚓ Navigation Atmosphere</h3>
+                <div class="modes-deck">
+                    <button class="mode-tile active" onclick="setMode(25, this)">
+                        <h4>⚓ Deep Focus</h4>
+                        <span>25 min uninterrupted</span>
+                    </button>
+                    <button class="mode-tile" onclick="setMode(15, this)">
+                        <h4>🌱 Gentle Study</h4>
+                        <span>15 min restorative</span>
+                    </button>
+                    <button class="mode-tile" onclick="setMode(45, this)">
+                        <h4>🚀 Exam Mode</h4>
+                        <span>45 min intense prep</span>
+                    </button>
+                    <button class="mode-tile" onclick="setMode(0, this)">
+                        <h4>✨ Custom Mode</h4>
+                        <span>Personalized length</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- COMPLETION CELEBRATION MODAL -->
+    <div class="completion-overlay" id="completionOverlay">
+        <div class="completion-card">
+            <h2>Focus Session Complete ⚓</h2>
+            <p id="completion-message">45 minutes anchored.<br>Your consistency is building your future.</p>
+            
+            <form method="POST" action="/save_session" id="completion-form">
+                <input type="hidden" name="duration" id="complete-duration" value="25">
+                <input type="hidden" name="subject" id="complete-subject-hidden" value="">
+                <input type="hidden" name="goal" id="complete-goal-hidden" value="">
+                
+                <textarea name="accomplishment" class="mission-input" placeholder="Quick reflection: What did you accomplish?" style="height: 80px; margin-bottom: 15px;" required></textarea>
+                
+                <div class="completion-actions">
+                    <button type="submit" class="sanctuary-btn primary">Save Voyage & Continue ⚓</button>
+                    <button type="button" class="sanctuary-btn secondary" onclick="dismissCompletion()">Take a Quick Break ☕</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- EXPLORER STATS -->
+    <div class="stats-strip">
+        <div class="stat-box">
+            <span>Focus Depth State</span>
+            <strong>
+                {% if sessions|length > 5 %}🌊 Deep Abyss
+                {% elif sessions|length > 2 %}🌊 Cruising Depth
+                {% elif sessions|length > 0 %}🌊 Shallow Waters
+                {% else %}⚓ Docked in Harbor
+                {% endif %}
+            </strong>
+        </div>
+        <div class="stat-box">
+            <span>Explorer's Logbook</span>
+            <strong>🔥 {{ sessions|length }} Voyages Logged</strong>
+        </div>
+        <div class="stat-box">
+            <span>Total Concentration Time</span>
+            <strong>⚡ {{ sessions|sum(attribute='duration') }} Minutes</strong>
+        </div>
+    </div>
+
+    <!-- RECENT VOYAGES LOGBOOK -->
+    <div class="glass-card logbook-section">
+        <h3 style="margin-bottom: 20px; font-size: 20px;">📖 Recent Voyages Log</h3>
+        {% if sessions %}
+            {% for session in sessions %}
+                <div class="logbook-item">
+                    <div>
+                        <strong>{{ session.subject or 'General Study' }}</strong>
+                        <p style="font-size: 13px; color: var(--text-muted); margin-top: 2px;">{{ session.goal or session.accomplishment or 'Focused study session' }}</p>
+                    </div>
+                    <small>⏳ {{ session.duration }} mins</small>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty-log">No voyages recorded yet. Ignite your first focus beacon above ⚓</div>
+        {% endif %}
+    </div>
+
+</div>
+
+<script>
+// Rotating daily wisdom & encouragement scriptures
+const sanctuaryScriptures = [
+    { text: "“Commit your work to the Lord, and your plans will be established.”", ref: "— Proverbs 16:3" },
+    { text: "“I can do all things through Christ who strengthens me.”", ref: "— Philippians 4:13" },
+    { text: "“Whatever you do, work at it with all your heart, as working for the Lord.”", ref: "— Colossians 3:23" },
+    { text: "“Let us not become weary in doing good, for at the proper time we will reap a harvest.”", ref: "— Galatians 6:9" },
+    { text: "“The plans of the diligent lead to profit as surely as haste leads to poverty.”", ref: "— Proverbs 21:5" }
+];
+
+// Pick daily scripture based on date hash
+const todayIndex = new Date().getDate() % sanctuaryScriptures.length;
+document.getElementById("scripture-text").innerText = sanctuaryScriptures[todayIndex].text;
+document.getElementById("scripture-ref").innerText = sanctuaryScriptures[todayIndex].ref;
+
+let totalSeconds = 25 * 60;
+let remainingSeconds = totalSeconds;
+let timerInterval = null;
+let isRunning = false;
+
+const display = document.getElementById("timer-display");
+const anchieMsgs = [
+    "Your focus beacon is steady. Keep sailing.",
+    "10 minutes in. Your future self is thanking you.",
+    "The digital waters are calm. Maintain course.",
+    "Deep concentration achieved. Absolute clarity."
+];
+
+function updateDisplay() {
+    let hrs = Math.floor(remainingSeconds / 3600);
+    let mins = Math.floor((remainingSeconds % 3600) / 60);
+    let secs = remainingSeconds % 60;
+
+    if (hrs > 0) {
+        display.innerText = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    } else {
+        display.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+}
+
+function startTimer() {
+    if (isRunning) return;
+    isRunning = true;
+    
+    let msgIndex = 0;
+    window.anchieInterval = setInterval(() => {
+        msgIndex = (msgIndex + 1) % anchieMsgs.length;
+        document.getElementById("anchie-msg").innerText = anchieMsgs[msgIndex];
+    }, 15000);
+
+    timerInterval = setInterval(() => {
+        if (remainingSeconds > 0) {
+            remainingSeconds--;
+            updateDisplay();
+        } else {
+            clearInterval(timerInterval);
+            clearInterval(window.anchieInterval);
+            isRunning = false;
+            triggerCompletion();
+        }
+    }, 1000);
+}
+
+function pauseTimer() {
+    clearInterval(timerInterval);
+    clearInterval(window.anchieInterval);
+    isRunning = false;
+}
+
+function resetTimer() {
+    clearInterval(timerInterval);
+    clearInterval(window.anchieInterval);
+    isRunning = false;
+    applyCustomTime();
+}
+
+function stopTimer() {
+    pauseTimer();
+    triggerCompletion();
+}
+
+function applyCustomTime() {
+    let h = parseInt(document.getElementById("custom-hours").value) || 0;
+    let m = parseInt(document.getElementById("custom-minutes").value) || 0;
+    let s = parseInt(document.getElementById("custom-seconds").value) || 0;
+    
+    totalSeconds = (h * 3600) + (m * 60) + s;
+    if (totalSeconds <= 0) totalSeconds = 25 * 60;
+    remainingSeconds = totalSeconds;
+    updateDisplay();
+}
+
+function setMode(minutes, element) {
+    document.querySelectorAll(".mode-tile").forEach(m => m.classList.remove("active"));
+    element.classList.add("active");
+    
+    if (minutes > 0) {
+        document.getElementById("custom-hours").value = 0;
+        document.getElementById("custom-minutes").value = minutes;
+        document.getElementById("custom-seconds").value = 0;
+        totalSeconds = minutes * 60;
+        remainingSeconds = totalSeconds;
+        updateDisplay();
+    }
+}
+
+function triggerCompletion() {
+    let subjectVal = document.getElementById("subject-input").value.trim() || "General Study";
+    let goalVal = document.getElementById("goal-input").value.trim() || "Focused Session";
+    let durationMins = Math.max(1, Math.round(totalSeconds / 60));
+
+    document.getElementById("complete-subject-hidden").value = subjectVal;
+    document.getElementById("complete-goal-hidden").value = goalVal;
+    document.getElementById("complete-duration").value = durationMins;
+
+    document.getElementById("completion-message").innerHTML = `${durationMins} minutes anchored.<br>Your consistency is building your future.`;
+    document.getElementById("completionOverlay").style.display = "flex";
+}
+
+function dismissCompletion() {
+    document.getElementById("completionOverlay").style.display = "none";
+    resetTimer();
+}
+</script>
+
+{% endblock %}

@@ -1,6 +1,7 @@
 import sqlite3
 import os
 
+
 DB_NAME = "anchor.db"
 
 
@@ -24,6 +25,7 @@ def init_db():
     cur = conn.cursor()
 
 
+
     # USERS
 
     cur.execute("""
@@ -33,15 +35,17 @@ def init_db():
 
         full_name TEXT,
 
-        university TEXT,
+        education_level TEXT,
 
-        course TEXT,
+        institution TEXT,
 
-        year TEXT,
+        study_level TEXT,
+
+        subjects TEXT,
 
         study_goal TEXT,
 
-        target_gpa TEXT,
+        academic_target TEXT,
 
         username TEXT UNIQUE,
 
@@ -59,37 +63,55 @@ def init_db():
     # TASKS
 
     cur.execute("""
-    CREATE TABLE IF NOT EXISTS tasks(
+CREATE TABLE IF NOT EXISTS tasks(
 
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-        username TEXT,
+    username TEXT,
 
-        title TEXT NOT NULL,
+    title TEXT NOT NULL,
 
-        due_date TEXT,
+    subject TEXT,
 
-        status TEXT DEFAULT 'active',
+    priority TEXT DEFAULT 'medium',
 
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    due_date TEXT,
 
-    )
-    """)
+    status TEXT DEFAULT 'active',
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+)
+""")
+
+    # Add new task columns safely
+
+    columns = [
+        ("subject", "TEXT"),
+        ("priority", "TEXT DEFAULT 'medium'")
+    ]
+
+    for column, datatype in columns:
+        try:
+            cur.execute(
+                f"ALTER TABLE tasks ADD COLUMN {column} {datatype}"
+            )
+        except Exception:
+            pass
 
 
-
-    # NOTES
+        # NOTES
 
     cur.execute("""
     CREATE TABLE IF NOT EXISTS notes(
 
         id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-        username TEXT,
+        username TEXT NOT NULL,
 
-        title TEXT,
+        title TEXT NOT NULL,
 
-        content TEXT,
+        content TEXT NOT NULL,
 
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
@@ -97,6 +119,16 @@ def init_db():
     """)
 
 
+    # Add subject column safely if it does not exist
+
+    try:
+        cur.execute("""
+        ALTER TABLE notes ADD COLUMN subject TEXT DEFAULT 'Other'
+        """)
+    except:
+        pass
+
+        
 
     # MOODS
 
@@ -152,9 +184,38 @@ def init_db():
     )
     """)
 
+        # STUDY SESSIONS
 
+    conn.execute("""
+    CREATE TABLE IF NOT EXISTS study_sessions (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT NOT NULL,
+        duration INTEGER NOT NULL,
+        subject TEXT,
+        goal TEXT,
+        accomplishment TEXT,
+        notes TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+""")
+
+# Add new task columns if they don't exist
+
+    try:
+        cur.execute("ALTER TABLE tasks ADD COLUMN subject TEXT")
+    except:
+        pass
+
+    try:
+        cur.execute("ALTER TABLE tasks ADD COLUMN description TEXT")
+    except:
+        pass
+
+    try:
+        cur.execute("ALTER TABLE tasks ADD COLUMN priority TEXT DEFAULT 'medium'")
+    except:
+        pass
 
     conn.commit()
 
     conn.close()
-

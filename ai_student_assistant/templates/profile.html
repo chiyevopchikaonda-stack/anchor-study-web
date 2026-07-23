@@ -12,8 +12,6 @@
 }
 
 
-/* HEADER */
-
 .profile-header{
 
     background:linear-gradient(
@@ -28,47 +26,12 @@
 
     margin-bottom:25px;
 
-    position:relative;
-
-    overflow:hidden;
-
 }
-
-
-.profile-header::after{
-
-    content:"🎓 📚 ⚓";
-
-    position:absolute;
-
-    right:30px;
-
-    bottom:20px;
-
-    font-size:60px;
-
-    opacity:.2;
-
-    animation:float 5s infinite ease-in-out;
-
-}
-
-
-@keyframes float{
-
-    50%{
-        transform:translateY(-15px);
-    }
-
-}
-
-
 
 
 .avatar{
 
     width:90px;
-
     height:90px;
 
     border-radius:50%;
@@ -76,9 +39,7 @@
     background:var(--card);
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
 
     font-size:40px;
@@ -108,9 +69,6 @@
 }
 
 
-
-
-/* INFO CARDS */
 
 
 .info-grid{
@@ -146,14 +104,9 @@
 
     color:var(--accent);
 
-    margin-bottom:10px;
-
 }
 
 
-
-
-/* FORM */
 
 
 .profile-card{
@@ -189,7 +142,18 @@
 
     margin-bottom:5px;
 
-    opacity:.7;
+}
+
+
+
+input,
+select{
+
+    width:100%;
+
+    padding:12px;
+
+    border-radius:12px;
 
 }
 
@@ -211,16 +175,6 @@
 
     cursor:pointer;
 
-    font-size:16px;
-
-}
-
-
-
-.save-btn:hover{
-
-    transform:translateY(-3px);
-
 }
 
 
@@ -231,9 +185,6 @@
 
 <div class="profile-container">
 
-
-
-<!-- PROFILE INTRO -->
 
 
 <div class="profile-header">
@@ -252,7 +203,17 @@
 
 
 <p>
-{{ user.course }} student at {{ user.university }}
+
+{% if user.education_level == "high_school" %}
+
+High School Student at {{ user.institution }}
+
+{% else %}
+
+{{ user.subjects }} student at {{ user.institution }}
+
+{% endif %}
+
 </p>
 
 
@@ -260,39 +221,69 @@
 
 
 
-
-
-<!-- QUICK INFO -->
 
 
 <div class="info-grid">
 
 
+
 <div class="info-card">
 
 <h3>
-🎓 Course
+🎓 Education
 </h3>
 
 <p>
-{{ user.course }}
+{{ user.education_level.replace("_"," ").title() }}
 </p>
 
 </div>
 
 
 
+
 <div class="info-card">
 
 <h3>
-🏫 University
+🏫 Institution
 </h3>
 
 <p>
-{{ user.university }}
+{{ user.institution }}
 </p>
 
 </div>
+
+
+
+
+<div class="info-card">
+
+<h3>
+📚 Subjects / Programme
+</h3>
+
+<p>
+{{ user.subjects }}
+</p>
+
+</div>
+
+
+
+
+<div class="info-card">
+
+<h3>
+📖 Grade / Year
+</h3>
+
+<p>
+{{ user.study_level }}
+</p>
+
+</div>
+
 
 
 
@@ -310,17 +301,21 @@
 
 
 
+
 <div class="info-card">
 
 <h3>
-📈 Target GPA
+🏆 Academic Target
 </h3>
 
 <p>
-{{ user.target_gpa }}
+{{ user.academic_target }}
 </p>
 
 </div>
+
+
+
 
 <div class="info-card">
 
@@ -329,7 +324,9 @@
 </h3>
 
 <p>
-{{ user.birthday }}
+
+{{ user.birthday | format_date }}
+
 </p>
 
 </div>
@@ -341,14 +338,12 @@
 
 
 
-<!-- EDIT -->
-
 
 <div class="profile-card">
 
 
 <h2>
-✏️ Update Academic Profile
+Update Academic Profile
 </h2>
 
 
@@ -358,6 +353,7 @@ Keep Anchor Study updated with your goals and academic journey.
 
 
 <br>
+
 
 
 <form method="POST">
@@ -384,18 +380,34 @@ required>
 
 
 
+
 <div class="field">
 
 <label>
+Education Level
+</label>
+
+
+<select name="education_level">
+
+
+<option value="high_school"
+{% if user.education_level=="high_school" %}selected{% endif %}>
+High School
+</option>
+
+
+<option value="university"
+{% if user.education_level=="university" %}selected{% endif %}>
 University
-</label>
+</option>
 
-<input
-type="text"
-name="university"
-value="{{ user.university }}">
+
+</select>
+
 
 </div>
+
 
 
 
@@ -403,15 +415,20 @@ value="{{ user.university }}">
 <div class="field">
 
 <label>
-Course
+School / University
 </label>
 
+
 <input
+
 type="text"
-name="course"
-value="{{ user.course }}">
+
+name="institution"
+
+value="{{ user.institution }}">
 
 </div>
+
 
 
 
@@ -419,15 +436,41 @@ value="{{ user.course }}">
 <div class="field">
 
 <label>
-Year
+Grade / Year
 </label>
 
+
 <input
+
 type="text"
-name="year"
-value="{{ user.year }}">
+
+name="study_level"
+
+value="{{ user.study_level }}">
 
 </div>
+
+
+
+
+
+<div class="field">
+
+<label>
+Subjects / Degree Programme
+</label>
+
+
+<input
+
+type="text"
+
+name="subjects"
+
+value="{{ user.subjects }}">
+
+</div>
+
 
 
 
@@ -438,9 +481,13 @@ value="{{ user.year }}">
 Study Goal
 </label>
 
+
 <input
+
 type="text"
+
 name="study_goal"
+
 value="{{ user.study_goal }}">
 
 </div>
@@ -448,18 +495,27 @@ value="{{ user.study_goal }}">
 
 
 
+
 <div class="field">
 
 <label>
-Target GPA
+Academic Target
 </label>
 
+
 <input
+
 type="text"
-name="target_gpa"
-value="{{ user.target_gpa }}">
+
+name="academic_target"
+
+value="{{ user.academic_target }}">
 
 </div>
+
+
+
+
 
 <div class="field">
 
@@ -467,15 +523,20 @@ value="{{ user.target_gpa }}">
 Birthday 🎂
 </label>
 
+
 <input
+
 type="date"
+
 name="birthday"
+
 value="{{ user.birthday }}">
 
 </div>
 
-</div>
 
+
+</div>
 
 
 
@@ -491,6 +552,7 @@ value="{{ user.birthday }}">
 
 
 </div>
+
 
 
 </div>

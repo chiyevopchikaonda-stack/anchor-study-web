@@ -793,8 +793,9 @@ if(logoutLink){
         {% if profile_user %}
             <div class="student-mini-card">
                 <h3>👋 {{ profile_user["full_name"] }}</h3>
-                <p>🎓 {{ profile_user["course"] }}</p>
-                <p>📚 Year {{ profile_user["year"] }}</p>
+                <p>🏫 {{ profile_user["institution"] }}</p>
+                <p>📚 {{ profile_user["subjects"] }}</p>
+                <p>🎯 {{ profile_user["study_goal"] }}</p>
             </div>
         {% endif %}
 
@@ -805,6 +806,7 @@ if(logoutLink){
         <a href="/mood">🌤 Mood Tracker</a>
         <a href="/scriptures">📖 Scriptures</a>
         <a href="/resources">📚 Resources</a>
+        <a href="/timer">⚓ Focus Room</a>
 
         <div class="study-card">
             <h3>⚓ Stay Anchored</h3>
@@ -822,6 +824,7 @@ if(logoutLink){
         <a href="/dashboard">🏠<span>Home</span></a>
         <a href="/tasks">✅<span>Tasks</span></a>
         <a href="/notes">📝<span>Notes</span></a>
+        <a href="/timer">⚓<span>Focus</span></a>
         <a href="/profile/edit">👤<span>Profile</span></a>
     </div>
 {% endif %}

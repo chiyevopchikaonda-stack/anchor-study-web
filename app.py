@@ -12,7 +12,7 @@ from ai_student_assistant.routes.settings import settings
 from ai_student_assistant.routes.profile import profile
 from ai_student_assistant.routes.tasks import tasks
 from ai_student_assistant.routes.resources import resources
-
+from ai_student_assistant.timer import timer
 
 
 # CREATE APP
@@ -22,6 +22,23 @@ app = Flask(
     template_folder="ai_student_assistant/templates",
     static_folder="ai_student_assistant/static"
 )
+
+@app.template_filter("format_date")
+def format_date(value):
+
+    if not value:
+        return ""
+
+    from datetime import datetime
+
+    date = datetime.strptime(
+        value,
+        "%Y-%m-%d"
+    )
+
+    return date.strftime(
+        "%d %B %Y"
+    )
 
 
 app.secret_key = "anchor-study-secret"
@@ -54,6 +71,8 @@ app.register_blueprint(tasks)
 
 app.register_blueprint(resources)
 
+app.register_blueprint(timer)
+
 
 
 # FILE UPLOADS
@@ -79,34 +98,13 @@ def welcome():
 
 @app.context_processor
 def inject_user_profile():
+    conn = get_db()
 
-    profile_user = None
+    profile_user = conn.execute(
+        "SELECT * FROM users LIMIT 1"
+    ).fetchone()
 
-
-    if "user" in session:
-
-
-        conn = get_db()
-
-
-        profile_user = conn.execute(
-            """
-            SELECT
-                full_name,
-                course,
-                year,
-                theme
-            FROM users
-            WHERE username=?
-            """,
-            (session["user"],)
-        ).fetchone()
-
-
-
-        conn.close()
-
-
+    conn.close()
 
     return {
         "profile_user": profile_user

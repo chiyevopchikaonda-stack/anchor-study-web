@@ -2,59 +2,57 @@
 
 {% block content %}
 
+<div class="tasks-page">
+
 <style>
 
 .tasks-page{
-
-max-width:1200px;
-
-margin:auto;
-
+    max-width:1200px;
+    margin:auto;
 }
-
 
 
 /* HEADER */
 
 .tasks-header{
 
-background:linear-gradient(
-135deg,
-var(--accent),
-transparent
-);
+    background:
+    linear-gradient(
+        135deg,
+        var(--accent),
+        transparent
+    );
 
-padding:35px;
+    padding:40px;
 
-border-radius:25px;
+    border-radius:28px;
 
-margin-bottom:30px;
+    margin-bottom:35px;
 
-border:1px solid var(--soft);
+    border:1px solid var(--border);
 
-position:relative;
+    position:relative;
 
-overflow:hidden;
+    overflow:hidden;
 
 }
 
 
-
 .tasks-header::after{
 
-content:"📚 ✏️ ⚓";
+    content:"⚓ 📚 ✏️";
 
-position:absolute;
+    position:absolute;
 
-right:35px;
+    right:35px;
 
-bottom:10px;
+    bottom:15px;
 
-font-size:65px;
+    font-size:70px;
 
-opacity:.2;
+    opacity:.15;
 
-animation:float 5s infinite ease-in-out;
+    animation:float 5s infinite ease-in-out;
 
 }
 
@@ -62,27 +60,21 @@ animation:float 5s infinite ease-in-out;
 
 @keyframes float{
 
-0%{
-transform:translateY(0);
-}
-
-50%{
-transform:translateY(-15px);
-}
-
-100%{
-transform:translateY(0);
-}
+    50%{
+        transform:translateY(-15px);
+    }
 
 }
 
 
+
+/* TITLE */
 
 .tasks-header h1{
 
-font-size:40px;
+    font-size:42px;
 
-margin:0 0 10px;
+    margin:0;
 
 }
 
@@ -90,11 +82,14 @@ margin:0 0 10px;
 
 .tasks-header p{
 
-opacity:.8;
+    color:var(--text-muted);
 
-font-size:18px;
+    font-size:18px;
+
+    margin-top:10px;
 
 }
+
 
 
 
@@ -103,16 +98,16 @@ font-size:18px;
 
 /* SUMMARY */
 
-
 .summary-grid{
 
-display:grid;
+    display:grid;
 
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
 
-gap:20px;
+    gap:20px;
 
-margin-bottom:35px;
+    margin-bottom:35px;
 
 }
 
@@ -120,17 +115,17 @@ margin-bottom:35px;
 
 .summary-card{
 
-background:var(--card);
+    background:var(--card);
 
-border:1px solid var(--soft);
+    border:1px solid var(--border);
 
-border-radius:22px;
+    border-radius:24px;
 
-padding:25px;
+    padding:25px;
 
-text-align:center;
+    text-align:center;
 
-transition:.3s;
+    box-shadow:0 10px 25px var(--shadow);
 
 }
 
@@ -138,7 +133,7 @@ transition:.3s;
 
 .summary-card:hover{
 
-transform:translateY(-6px);
+    transform:translateY(-5px);
 
 }
 
@@ -146,11 +141,11 @@ transform:translateY(-6px);
 
 .summary-card h2{
 
-font-size:42px;
+    color:var(--accent-light);
 
-color:var(--accent);
+    font-size:45px;
 
-margin:10px;
+    margin:10px 0;
 
 }
 
@@ -158,7 +153,7 @@ margin:10px;
 
 .summary-card p{
 
-opacity:.8;
+    color:var(--text-muted);
 
 }
 
@@ -168,27 +163,25 @@ opacity:.8;
 
 
 
-
-/* FORM */
-
+/* ADD TASK */
 
 .task-form{
 
-background:var(--card);
+    background:var(--card);
 
-border:1px solid var(--soft);
+    border:1px solid var(--border);
 
-padding:25px;
+    padding:25px;
 
-border-radius:22px;
+    border-radius:25px;
 
-display:flex;
+    display:flex;
 
-gap:15px;
+    gap:15px;
 
-flex-wrap:wrap;
+    flex-wrap:wrap;
 
-margin-bottom:35px;
+    margin-bottom:40px;
 
 }
 
@@ -196,13 +189,19 @@ margin-bottom:35px;
 
 .task-form input{
 
-flex:1;
+    flex:1;
 
-min-width:220px;
+    min-width:220px;
 
-padding:14px;
+    padding:15px;
 
-border-radius:12px;
+    border-radius:14px;
+
+    border:1px solid var(--border);
+
+    background:var(--background);
+
+    color:var(--text);
 
 }
 
@@ -210,13 +209,27 @@ border-radius:12px;
 
 .task-form button{
 
-background:var(--accent);
+    background:var(--accent);
 
-padding:14px 28px;
+    color:white;
 
-border-radius:12px;
+    border:none;
 
-font-weight:bold;
+    padding:15px 30px;
+
+    border-radius:14px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+}
+
+
+
+.task-form button:hover{
+
+    opacity:.85;
 
 }
 
@@ -226,32 +239,37 @@ font-weight:bold;
 
 
 
-/* TASK CARDS */
-
+/* TASK CARD */
 
 .task-card{
 
-background:var(--card);
+    background:var(--card);
 
-border:1px solid var(--soft);
+    border:1px solid var(--border);
 
-border-left:6px solid var(--accent);
+    border-left:6px solid var(--accent);
 
-padding:25px;
+    border-radius:25px;
 
-border-radius:22px;
+    padding:25px;
 
-margin-bottom:20px;
+    margin-bottom:20px;
 
-transition:.3s;
+    box-shadow:0 10px 25px var(--shadow);
 
 }
 
+.completed-card{
 
+opacity:0.75;
+
+border-left:6px solid #22c55e;
+
+}
 
 .task-card:hover{
 
-transform:translateX(5px);
+    transform:translateX(6px);
 
 }
 
@@ -259,9 +277,9 @@ transform:translateX(5px);
 
 .task-card h3{
 
-margin-top:0;
+    font-size:24px;
 
-font-size:22px;
+    margin-top:0;
 
 }
 
@@ -269,25 +287,27 @@ font-size:22px;
 
 .task-card p{
 
-opacity:.8;
+    color:var(--text-muted);
 
 }
 
 
 
 
+
+/* STATUS */
 
 .status{
 
-display:inline-block;
+    display:inline-block;
 
-padding:6px 14px;
+    padding:8px 16px;
 
-border-radius:20px;
+    border-radius:20px;
 
-background:var(--soft);
+    background:var(--soft);
 
-margin-top:10px;
+    margin-top:12px;
 
 }
 
@@ -295,12 +315,13 @@ margin-top:10px;
 
 
 
-/* ACTIONS */
 
+
+/* BUTTONS */
 
 .actions{
 
-margin-top:20px;
+    margin-top:20px;
 
 }
 
@@ -308,15 +329,17 @@ margin-top:20px;
 
 .actions a{
 
-text-decoration:none;
+    text-decoration:none;
 
-color:white;
+    color:white;
 
-padding:10px 18px;
+    padding:10px 18px;
 
-border-radius:12px;
+    border-radius:12px;
 
-margin-right:10px;
+    margin-right:10px;
+
+    display:inline-block;
 
 }
 
@@ -324,7 +347,7 @@ margin-right:10px;
 
 .complete{
 
-background:#22c55e;
+    background:var(--success);
 
 }
 
@@ -332,7 +355,7 @@ background:#22c55e;
 
 .delete{
 
-background:#ef4444;
+    background:var(--danger);
 
 }
 
@@ -340,7 +363,7 @@ background:#ef4444;
 
 .actions a:hover{
 
-opacity:.8;
+    opacity:.8;
 
 }
 
@@ -348,20 +371,22 @@ opacity:.8;
 
 
 
-/* EMPTY */
 
+
+
+/* EMPTY STATE */
 
 .empty{
 
-background:var(--card);
+    background:var(--card);
 
-border:1px solid var(--soft);
+    border:1px solid var(--border);
 
-padding:50px;
+    padding:50px;
 
-border-radius:25px;
+    text-align:center;
 
-text-align:center;
+    border-radius:28px;
 
 }
 
@@ -369,11 +394,63 @@ text-align:center;
 
 .empty h2{
 
-font-size:30px;
+    font-size:32px;
+
+}
+
+.priority{
+
+display:inline-block;
+
+padding:6px 14px;
+
+border-radius:20px;
+
+font-size:14px;
+
+font-weight:bold;
 
 }
 
 
+
+.high{
+
+background:#7f1d1d;
+
+color:#fecaca;
+
+}
+
+
+
+.medium{
+
+background:#78350f;
+
+color:#fde68a;
+
+}
+
+
+
+.low{
+
+background:#14532d;
+
+color:#bbf7d0;
+
+}
+
+.deadline{
+
+margin-top:10px;
+
+font-weight:bold;
+
+opacity:.9;
+
+}
 
 </style>
 
@@ -381,13 +458,7 @@ font-size:30px;
 
 
 
-<div class="tasks-page">
-
-
-
-
-
-<div class="tasks-header">
+<section class="tasks-header">
 
 <h1>
 📚 My Study Planner
@@ -399,16 +470,14 @@ Stay organised, track deadlines and keep your academic journey anchored.
 </p>
 
 
-</div>
+</section>
 
 
 
 
 
 
-
-
-<div class="summary-grid">
+<section class="summary-grid">
 
 
 <div class="summary-card">
@@ -441,6 +510,7 @@ Stay organised, track deadlines and keep your academic journey anchored.
 
 
 
+
 <div class="summary-card">
 
 <p>
@@ -448,15 +518,13 @@ Stay organised, track deadlines and keep your academic journey anchored.
 </p>
 
 <h2>
-{{ tasks|length }}
+{{ progress }}%
 </h2>
 
 </div>
 
 
-
-</div>
-
+</section>
 
 
 
@@ -466,39 +534,53 @@ Stay organised, track deadlines and keep your academic journey anchored.
 
 <form action="/add_task" method="POST" class="task-form">
 
-
 <input
-
 type="text"
-
 name="task"
-
 placeholder="What needs to be done?"
-
 required
-
 >
-
 
 
 <input
-
-type="date"
-
-name="due_date"
-
+type="text"
+name="subject"
+placeholder="Subject (e.g. AI, Maths, Python)"
 required
-
 >
 
+
+<select name="priority" required>
+
+<option value="">
+Select Priority
+</option>
+
+<option value="High">
+🔴 High
+</option>
+
+<option value="Medium">
+🟡 Medium
+</option>
+
+<option value="Low">
+🟢 Low
+</option>
+
+</select>
+
+
+<input
+type="date"
+name="due_date"
+required
+>
 
 
 <button>
-
 ➕ Add Task
-
 </button>
-
 
 
 </form>
@@ -507,38 +589,104 @@ required
 
 
 
-
-
-
-
 {% if tasks %}
-
 
 
 {% for task in tasks %}
 
 
 
-
 <div class="task-card">
 
 
-
 <h3>
-
-{{ task.title }}
-
+📌 {{ task.title }}
 </h3>
+
+
+
+<p>
+
+📚 Subject:
+
+<strong>
+{{ task.subject }}
+</strong>
+
+</p>
+
+
+
+
+<p>
+📅 Due:
+
+<strong>
+{{ task.due_date }}
+</strong>
+
+</p>
+
+
+<div class="deadline">
+
+{% if task.deadline_status == "Overdue" %}
+
+🔴 {{ task.deadline_status }}
+
+
+{% elif task.deadline_status == "Due Today" %}
+
+🟠 {{ task.deadline_status }}
+
+
+{% elif task.deadline_status == "Due Tomorrow" %}
+
+🟡 {{ task.deadline_status }}
+
+
+{% elif task.deadline_status == "Completed" %}
+
+✅ Completed
+
+
+{% else %}
+
+🟢 {{ task.deadline_status }}
+
+{% endif %}
+
+</div>
 
 
 
 
 <p>
 
-📅 Due:
-<strong>
-{{ task.due_date }}
-</strong>
+⚡ Priority:
+
+{% if task.priority == "High" %}
+
+<span class="priority high">
+🔴 High
+</span>
+
+
+{% elif task.priority == "Medium" %}
+
+<span class="priority medium">
+🟡 Medium
+</span>
+
+
+{% else %}
+
+<span class="priority low">
+🟢 Low
+</span>
+
+
+{% endif %}
 
 </p>
 
@@ -566,10 +714,7 @@ required
 {% endif %}
 
 
-
 </div>
-
-
 
 
 
@@ -577,39 +722,35 @@ required
 <div class="actions">
 
 
-
 {% if task.status!="done" %}
 
-
-<a href="/complete/{{task.id}}" class="complete">
+<a 
+href="/complete/{{task.id}}" 
+class="complete">
 
 ✔ Complete
 
 </a>
-
 
 {% endif %}
 
 
 
 
-<a href="/delete/{{task.id}}" class="delete">
-
+<a 
+href="/delete/{{task.id}}" 
+class="delete"
+onclick="return confirm('Delete this task?')"
+>
 🗑 Delete
-
 </a>
 
 
-
 </div>
 
 
 
-
-
 </div>
-
-
 
 
 
@@ -618,18 +759,14 @@ required
 
 
 
-
 {% else %}
-
-
 
 
 
 <div class="empty">
 
-
 <h2>
-📚 No tasks yet
+⚓ No tasks yet
 </h2>
 
 
@@ -641,18 +778,62 @@ Add your first assignment and start building your study rhythm.
 </div>
 
 
+{% endif %}
+
+<h2 style="margin-top:40px;">
+✅ Completed Tasks
+</h2>
 
 
+{% if completed_tasks %}
+
+{% for task in completed_tasks %}
+
+<div class="task-card completed-card">
+
+<h3>
+{{ task.title }}
+</h3>
+
+
+<p>
+Completed 🎉
+</p>
+
+
+<div class="actions">
+
+<a 
+href="/delete/{{task.id}}" 
+class="delete"
+onclick="return confirm('Delete this task?')"
+>
+🗑 Delete
+</a>
+
+</div>
+
+
+</div>
+
+{% endfor %}
+
+
+{% else %}
+
+<div class="empty">
+
+<p>
+No completed tasks yet.
+</p>
+
+</div>
 
 {% endif %}
 
 
 
-
-
 </div>
-
-
 
 
 {% endblock %}

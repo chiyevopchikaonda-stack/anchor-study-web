@@ -21,6 +21,7 @@ def notes_page():
 
         title = request.form.get("title")
         content = request.form.get("content")
+        subject = request.form.get("subject")
 
         note_id = request.form.get("note_id")
 
@@ -52,13 +53,14 @@ def notes_page():
             conn.execute(
                 """
                 INSERT INTO notes
-                (username,title,content)
+(username,title,subject,content)
 
-                VALUES(?,?,?)
+VALUES(?,?,?,?)
                 """,
                 (
                     username,
                     title,
+                    subject,
                     content
                 )
             )

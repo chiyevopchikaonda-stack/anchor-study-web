@@ -5,230 +5,137 @@
 <style>
 
 .signup-page{
-
-max-width:1100px;
-margin:auto;
-display:flex;
-justify-content:center;
-align-items:center;
-min-height:80vh;
-gap:40px;
-
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:80vh;
+    gap:40px;
 }
-
 
 /* LEFT SIDE */
 
 .signup-welcome{
-
-flex:1;
-
+    flex:1;
 }
-
 
 .signup-welcome h1{
-
-font-size:45px;
-margin-bottom:15px;
-
+    font-size:45px;
+    margin-bottom:15px;
 }
-
 
 .signup-welcome span{
-
-color:var(--accent);
-
+    color:var(--accent);
 }
-
 
 .signup-welcome p{
-
-font-size:18px;
-line-height:1.7;
-opacity:.85;
-
+    font-size:18px;
+    line-height:1.7;
+    opacity:.85;
 }
-
-
 
 .anchor-character{
-
-font-size:100px;
-
-animation:float 4s infinite ease-in-out;
-
-margin-bottom:20px;
-
+    font-size:100px;
+    animation:float 4s infinite ease-in-out;
+    margin-bottom:20px;
 }
-
-
 
 @keyframes float{
 
-0%{
-transform:translateY(0);
+    0%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-15px);
+    }
+
+    100%{
+        transform:translateY(0);
+    }
+
 }
-
-50%{
-transform:translateY(-15px);
-}
-
-100%{
-transform:translateY(0);
-}
-
-}
-
-
 
 .quote-box{
-
-margin-top:25px;
-
-background:var(--soft);
-
-padding:20px;
-
-border-radius:20px;
-
-font-style:italic;
-
+    margin-top:25px;
+    background:var(--soft);
+    padding:20px;
+    border-radius:20px;
+    font-style:italic;
 }
-
-
 
 /* FORM */
 
 .signup-card{
-
-width:450px;
-
-background:var(--card);
-
-border:1px solid var(--soft);
-
-padding:35px;
-
-border-radius:30px;
-
-box-shadow:0 20px 40px rgba(0,0,0,.15);
-
+    width:480px;
+    background:var(--card);
+    border:1px solid var(--soft);
+    padding:35px;
+    border-radius:30px;
+    box-shadow:0 20px 40px rgba(0,0,0,.15);
 }
-
-
 
 .signup-card h2{
-
-margin-bottom:10px;
-
+    margin-bottom:10px;
 }
-
-
 
 .subtitle{
-
-opacity:.7;
-
-margin-bottom:25px;
-
+    opacity:.7;
+    margin-bottom:25px;
 }
-
-
 
 .form-grid{
-
-display:grid;
-
-grid-template-columns:1fr 1fr;
-
-gap:12px;
-
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
 }
 
-
-
-.form-grid input{
-
-padding:13px;
-
-border-radius:12px;
-
-width:100%;
-
+.form-grid input,
+.form-grid select{
+    width:100%;
+    padding:13px;
+    border-radius:12px;
 }
-
-
 
 .full{
-
-grid-column:1/-1;
-
+    grid-column:1/-1;
 }
-
-
 
 button{
-
-width:100%;
-
-margin-top:20px;
-
-font-size:16px;
-
-padding:14px;
-
-border-radius:15px;
-
+    width:100%;
+    margin-top:20px;
+    padding:15px;
+    font-size:16px;
+    border-radius:15px;
 }
-
-
 
 .login-link{
-
-text-align:center;
-
-margin-top:20px;
-
+    text-align:center;
+    margin-top:20px;
 }
-
-
 
 .login-link a{
-
-color:var(--accent);
-
-text-decoration:none;
-
-font-weight:bold;
-
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:bold;
 }
-
-
 
 @media(max-width:900px){
 
-.signup-page{
+    .signup-page{
+        flex-direction:column;
+    }
 
-flex-direction:column;
+    .signup-card{
+        width:100%;
+    }
 
-}
-
-
-.signup-card{
-
-width:100%;
-
-}
-
-
-.form-grid{
-
-grid-template-columns:1fr;
+    .form-grid{
+        grid-template-columns:1fr;
+    }
 
 }
-
-}
-
 
 </style>
 
@@ -236,175 +143,195 @@ grid-template-columns:1fr;
 
 <div class="signup-page">
 
+    <div class="signup-welcome">
 
+        <div class="anchor-character">
+            ⚓
+        </div>
 
-<div class="signup-welcome">
+        <h1>
+            Welcome to <span>Anchor Study</span>
+        </h1>
 
+        <p>
 
-<div class="anchor-character">
-⚓
-</div>
+            Whether you're in high school or university,
+            Anchor Study helps you stay organised, build
+            better habits and grow academically every day.
 
+        </p>
 
-<h1>
-Welcome to <span>Anchor Study</span>
-</h1>
+        <div class="quote-box">
 
+            "Commit your work to the Lord,
+            and your plans will be established."
 
-<p>
+            <br><br>
 
-Your academic journey starts here.
-Create your personal study space, track your goals and build consistency one day at a time.
+            <strong>Proverbs 16:3</strong>
 
-</p>
+        </div>
 
+    </div>
 
-<div class="quote-box">
 
-"Commit your work to the Lord, and your plans will be established."
-<br><br>
 
-— Proverbs 16:3
+    <div class="signup-card">
 
-</div>
+        <h2>
+            Create Your Account ⚓
+        </h2>
 
+        <p class="subtitle">
 
-</div>
+            Let's personalise your study companion.
 
+        </p>
 
 
+        <form method="POST">
 
+            <div class="form-grid">
 
+                <input
+                    class="full"
+                    type="text"
+                    name="full_name"
+                    placeholder="Full Name"
+                    required>
 
+                <select
+                    class="full"
+                    name="education_level"
+                    id="education_level"
+                    required>
 
-<div class="signup-card">
+                    <option value="">
+                        Select Education Level
+                    </option>
 
+                    <option value="high_school">
+                        High School
+                    </option>
 
-<h2>
-Create Your Account ⚓
-</h2>
+                    <option value="university">
+                        University
+                    </option>
 
+                </select>
 
-<p class="subtitle">
+                <input
+                    class="full"
+                    type="text"
+                    name="institution"
+                    placeholder="School or University"
+                    required>
 
-Let's personalise your study companion.
+                <input
+                    type="text"
+                    name="study_level"
+                    id="study_level"
+                    placeholder="Grade or Year"
+                    required>
 
-</p>
+                <input
+                    type="text"
+                    name="subjects"
+                    placeholder="Subjects or Degree Programme"
+                    required>
 
+                <input
+                    class="full"
+                    type="text"
+                    name="study_goal"
+                    placeholder="Study Goal"
+                    required>
 
+                <input
+                    class="full"
+                    type="text"
+                    name="academic_target"
+                    placeholder="Academic Target (Optional)">
 
+                <input
+                    class="full"
+                    type="text"
+                    name="username"
+                    placeholder="Username"
+                    required>
 
-<form method="POST">
+                <label class="full">
+                    Birthday 🎂
+                </label>
 
+                <input
+                    class="full"
+                    type="date"
+                    name="birthday"
+                    required>
 
+                <input
+                    class="full"
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    required>
 
-<div class="form-grid">
+            </div>
 
+            <button type="submit">
 
-<input 
-class="full"
-type="text"
-name="full_name"
-placeholder="Full Name"
-required>
+                ⚓ Create My Study Space
 
+            </button>
 
-<input
-type="text"
-name="university"
-placeholder="University"
-required>
+        </form>
 
 
-<input
-type="text"
-name="course"
-placeholder="Course"
-required>
+        <div class="login-link">
 
+            Already have an account?
 
-<input
-type="text"
-name="year"
-placeholder="Year of Study"
-required>
+            <a href="/login">
 
+                Sign in
 
-<input
-type="text"
-name="study_goal"
-placeholder="Study Goal"
-required>
+            </a>
 
+        </div>
 
-<input
-type="text"
-name="target_gpa"
-placeholder="Target GPA"
-required>
-
-
-<input
-class="full"
-type="text"
-name="username"
-placeholder="Username"
-required>
-
-<label>
-    Birthday 🎂
-</label>
-
-<input
-type="date"
-name="birthday"
-required>
-
-<input
-class="full"
-type="password"
-name="password"
-placeholder="Password"
-required>
-
-
-
-</div>
-
-
-
-<button type="submit">
-
-🚀 Begin My Journey
-
-</button>
-
-
-</form>
-
-
-
-<div class="login-link">
-
-Already have an account?
-
-<a href="/login">
-
-Sign in
-
-</a>
-
-
-</div>
-
-
+    </div>
 
 </div>
 
 
+<script>
 
+const education = document.getElementById("education_level");
+const level = document.getElementById("study_level");
 
-</div>
+education.addEventListener("change", function(){
 
+    if(this.value === "high_school"){
+
+        level.placeholder = "Grade (e.g. Form 4 or Grade 11)";
+
+    }
+
+    else if(this.value === "university"){
+
+        level.placeholder = "Year (e.g. First Year or Third Year)";
+
+    }
+
+    else{
+
+        level.placeholder = "Grade or Year";
+
+    }
+
+});
+
+</script>
 
 {% endblock %}
