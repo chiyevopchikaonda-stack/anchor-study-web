@@ -2,551 +2,473 @@
 
 {% block content %}
 
-
 <style>
+/* ============================================================================
+   Anchor Study - Personal Knowledge Vault Workspace
+   ============================================================================ */
 
-.resources-page{
-
-max-width:1100px;
-margin:auto;
-padding:20px;
-
+.resources-page {
+    max-width: 1240px;
+    margin: auto;
+    padding: 10px 20px 80px 20px;
+    font-family: inherit;
+    color: var(--text);
+    position: relative;
 }
 
-
-/* HEADER */
-
-.resources-header{
-
-background:linear-gradient(
-135deg,
-var(--accent),
-transparent
-);
-
-padding:35px;
-
-border-radius:25px;
-
-margin-bottom:30px;
-
-position:relative;
-
-overflow:hidden;
-
-border:1px solid var(--soft);
-
+/* Ambient lighting */
+.resources-page::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at 70% 10%, color-mix(in srgb, var(--accent) 14%, transparent) 0%, transparent 65%),
+                radial-gradient(circle at 15% 90%, color-mix(in srgb, var(--accent-light, var(--accent)) 10%, transparent) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
 }
 
-
-.resources-header::after{
-
-content:"📚 ☁️ ✨";
-
-position:absolute;
-
-right:30px;
-
-bottom:10px;
-
-font-size:60px;
-
-opacity:.2;
-
-animation:float 5s infinite ease-in-out;
-
+/* Cinematic Header Library Door */
+.resources-header {
+    background: linear-gradient(135deg, var(--card), var(--soft));
+    border: 1px solid var(--border);
+    backdrop-filter: blur(20px);
+    padding: 45px 50px;
+    border-radius: 32px;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.05);
+    z-index: 1;
 }
 
-
-@keyframes float{
-
-0%{
-transform:translateY(0);
+.resources-header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    background: var(--accent);
 }
 
-50%{
-transform:translateY(-15px);
+.resources-header::after {
+    content: "📚 ☁️ ✨";
+    position: absolute;
+    right: 40px;
+    bottom: 20px;
+    font-size: 75px;
+    opacity: 0.12;
+    animation: floatVault 6s ease-in-out infinite;
+    pointer-events: none;
 }
 
-100%{
-transform:translateY(0);
+@keyframes floatVault {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(2deg); }
 }
 
+.resources-header h1 {
+    font-size: 40px;
+    font-weight: 800;
+    margin: 0 0 10px 0;
+    letter-spacing: -0.5px;
+    color: var(--text);
 }
 
-
-
-.resources-header h1{
-
-font-size:38px;
-
-margin:0;
-
+.resources-header p {
+    color: var(--text-muted, var(--text));
+    opacity: 0.8;
+    font-size: 17px;
+    max-width: 600px;
+    line-height: 1.6;
+    margin: 0;
 }
 
-
-
-.resources-header p{
-
-opacity:.8;
-
-font-size:18px;
-
+/* Anchie Library Keeper Companion Card */
+.anchie-vault-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 22px 28px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    position: relative;
+    z-index: 1;
 }
 
-
-
-
-/* UPLOAD */
-
-
-.upload-card{
-
-background:var(--card);
-
-padding:30px;
-
-border-radius:25px;
-
-border:1px solid var(--soft);
-
-margin-bottom:35px;
-
+.anchie-vault-avatar {
+    font-size: 38px;
+    background: var(--soft);
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
 }
 
-
-
-.upload-card h2{
-
-margin-top:0;
-
+.anchie-vault-text h4 {
+    margin: 0 0 4px 0;
+    font-size: 16px;
+    color: var(--accent);
+    font-weight: 700;
 }
 
-
-
-.upload-card input{
-
-padding:12px;
-
-border-radius:12px;
-
-width:100%;
-
-margin-top:15px;
-
+.anchie-vault-text p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-muted, var(--text));
+    opacity: 0.9;
+    line-height: 1.5;
 }
 
-
-
-
-.upload-btn{
-
-margin-top:20px;
-
-background:var(--accent);
-
-color:white;
-
-border:none;
-
-padding:14px 30px;
-
-border-radius:15px;
-
-font-size:16px;
-
-cursor:pointer;
-
-transition:.3s;
-
+/* Premium Upload Station */
+.upload-card {
+    background: var(--card);
+    padding: 35px;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    margin-bottom: 35px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.03);
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-
-
-.upload-btn:hover{
-
-transform:translateY(-4px);
-
+.upload-card:hover {
+    border-color: var(--accent);
 }
 
-
-
-
-
-/* RESOURCE GRID */
-
-
-.resource-grid{
-
-display:grid;
-
-grid-template-columns:
-repeat(auto-fit,minmax(260px,1fr));
-
-gap:25px;
-
+.upload-icon-pulse {
+    font-size: 45px;
+    margin-bottom: 12px;
+    display: inline-block;
+    animation: uploadBounce 3s ease-in-out infinite;
 }
 
-
-
-
-
-.resource-card{
-
-
-background:var(--card);
-
-padding:25px;
-
-border-radius:22px;
-
-border:1px solid var(--soft);
-
-transition:.3s;
-
-position:relative;
-
+@keyframes uploadBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
 }
 
-
-
-.resource-card:hover{
-
-transform:translateY(-8px);
-
-box-shadow:0 15px 30px rgba(0,0,0,.2);
-
+.upload-card h2 {
+    margin: 0 0 8px 0;
+    font-size: 24px;
+    font-weight: 700;
 }
 
-
-
-
-
-.file-icon{
-
-font-size:40px;
-
-margin-bottom:15px;
-
+.upload-card p {
+    color: var(--text-muted, var(--text));
+    opacity: 0.8;
+    margin: 0 0 20px 0;
+    font-size: 15px;
 }
 
-
-
-.file-name{
-
-font-size:20px;
-
-font-weight:bold;
-
+.upload-card form {
+    max-width: 550px;
+    margin: 0 auto;
 }
 
-
-
-.date{
-
-margin-top:10px;
-
-opacity:.7;
-
-font-size:14px;
-
+.upload-card input[type="file"] {
+    background: var(--background);
+    color: var(--text);
+    border: 2px dashed var(--border);
+    padding: 18px;
+    border-radius: 18px;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
 }
 
-
-
-
-.open-btn{
-
-display:inline-block;
-
-margin-top:20px;
-
-padding:10px 18px;
-
-border-radius:12px;
-
-background:var(--accent);
-
-color:white;
-
-text-decoration:none;
-
+.upload-card input[type="file"]:hover {
+    border-color: var(--accent);
+    background: var(--soft);
 }
 
-
-
-.open-btn:hover{
-
-opacity:.8;
-
+.upload-btn {
+    margin-top: 20px;
+    background: var(--accent);
+    color: #ffffff;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 16px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 6px 20px color-mix(in srgb, var(--accent) 35%, transparent);
 }
 
-
-
-
-
-.actions{
-
-margin-top:20px;
-
+.upload-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px color-mix(in srgb, var(--accent) 50%, transparent);
 }
 
-
-
-.delete-btn{
-
-background:#ef4444;
-
-color:white;
-
-padding:9px 15px;
-
-border-radius:10px;
-
-text-decoration:none;
-
+/* Collectible Knowledge Cards Grid */
+.resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    position: relative;
+    z-index: 1;
 }
 
-
-
-
-/* EMPTY */
-
-
-.empty{
-
-background:var(--card);
-
-border:1px solid var(--soft);
-
-padding:50px;
-
-border-radius:25px;
-
-text-align:center;
-
+.resource-card {
+    background: var(--card);
+    padding: 28px;
+    border-radius: 26px;
+    border: 1px solid var(--border);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
 }
 
-
-
-.empty h2{
-
-font-size:30px;
-
+.resource-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--accent);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.07);
 }
 
+.resource-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 18px;
+}
 
+.file-icon {
+    font-size: 42px;
+    background: var(--soft);
+    width: 68px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    transition: transform 0.3s ease;
+}
 
+.resource-card:hover .file-icon {
+    transform: scale(1.08) rotate(-3deg);
+}
+
+.file-badge {
+    background: var(--soft);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+}
+
+.file-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+    word-break: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.date {
+    opacity: 0.65;
+    font-size: 13px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.card-footer-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+    margin-top: auto;
+}
+
+.open-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    border-radius: 14px;
+    background: var(--accent);
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+.open-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.delete-btn {
+    background: color-mix(in srgb, var(--danger, #ef4444) 12%, transparent);
+    color: var(--danger, #ef4444);
+    padding: 10px 14px;
+    border-radius: 14px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    border: 1px solid color-mix(in srgb, var(--danger, #ef4444) 25%, transparent);
+    transition: all 0.25s ease;
+}
+
+.delete-btn:hover {
+    background: var(--danger, #ef4444);
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+/* Story-driven Empty State */
+.empty {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 60px 30px;
+    border-radius: 32px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.03);
+    position: relative;
+    z-index: 1;
+}
+
+.empty-icon-stack {
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+.empty h2 {
+    font-size: 28px;
+    margin: 0 0 10px 0;
+    font-weight: 800;
+}
+
+.empty p {
+    color: var(--text-muted, var(--text));
+    opacity: 0.8;
+    max-width: 480px;
+    margin: 0 auto;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .resources-header {
+        padding: 30px 20px;
+    }
+    .resources-header h1 {
+        font-size: 30px;
+    }
+    .upload-card {
+        padding: 25px 20px;
+    }
+    .anchie-vault-card {
+        flex-direction: column;
+        text-align: center;
+    }
+}
 </style>
-
-
-
-
 
 <div class="resources-page">
 
+    <!-- Cinematic Header Library Door -->
+    <div class="resources-header">
+        <h1>📂 My Study Vault</h1>
+        <p>Store lecture slides, PDFs and important learning materials in one secure personal library.</p>
+    </div>
 
+    <!-- Anchie Library Keeper Companion Card -->
+    <div class="anchie-vault-card">
+        <div class="anchie-vault-avatar">🌱</div>
+        <div class="anchie-vault-text">
+            <h4>Anchie's Library Note</h4>
+            <p>"Every document is another step forward. I've got your study materials safe and organized here."</p>
+        </div>
+    </div>
 
+    <!-- Premium Upload Station -->
+    <div class="upload-card">
+        <div class="upload-icon-pulse">📥</div>
+        <h2>Add Another Treasure to Your Vault</h2>
+        <p>Drop your lecture notes, textbooks and learning assets here to expand your knowledge base.</p>
 
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <button class="upload-btn">✨ Add Resource</button>
+        </form>
+    </div>
 
-<div class="resources-header">
+    {% if resources %}
+        <div class="resource-grid">
+            {% for file in resources %}
+                {% set ext = file.filename.split('.')[-1].lower() %}
+                <div class="resource-card">
+                    <div>
+                        <div class="resource-card-top">
+                            <div class="file-icon">
+                                {% if ext in ['pdf'] %}📕
+                                {% elif ext in ['ppt', 'pptx'] %}📊
+                                {% elif ext in ['doc', 'docx'] %}📝
+                                {% elif ext in ['xls', 'xlsx', 'csv'] %}📈
+                                {% elif ext in ['jpg', 'jpeg', 'png', 'webp', 'gif'] %}🖼️
+                                {% elif ext in ['zip', 'rar', '7z', 'tar', 'gz'] %}🗜️
+                                {% elif ext in ['mp4', 'mov', 'avi', 'mkv'] %}🎥
+                                {% elif ext in ['mp3', 'wav', 'aac', 'flac'] %}🎵
+                                {% elif ext in ['py', 'js', 'html', 'css', 'cpp', 'java'] %}🐍
+                                {% else %}📁
+                                {% endif %}
+                            </div>
+                            <span class="file-badge">{{ ext | upper }}</span>
+                        </div>
 
+                        <div class="file-name" title="{{ file.filename }}">{{ file.filename }}</div>
+                        <div class="date">Uploaded: {{ file.uploaded_at }}</div>
+                    </div>
 
-<h1>
-📂 My Study Vault
-</h1>
-
-
-<p>
-Store lecture slides, PDFs and important learning materials in one place.
-</p>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="upload-card">
-
-
-<h2>
-⬆ Upload Resource
-</h2>
-
-
-<p>
-Keep your academic treasure chest organised.
-</p>
-
-
-
-<form method="POST" enctype="multipart/form-data">
-
-
-<input
-
-type="file"
-
-name="file"
-
-required
-
->
-
-
-
-<button class="upload-btn">
-
-✨ Add Resource
-
-</button>
-
-
-
-</form>
-
-
-</div>
-
-
-
-
-
-
-
-
-{% if resources %}
-
-
-
-<div class="resource-grid">
-
-
-
-{% for file in resources %}
-
-
-
-<div class="resource-card">
-
-
-
-<div class="file-icon">
-
-📄
+                    <div class="card-footer-actions">
+                        <a class="open-btn" href="/uploads/{{ file.filename }}" target="_blank">
+                            Open File 📖
+                        </a>
+                        <a class="delete-btn" href="/delete-resource/{{ file.id }}" onclick="return confirm('Delete this resource?')">
+                            🗑 Delete
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty">
+            <div class="empty-icon-stack">📚</div>
+            <h2>This library is waiting for its first discovery.</h2>
+            <p>Upload lecture notes, textbooks and resources to begin building your personal knowledge collection.</p>
+        </div>
+    {% endif %}
 
 </div>
-
-
-
-<div class="file-name">
-
-{{file.filename}}
-
-</div>
-
-
-
-
-<div class="date">
-
-Uploaded:
-{{file.uploaded_at}}
-
-</div>
-
-
-
-
-<a
-
-class="open-btn"
-
-href="/uploads/{{file.filename}}"
-
-target="_blank"
-
->
-
-Open File 📖
-
-</a>
-
-
-
-
-<div class="actions">
-
-
-<a
-
-class="delete-btn"
-
-href="/delete-resource/{{file.id}}"
-
-onclick="return confirm('Delete this resource?')"
-
->
-
-🗑 Delete
-
-</a>
-
-
-</div>
-
-
-
-
-</div>
-
-
-
-{% endfor %}
-
-
-
-</div>
-
-
-
-
-
-
-{% else %}
-
-
-
-<div class="empty">
-
-
-<h2>
-📚 Your vault is empty
-</h2>
-
-
-<p>
-Upload lecture notes, research papers and study materials here.
-</p>
-
-
-</div>
-
-
-
-{% endif %}
-
-
-
-
-
-</div>
-
-
-
 
 {% endblock %}

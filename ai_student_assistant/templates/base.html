@@ -4,6 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Anchor Study ⚓</title>
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='anchor-study.ico') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='pwa/manifest.json') }}">
+    <meta name="theme-color" content="#2563eb">
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const mobileBtn = document.getElementById("mobile-menu-btn");
@@ -25,98 +27,51 @@
             }
 
             if (mobileBtn) {
-                mobileBtn.addEventListener("click", function() {
-                    openMenu();
-                });
+                mobileBtn.addEventListener("click", openMenu);
             }
 
             if (closeBtn) {
-                closeBtn.addEventListener("click", function() {
-                    closeMenu();
-                });
+                closeBtn.addEventListener("click", closeMenu);
             }
 
             if (overlay) {
-                overlay.addEventListener("click", function() {
-                    closeMenu();
-                });
+                overlay.addEventListener("click", closeMenu);
             }
 
             menuLinks.forEach(function(link) {
-                link.addEventListener("click", function() {
-                    closeMenu();
-                });
+                link.addEventListener("click", closeMenu);
             });
         });
     </script>
     <script>
-
-const savedTheme = localStorage.getItem("anchorTheme");
-
-
-if(savedTheme){
-
-    document.documentElement.setAttribute("data-theme", savedTheme);
-
-}
-else{
-
-    // Default Anchor Study theme
-    document.documentElement.setAttribute("data-theme", "default");
-
-}
-
-</script>
-<script>
-
-const logoutLink = document.querySelector('a[href="/logout"]');
-
-if(logoutLink){
-
-    logoutLink.addEventListener("click", function(){
-
-        localStorage.removeItem("anchorTheme");
-
-    });
-
-}
-
-</script>
-    <style>
-
-        /* Default Anchor Study Theme */
-
-:root,
-[data-theme="default"] {
-
-    --background: #07111f;
-    --sidebar: #111827;
-    --card: #0f172a;
-    --accent: #2563eb;
-    --text: #e5e7eb;
-    --soft: #1e293b;
-    --border: #334155;
-
-}
-        /* Global reset */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        const savedTheme = localStorage.getItem("anchorTheme");
+        if (savedTheme) {
+            document.documentElement.setAttribute("data-theme", savedTheme);
+        } else {
+            document.documentElement.setAttribute("data-theme", "default");
         }
-
-        /* Main theme variables */
-        :root {
-            --background: #0b1220;
+    </script>
+    <script>
+        const logoutLink = document.querySelector('a[href="/logout"]');
+        if (logoutLink) {
+            logoutLink.addEventListener("click", function() {
+                localStorage.removeItem("anchorTheme");
+            });
+        }
+    </script>
+    <style>
+        /* Theme Variables */
+        :root, [data-theme="default"] {
+            --background: #07111f;
             --sidebar: #111827;
-            --card: #111827;
+            --card: #0f172a;
             --accent: #2563eb;
             --text: #e5e7eb;
             --soft: #1e293b;
             --border: #334155;
+            --danger: #ef4444;
         }
 
-        /* Light theme */
         [data-theme="light"] {
             --background: #f8fafc;
             --sidebar: #ffffff;
@@ -125,9 +80,9 @@ if(logoutLink){
             --text: #111827;
             --soft: #e2e8f0;
             --border: #cbd5e1;
+            --danger: #ef4444;
         }
 
-        /* Midnight theme */
         [data-theme="midnight"] {
             --background: #020617;
             --sidebar: #0f172a;
@@ -136,9 +91,9 @@ if(logoutLink){
             --text: #f8fafc;
             --soft: #312e81;
             --border: #4338ca;
+            --danger: #ef4444;
         }
 
-        /* Galaxy theme */
         [data-theme="galaxy"] {
             --background: #090014;
             --sidebar: #170033;
@@ -147,9 +102,9 @@ if(logoutLink){
             --text: #f5f3ff;
             --soft: #312e81;
             --border: #7e22ce;
+            --danger: #ef4444;
         }
 
-        /* Notebook theme */
         [data-theme="notebook"] {
             --background: #faf7f2;
             --sidebar: #f5ebe0;
@@ -158,9 +113,9 @@ if(logoutLink){
             --text: #3f2d20;
             --soft: #ead7c3;
             --border: #d6bfa8;
+            --danger: #dc2626;
         }
 
-        /* Academia theme */
         [data-theme="academia"] {
             --background: #292524;
             --sidebar: #451a03;
@@ -169,9 +124,9 @@ if(logoutLink){
             --text: #fef3c7;
             --soft: #78350f;
             --border: #92400e;
+            --danger: #dc2626;
         }
 
-        /* Sakura theme */
         [data-theme="sakura"] {
             --background: #fff1f2;
             --sidebar: #ffe4e6;
@@ -180,9 +135,9 @@ if(logoutLink){
             --text: #4a044e;
             --soft: #fbcfe8;
             --border: #f9a8d4;
+            --danger: #e11d48;
         }
 
-        /* Forest theme */
         [data-theme="forest"] {
             --background: #052e16;
             --sidebar: #064e3b;
@@ -191,9 +146,9 @@ if(logoutLink){
             --text: #ecfdf5;
             --soft: #047857;
             --border: #059669;
+            --danger: #f87171;
         }
 
-        /* Ocean theme */
         [data-theme="ocean"] {
             --background: #ecfeff;
             --sidebar: #cffafe;
@@ -202,9 +157,9 @@ if(logoutLink){
             --text: #083344;
             --soft: #a5f3fc;
             --border: #67e8f9;
+            --danger: #e11d48;
         }
 
-        /* Sunset theme */
         [data-theme="sunset"] {
             --background: #fff7ed;
             --sidebar: #ffedd5;
@@ -213,9 +168,9 @@ if(logoutLink){
             --text: #431407;
             --soft: #fed7aa;
             --border: #fdba74;
+            --danger: #dc2626;
         }
 
-        /* Dreamy theme */
         [data-theme="dreamy"] {
             --background: #fff7ed;
             --sidebar: #ffedd5;
@@ -224,9 +179,9 @@ if(logoutLink){
             --text: #4a044e;
             --soft: #fed7aa;
             --border: #f9a8d4;
+            --danger: #e11d48;
         }
 
-        /* Cloud theme */
         [data-theme="cloud"] {
             --background: #eff6ff;
             --sidebar: #dbeafe;
@@ -235,9 +190,9 @@ if(logoutLink){
             --text: #1e3a8a;
             --soft: #bfdbfe;
             --border: #93c5fd;
+            --danger: #dc2626;
         }
 
-        /* Cherry theme */
         [data-theme="cherry"] {
             --background: #1f0a16;
             --sidebar: #3b1026;
@@ -246,9 +201,9 @@ if(logoutLink){
             --text: #ffe4e6;
             --soft: #831843;
             --border: #be123c;
+            --danger: #f87171;
         }
 
-        /* Lavender theme */
         [data-theme="lavender"] {
             --background: #faf5ff;
             --sidebar: #f3e8ff;
@@ -257,9 +212,9 @@ if(logoutLink){
             --text: #3b0764;
             --soft: #e9d5ff;
             --border: #d8b4fe;
+            --danger: #dc2626;
         }
 
-        /* Matcha theme */
         [data-theme="matcha"] {
             --background: #f7fee7;
             --sidebar: #ecfccb;
@@ -268,9 +223,9 @@ if(logoutLink){
             --text: #365314;
             --soft: #d9f99d;
             --border: #bef264;
+            --danger: #dc2626;
         }
 
-        /* Coffee theme */
         [data-theme="coffee"] {
             --background: #2b2118;
             --sidebar: #3b2f24;
@@ -279,9 +234,9 @@ if(logoutLink){
             --text: #fef3c7;
             --soft: #78350f;
             --border: #92400e;
+            --danger: #f87171;
         }
 
-        /* Rose theme */
         [data-theme="rose"] {
             --background: #fdf4ff;
             --sidebar: #fae8ff;
@@ -290,9 +245,9 @@ if(logoutLink){
             --text: #3b0764;
             --soft: #f0abfc;
             --border: #e879f9;
+            --danger: #dc2626;
         }
 
-        /* Cyber theme */
         [data-theme="cyber"] {
             --background: #020617;
             --sidebar: #111827;
@@ -301,9 +256,9 @@ if(logoutLink){
             --text: #ecfeff;
             --soft: #164e63;
             --border: #0891b2;
+            --danger: #f87171;
         }
 
-        /* Deep sea theme */
         [data-theme="deepsea"] {
             --background: #082f49;
             --sidebar: #0c4a6e;
@@ -312,9 +267,9 @@ if(logoutLink){
             --text: #e0f2fe;
             --soft: #0369a1;
             --border: #0284c7;
+            --danger: #f87171;
         }
 
-        /* Winter theme */
         [data-theme="winter"] {
             --background: #f1f5f9;
             --sidebar: #e2e8f0;
@@ -323,9 +278,9 @@ if(logoutLink){
             --text: #0f172a;
             --soft: #cbd5e1;
             --border: #94a3b8;
+            --danger: #dc2626;
         }
 
-        /* Golden theme */
         [data-theme="golden"] {
             --background: #fffbeb;
             --sidebar: #fef3c7;
@@ -334,9 +289,9 @@ if(logoutLink){
             --text: #422006;
             --soft: #fde68a;
             --border: #facc15;
+            --danger: #dc2626;
         }
 
-        /* Neon theme */
         [data-theme="neon"] {
             --background: #09090b;
             --sidebar: #18181b;
@@ -345,9 +300,9 @@ if(logoutLink){
             --text: #fafafa;
             --soft: #3f3f46;
             --border: #22c55e;
+            --danger: #f87171;
         }
 
-        /* Pastel theme */
         [data-theme="pastel"] {
             --background: #fff7fb;
             --sidebar: #fce7f3;
@@ -356,9 +311,9 @@ if(logoutLink){
             --text: #500724;
             --soft: #fbcfe8;
             --border: #f9a8d4;
+            --danger: #e11d48;
         }
 
-        /* Gothic theme */
         [data-theme="gothic"] {
             --background: #120000;
             --sidebar: #1a0505;
@@ -367,9 +322,9 @@ if(logoutLink){
             --text: #fca5a5;
             --soft: #450a0a;
             --border: #7f1d1d;
+            --danger: #ef4444;
         }
 
-        /* Arcade theme */
         [data-theme="arcade"] {
             --background: #2e0249;
             --sidebar: #570a57;
@@ -378,9 +333,9 @@ if(logoutLink){
             --text: #f8f8f8;
             --soft: #f806cc;
             --border: #ff007f;
+            --danger: #f87171;
         }
 
-        /* Mint theme */
         [data-theme="mint"] {
             --background: #f0fdf4;
             --sidebar: #dcfce7;
@@ -389,9 +344,9 @@ if(logoutLink){
             --text: #064e3b;
             --soft: #a7f3d0;
             --border: #6ee7b7;
+            --danger: #dc2626;
         }
 
-        /* Peach theme */
         [data-theme="peach"] {
             --background: #fff5f5;
             --sidebar: #fed7d7;
@@ -400,9 +355,9 @@ if(logoutLink){
             --text: #7b341e;
             --soft: #fbd38d;
             --border: #f6ad55;
+            --danger: #e53e3e;
         }
 
-        /* Noir theme */
         [data-theme="noir"] {
             --background: #171717;
             --sidebar: #262626;
@@ -411,9 +366,9 @@ if(logoutLink){
             --text: #f5f5f5;
             --soft: #525252;
             --border: #737373;
+            --danger: #f87171;
         }
 
-        /* Glitter theme */
         [data-theme="glitter"] {
             --background: #fdf4ff;
             --sidebar: #fae8ff;
@@ -422,9 +377,9 @@ if(logoutLink){
             --text: #4a044e;
             --soft: #f5d0fe;
             --border: #e879f9;
+            --danger: #e11d48;
         }
 
-        /* Vaporwave theme */
         [data-theme="vaporwave"] {
             --background: #2e0854;
             --sidebar: #1a0530;
@@ -433,9 +388,9 @@ if(logoutLink){
             --text: #ff77ff;
             --soft: #7a0bc0;
             --border: #c026d3;
+            --danger: #ff77ff;
         }
 
-        /* Autumn theme */
         [data-theme="autumn"] {
             --background: #fff7ed;
             --sidebar: #ffedd5;
@@ -444,9 +399,9 @@ if(logoutLink){
             --text: #431407;
             --soft: #fed7aa;
             --border: #fdba74;
+            --danger: #dc2626;
         }
 
-        /* Hacker theme */
         [data-theme="hacker"] {
             --background: #000000;
             --sidebar: #0a0a0a;
@@ -455,9 +410,16 @@ if(logoutLink){
             --text: #4ade80;
             --soft: #14532d;
             --border: #16a34a;
+            --danger: #f87171;
         }
 
-        /* Base page styling */
+        /* Global Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             min-height: 100vh;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
@@ -471,7 +433,7 @@ if(logoutLink){
             scroll-behavior: smooth;
         }
 
-        /* Theme decorations */
+        /* Ambient Theme Decorations */
         [data-theme="galaxy"] body::before {
             content: "✦ ⋆ ✧ ☾ ✦ ⋆ ✧";
             position: fixed;
@@ -504,18 +466,12 @@ if(logoutLink){
         }
 
         @keyframes floatStars {
-            50% {
-                transform: translateY(35px);
-            }
+            50% { transform: translateY(35px); }
         }
 
         @keyframes petals {
-            0% {
-                transform: translateY(-50px) rotate(0deg);
-            }
-            100% {
-                transform: translateY(100vh) rotate(360deg);
-            }
+            0% { transform: translateY(-50px) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
         }
 
         .sidebar, .desktop-sidebar, .mobile-sidebar, .main, .welcome-main, .welcome-navbar {
@@ -523,7 +479,7 @@ if(logoutLink){
             z-index: 1;
         }
 
-        /* Mobile menu button */
+        /* Mobile Top Trigger Button */
         .mobile-btn {
             display: none;
             position: fixed;
@@ -531,7 +487,7 @@ if(logoutLink){
             right: 14px;
             background: var(--card);
             color: var(--text);
-            border: 1px solid var(--soft);
+            border: 1px solid var(--border);
             padding: 12px 16px;
             border-radius: 999px;
             font-size: 15px;
@@ -563,6 +519,7 @@ if(logoutLink){
             opacity: 1;
         }
 
+        /* Mobile Bottom Tab Navigator */
         .mobile-bottom-nav {
             display: none;
         }
@@ -576,11 +533,12 @@ if(logoutLink){
                 right: 0;
                 height: 65px;
                 background: var(--card);
-                border-top: 1px solid var(--soft);
+                border-top: 1px solid var(--border);
                 justify-content: space-around;
                 align-items: center;
                 z-index: 1001;
                 padding-bottom: 5px;
+                backdrop-filter: blur(12px);
             }
             .mobile-bottom-nav a {
                 text-decoration: none;
@@ -591,160 +549,350 @@ if(logoutLink){
                 gap: 3px;
                 font-size: 12px;
                 opacity: .75;
+                transition: opacity 0.2s ease;
             }
             .mobile-bottom-nav a:hover {
                 opacity: 1;
             }
         }
 
-        /* Sidebar */
+        /* Sidebar Command Bridge */
         .sidebar {
             position: fixed;
             left: 0;
             top: 0;
             bottom: 0;
-            width: 240px;
+            width: 256px;
             background: var(--sidebar);
             padding: 20px 14px;
             display: flex;
             flex-direction: column;
-            border-right: 1px solid var(--soft);
+            border-right: 1px solid var(--border);
             overflow-y: auto;
             z-index: 1000;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s ease, border-color 0.4s ease;
+            backdrop-filter: blur(20px);
+            box-shadow: 4px 0 30px rgba(0, 0, 0, 0.04);
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 10px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
         }
 
         .logo {
-            margin-bottom: 20px;
-            padding: 0 6px;
+            margin-bottom: 18px;
+            padding: 0 6px 14px 6px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            position: relative;
         }
 
         .logo-image {
-            width: 32px;
-            height: 32px;
+            width: 34px;
+            height: 34px;
             object-fit: contain;
+            filter: drop-shadow(0 0 10px color-mix(in srgb, var(--accent) 40%, transparent));
+            animation: logoFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
         }
 
         .logo h2 {
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            color: var(--text);
+            margin: 0;
         }
 
         .logo p {
-            font-size: 12px;
-            opacity: 0.5;
+            font-size: 10px;
+            opacity: 0.6;
+            letter-spacing: 0.5px;
+            margin: 0;
+            text-transform: uppercase;
+            font-weight: 600;
         }
 
-        .student-mini-card, .study-card {
-            background: var(--background);
-            border: 1px solid var(--soft);
-            border-radius: 6px;
+        /* Clean Solid Minimalist Explorer Profile Card */
+        .student-mini-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent);
+            border-radius: 12px;
             padding: 12px;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
         }
 
-        .student-mini-card h3, .study-card h3 {
+        .student-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+        }
+
+        .student-mini-card h3 {
             font-size: 13px;
-            margin-bottom: 5px;
+            font-weight: 700;
+            color: var(--text);
+            margin: 0;
+            word-break: break-word;
+            line-height: 1.3;
         }
 
-        .student-mini-card p, .study-card p {
-            font-size: 12px;
-            opacity: 0.7;
+        .explorer-badge {
+            font-size: 9px;
+            background: var(--soft);
+            color: var(--accent);
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+            border: 1px solid var(--border);
+        }
+
+        .student-details-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            border-top: 1px solid var(--border);
+            padding-top: 6px;
+        }
+
+        .student-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 11px;
+            gap: 6px;
+        }
+
+        .student-row .label {
+            opacity: 0.55;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 9px;
+            flex-shrink: 0;
+        }
+
+        .student-row .val {
+            font-weight: 500;
+            color: var(--text);
+            text-align: right;
+            word-break: break-word;
+            opacity: 0.85;
         }
 
         .menu-title {
-            font-size: 11px;
+            font-size: 10px;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
             opacity: 0.5;
-            margin: 12px 6px 6px;
+            margin: 12px 6px 6px 6px;
+            font-weight: 700;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 4px;
         }
 
         .sidebar a {
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 14px 12px;
-            margin: 4px 0;
-            border-radius: 12px;
+            padding: 10px 12px;
+            margin: 3px 0;
+            border-radius: 10px;
             text-decoration: none;
             color: var(--text);
-            font-size: 15px;
-            opacity: 0.85;
-            transition: background .2s ease, transform .2s ease;
+            font-size: 13.5px;
+            font-weight: 500;
+            opacity: 0.8;
+            background: transparent;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
         }
 
-        .sidebar a:hover, .sidebar a.active {
+        .sidebar a:hover {
             background: var(--soft);
             opacity: 1;
-            transform: translateX(4px);
+            transform: translateX(3px);
+            border-color: var(--border);
+        }
+
+        .sidebar a.active {
+            background: var(--soft);
+            opacity: 1;
+            font-weight: 600;
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Clean Solid Minimalist Anchor Inspiration Card */
+        .study-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px;
+            margin-top: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .study-card-content {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .study-card-icon {
+            font-size: 16px;
+            margin-bottom: 2px;
+            display: inline-block;
+        }
+
+        .study-card h3 {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--text);
+            margin: 0;
+        }
+
+        .study-card p {
+            font-size: 11px;
+            color: var(--text);
+            opacity: 0.75;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        .study-card-glow {
+            display: none;
         }
 
         .menu-bottom {
             margin-top: auto;
-            border-top: 1px solid var(--soft);
-            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            padding-top: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            background: transparent;
         }
 
         .logout {
-            color: #ef4444 !important;
+            color: var(--danger) !important;
+            background: color-mix(in srgb, var(--danger) 8%, transparent) !important;
+            border-color: color-mix(in srgb, var(--danger) 15%, transparent) !important;
         }
 
-        /* Main content */
+        .logout:hover {
+            background: var(--danger) !important;
+            color: #ffffff !important;
+            border-color: var(--danger) !important;
+        }
+
+        .sidebar-close {
+            display: none;
+            position: absolute;
+            top: 16px;
+            right: 14px;
+            background: var(--soft);
+            color: var(--text);
+            border: 1px solid var(--border);
+            font-size: 14px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .sidebar-close:hover {
+            transform: scale(1.05);
+        }
+
+        /* Main Workspace Container */
         .main {
-            margin-left: 240px;
+            margin-left: 256px;
             padding: 40px 48px;
             min-height: 100vh;
-            max-width: 1100px;
+            max-width: 1240px;
         }
 
         .welcome-main {
             min-height: 100vh;
         }
 
-        /* Cards */
+        /* Shared Card Components */
         .card, .task-item, .note-card, .stat-card, .resource-card, .settings-card, .profile-card {
             background: var(--card);
-            border: 1px solid var(--soft);
-            border-radius: 8px;
-            padding: 20px;
-            transition: 0.2s;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+            transition: all 0.25s ease;
         }
 
         button {
             background: var(--accent);
             color: white;
             border: none;
-            padding: 8px 14px;
-            border-radius: 6px;
+            padding: 10px 18px;
+            border-radius: 12px;
             cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
         }
 
         input, textarea, select {
             width: 100%;
             background: var(--background);
             color: var(--text);
-            border: 1px solid var(--soft);
-            border-radius: 6px;
-            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 14px;
             font-family: inherit;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
         input:focus, textarea:focus, select:focus {
-            outline: 1px solid var(--accent);
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 25%, transparent);
         }
 
-        .sidebar-close {
-            display: none;
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: transparent;
-            color: var(--text);
-            font-size: 20px;
-            padding: 5px;
-        }
-
-        /* Responsive layout */
+        /* Responsive Breakpoints */
         @media (max-width: 768px) {
             .mobile-btn {
                 display: block;
@@ -762,7 +910,7 @@ if(logoutLink){
                 padding: 64px 16px 90px;
             }
             .sidebar-close {
-                display: block;
+                display: flex;
             }
             .desktop-link {
                 display: none;
@@ -771,8 +919,8 @@ if(logoutLink){
                 display: flex !important;
             }
             .menu-bottom {
-                margin-top: 30px;
-                padding-bottom: 30px;
+                margin-top: 20px;
+                padding-bottom: 20px;
             }
         }
     </style>
@@ -792,10 +940,24 @@ if(logoutLink){
 
         {% if profile_user %}
             <div class="student-mini-card">
-                <h3>👋 {{ profile_user["full_name"] }}</h3>
-                <p>🏫 {{ profile_user["institution"] }}</p>
-                <p>📚 {{ profile_user["subjects"] }}</p>
-                <p>🎯 {{ profile_user["study_goal"] }}</p>
+                <div class="student-card-header">
+                    <h3>{{ profile_user["full_name"] }}</h3>
+                    <span class="explorer-badge">Active</span>
+                </div>
+                <div class="student-details-grid">
+                    <div class="student-row">
+                        <span class="label">School</span>
+                        <span class="val">{{ profile_user["institution"] }}</span>
+                    </div>
+                    <div class="student-row">
+                        <span class="label">Focus</span>
+                        <span class="val">{{ profile_user["subjects"] }}</span>
+                    </div>
+                    <div class="student-row">
+                        <span class="label">Goal</span>
+                        <span class="val">{{ profile_user["study_goal"] }}</span>
+                    </div>
+                </div>
             </div>
         {% endif %}
 
@@ -809,14 +971,18 @@ if(logoutLink){
         <a href="/timer">⚓ Focus Room</a>
 
         <div class="study-card">
-            <h3>⚓ Stay Anchored</h3>
-            <p>Small progress every day builds big results.</p>
+            <div class="study-card-content">
+                <span class="study-card-icon">🧭</span>
+                <h3>Stay Anchored</h3>
+                <p>Small progress every day builds big results.</p>
+            </div>
+            <div class="study-card-glow"></div>
         </div>
 
         <div class="menu-bottom">
             <a href="/settings">⚙️ Settings</a>
             <a href="/profile/edit" class="desktop-link">👤 Profile</a>
-           <a href="/logout" class="logout" onclick="resetTheme()">🚪 Logout</a>
+            <a href="/logout" class="logout" onclick="resetTheme()">🚪 Logout</a>
         </div>
     </div>
 
@@ -875,37 +1041,43 @@ if(logoutLink){
         }
     }, 5000);
 
-    function resetTheme(){
-
-    localStorage.removeItem("anchorTheme");
-
-}
+    function resetTheme() {
+        localStorage.removeItem("anchorTheme");
+    }
 </script>
 <script>
+    const emailLink = document.getElementById("email-link");
 
-const emailLink = document.getElementById("email-link");
+    if (emailLink) {
+        emailLink.addEventListener("click", function(e) {
+            const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-if(emailLink){
-
-    emailLink.addEventListener("click", function(e){
-
-        const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-
-        if(!isMobile){
-
-            e.preventDefault();
-
-            window.open(
-                "https://mail.google.com/mail/?view=cm&fs=1&to=chiyevopchikaonda@gmail.com",
-                "_blank"
-            );
-
-        }
-
-    });
-
-}
-
+            if (!isMobile) {
+                e.preventDefault();
+                window.open(
+                    "https://mail.google.com/mail/?view=cm&fs=1&to=chiyevopchikaonda@gmail.com",
+                    "_blank"
+                );
+            }
+        });
+    }
 </script>
+
+<script>
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function() {
+            navigator.serviceWorker.register(
+                "{{ url_for('static', filename='pwa/service-worker.js') }}"
+            )
+            .then(function() {
+                console.log("⚓ Anchor Study offline mode activated");
+            })
+            .catch(function(error) {
+                console.log("Service worker failed:", error);
+            });
+        });
+    }
+</script>
+<script src="{{ url_for('static', filename='offline-db.js') }}"></script>
 </body>
 </html>

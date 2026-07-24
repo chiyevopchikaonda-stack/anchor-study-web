@@ -70,15 +70,17 @@ def resources_page():
 
 
 
-    files = conn.execute(
+    cursor = conn.execute(
         """
-        SELECT *
+        SELECT id, filename, uploaded_at
         FROM resources
         WHERE username=?
         ORDER BY uploaded_at DESC
         """,
         (username,)
-    ).fetchall()
+    )
+    
+    files = [dict(row) for row in cursor.fetchall()]
 
 
 
@@ -102,13 +104,13 @@ def delete_resource(id):
         return redirect("/login")
 
 
-    username=session["user"]
+    username = session["user"]
 
 
-    conn=get_db()
+    conn = get_db()
 
 
-    file=conn.execute(
+    file = conn.execute(
         """
         SELECT filename
         FROM resources
@@ -124,7 +126,7 @@ def delete_resource(id):
 
     if file:
 
-        filepath=os.path.join(
+        filepath = os.path.join(
             UPLOAD_FOLDER,
             file["filename"]
         )
